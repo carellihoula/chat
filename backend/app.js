@@ -1,7 +1,10 @@
-import express from 'express'
+const express =  require('express')
+const {connectDb} = require('./dbConfig/db')
 
 const app = express()
 const PORT = 3006
+
+connectDb()
 
 app.get('/', (req, res) => {
     res.send("salut carel")
@@ -9,5 +12,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(PORT, ()=>{
-    console.log('listening on port '+PORT)
+    console.log('listening on port '+PORT + ' ==> http://localhost:'+PORT)
 });
