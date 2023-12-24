@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/carellihoula/chat/issues"
   },
-  "homepage": "https://github.com/carellihoula/chat#readme"
+  "homepage": "https://github.com/carellihoula/chat#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
