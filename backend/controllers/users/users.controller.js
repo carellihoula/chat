@@ -2,8 +2,8 @@ const User = require('../../models/UserModel')
 
 
 module.exports.createUser = async (req, res) => {
-    //const newUser = new User(req.body)
-    await User.create(req.body)
+    const newUser = new User(req.body)
+    newUser.save()
     .then((user)=>{
         if(!user){
             const mes = "invalid content"
