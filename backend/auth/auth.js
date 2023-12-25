@@ -24,3 +24,12 @@ module.exports.auth = (req, res, next) => {
         }
     })
 }
+
+module.exports.authorize = (...roles) => {
+    return (req, res, next) => {
+        if(!roles.contains(req.body.role)){
+            return next(new ErrorResponse(`le role ${req.body.role} n'a pas acces a ce route`,403))
+        }
+        next()
+    }
+}
