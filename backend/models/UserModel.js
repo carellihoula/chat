@@ -20,6 +20,10 @@ const userModel = new mongoose.Schema({
     isActif:{
         type: Boolean,
         default: false,
+    },
+    timestamp:{
+        type: Date,
+        default: new Date()
     }
 })
 
