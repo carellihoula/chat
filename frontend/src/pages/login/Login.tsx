@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { connectUser } from '../../redux/connectionStatus/status.action';
 import { AppDispatch } from '../../redux/store';
 import InputField from '../../components/InputField';
@@ -77,6 +77,10 @@ const Login: React.FC = () => {
             />
             
             <SubmitButtonLoginRegister label="Login Now" />
+            <small>
+                Don't have an account?
+                <Link to="/register"><span className='login'> Sign Up</span></Link> 
+            </small>
         </form>
         <h3>Login with Others</h3>
         <Auth2Button>
@@ -139,6 +143,19 @@ const LoginStyled = styled.div`
     font-size: 1.2rem;
     font-style: normal;
     line-height: normal;
+  }
+  small{
+    color: #1C1C1C;
+    font-family: 'Poppins';
+    font-size: 0.8rem;
+    font-style: normal;
+    line-height: normal;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .login{
+    color:#0588F0;
+    text-decoration: underline;
   }
 `;
 
