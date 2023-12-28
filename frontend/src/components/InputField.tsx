@@ -53,7 +53,7 @@ input{
     border-style: none;
     background: rgba(240, 237, 255, 0.80);
     outline: none;
-    width: 80%;
+    width: 90%;
     height: 100%;
 &::placeholder{
     color: #1C1C1C;
