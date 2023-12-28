@@ -97,7 +97,7 @@ display: flex;
 flex-direction: column;
 width: 100%;
 padding-bottom: 40px;
-overflow-y: scroll;
+overflow-y: auto;
 max-height: 75%;
 `
 export default LeftSideOfMain

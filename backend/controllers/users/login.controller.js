@@ -52,6 +52,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     .json({
         succes:true,
         mes,
-        token 
+        token,
+        user
     })
 }
