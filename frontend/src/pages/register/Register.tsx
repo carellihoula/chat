@@ -9,22 +9,32 @@ import { MdAlternateEmail } from "react-icons/md";
 import ButtonAuth2Component from '../../components/ButtonAuth2Component';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookSquare } from 'react-icons/fa';
+import { registerReducer } from '../../redux/connectionStatus/status.reducer';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { registerUser } from '../../redux/connectionStatus/status.action';
 
 type UserInfos = {
   email: string;
   password: string;
   username: string; // Champ pour le nom d'utilisateur
-  passwordConfirm: string; // Champ pour la confirmation du mot de passe
+   // Champ pour la confirmation du mot de passe
 };
 
 
 const Register: FC = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const [userInfos, setUserInfos] = useState<UserInfos>({
+    username: "",
     email: "",
     password: "",
-    username: "",
-    passwordConfirm: ""
+    
   });
+
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("")
+
+
+  const [errorPassword, setErrorPassword] = useState<string>("")
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,12 +48,16 @@ const Register: FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
-    if (userInfos.password !== userInfos.passwordConfirm) {
-      alert("Passwords do not match.");
+    if (userInfos.password !== passwordConfirm) {
+      setErrorPassword("Passwords do not match.");
       return;
     }
   
     // Reste de la logique de soumission
+    dispatch(registerUser(userInfos))
+    window.location.href='/main'
+    
+    
   };
   
 
@@ -81,19 +95,23 @@ const Register: FC = () => {
             type="password" 
             placeholder='Confirm Password' 
             icon={HiOutlineLockClosed} 
-            value={userInfos.passwordConfirm} 
-            onChange={handleChange} 
+            value={passwordConfirm} 
+            onChange={(e)=>setPasswordConfirm(e.target.value)} 
             name="passwordConfirm"
           />
-  
+
           <SubmitButtonLoginRegister label="Sign Up" />
+          <small style={{color:"red"}}>
+              {errorPassword}
+          </small>
           <small>
               Already have an account?
               <Link to="/login"><span className='sign__up'> Sign In</span></Link> 
           </small>
+          
       </form>
 
-        <h3>Register with Others</h3>
+        <h3>Continue with Others</h3>
         <Auth2Button>
             <ButtonAuth2Component label="Google" icon={FcGoogle}/>
             <ButtonAuth2Component label="Facebook" icon={FaFacebookSquare}/>
@@ -132,7 +150,7 @@ const RegisterStyled = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 20px 40px;
     background: #FFF;
     border-radius: 15px;
     gap:20px;

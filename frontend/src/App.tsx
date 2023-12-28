@@ -8,7 +8,9 @@ import Register from "./pages/register/Register";
 
 function App() {
 
-  const isAuthenticated = useSelector((state: RootState ) => state.islogged.isloggedIn)
+  const token = useSelector((state: RootState ) => state.islogged.token)
+  console.log(token)
+ 
   return (
    <Routes>
       <Route path="/" element={<Navigate to="/register" />} />

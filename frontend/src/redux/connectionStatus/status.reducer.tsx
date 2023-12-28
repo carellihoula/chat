@@ -1,20 +1,20 @@
-import { IS_LOGGED_IN } from "./status.action";
+import { IS_LOGGED_IN, REGISTER } from "./status.action";
 
 
 // Définir l'Interface pour l'État
 interface status {
-    isloggedIn: boolean;
+    token: string|null;
 }
 
 // Définir l'Interface pour l'Action
 interface Action {
     type: string;
-    payload: boolean;
+    payload: string|null;
 }
 
 // Initial State
 const initialState: status = {
-    isloggedIn: false,
+    token: null,
 };
 
 // Créer le Reducer
@@ -23,7 +23,19 @@ const loggedReducer = (state = initialState, action: Action): status => {
         case IS_LOGGED_IN:
             return {
                 ...state,
-                isloggedIn: action.payload,
+                token: action.payload,
+            };
+        default:
+            return state;
+    }
+};
+
+export const registerReducer = (state = initialState, action: Action): status => {
+    switch (action.type) {
+        case REGISTER:
+            return {
+                ...state,
+                token: action.payload,
             };
         default:
             return state;
