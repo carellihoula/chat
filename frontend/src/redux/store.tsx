@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import conversationReducer from './conversationActive/conv.reducer'
-import loggedReducer from './connectionStatus/status.reducer';
+import loggedReducer from './loginAndRegister/status.reducer';
 
 
 const rootReducer = combineReducers({

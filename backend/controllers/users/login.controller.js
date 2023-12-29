@@ -33,12 +33,31 @@ module.exports.login = async(req, res) => {
     })
 }
 
+module.exports.logout = (req, res) => {
+    // Créer un cookie de 'déconnexion' qui expire immédiatement
+    const options = {
+        expires: new Date(Date.now() + 2*60*60 * 1000), // Expire dans 10 secondes
+        httpOnly: true
+    };
+
+    if (process.env.NODE_ENV === 'production') {
+        options.secure = true;
+    }
+
+    // Effacer le token en le remplaçant par une chaîne vide
+    res
+        .status(200)
+        .cookie('token', '', options)
+        .json({ succes: true, message: 'Déconnexion réussie' });
+};
+
+
 //create token, set into cookie, 
 const sendTokenResponse = (user, statusCode, res) => {
     const mes = "you're connected successfully"
     const token = user.getSignedJwtToken()
     const options = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE* 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 1000),
         httpOnly:true
     }
 
@@ -53,6 +72,5 @@ const sendTokenResponse = (user, statusCode, res) => {
         succes:true,
         mes,
         token,
-        user
     })
 }

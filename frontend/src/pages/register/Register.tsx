@@ -1,18 +1,19 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import InputField from '../../components/InputField';
 import { FiUser } from 'react-icons/fi';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import SubmitButtonLoginRegister from '../../components/SubmitButtonLoginRegister';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdAlternateEmail } from "react-icons/md";
 import ButtonAuth2Component from '../../components/ButtonAuth2Component';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookSquare } from 'react-icons/fa';
-import { registerReducer } from '../../redux/connectionStatus/status.reducer';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
-import { registerUser } from '../../redux/connectionStatus/status.action';
+import { registerReducer } from '../../redux/loginAndRegister/status.reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import { registerUser } from '../../redux/loginAndRegister/status.action';
+import Cookie from 'cookie-universal'
 
 type UserInfos = {
   email: string;
@@ -24,6 +25,8 @@ type UserInfos = {
 
 const Register: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const token = useSelector((state: RootState ) => state.islogged.token)
+  const navigate = useNavigate()
   const [userInfos, setUserInfos] = useState<UserInfos>({
     username: "",
     email: "",
@@ -32,8 +35,6 @@ const Register: FC = () => {
   });
 
   const [passwordConfirm, setPasswordConfirm] = useState<string>("")
-
-
   const [errorPassword, setErrorPassword] = useState<string>("")
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +44,13 @@ const Register: FC = () => {
       [name]: value
     }));
   };
+  
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token); // Stockage du token dans le localStorage
+      navigate('/main'); // Redirection vers la page principale
+    }
+  }, [token, navigate]);
   
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,12 +63,10 @@ const Register: FC = () => {
   
     // Reste de la logique de soumission
     dispatch(registerUser(userInfos))
-    window.location.href='/main'
-    
     
   };
   
-
+console.log(localStorage.getItem('token'))
   return (
     <RegisterStyled>
       <div className="form_container">

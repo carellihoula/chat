@@ -3,18 +3,18 @@ import { IS_LOGGED_IN, REGISTER } from "./status.action";
 
 // Définir l'Interface pour l'État
 interface status {
-    token: string|null;
+    token: string;
 }
 
 // Définir l'Interface pour l'Action
 interface Action {
     type: string;
-    payload: string|null;
+    payload: string;
 }
 
 // Initial State
 const initialState: status = {
-    token: null,
+    token: "",
 };
 
 // Créer le Reducer

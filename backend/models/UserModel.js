@@ -6,13 +6,13 @@ const userModel = new mongoose.Schema({
     username:{
         type: String,
         required: true,
-        unique: true,
+        //unique: true,
         trim: true,
     },
     email:{
         type: String,
         required: true,
-        unique: true,
+        //unique: true,
         trim: true,
         match:[/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
          'Veuillez entrer une adresse e-mail valide'

@@ -3,6 +3,12 @@ const User = require('../../models/UserModel')
 
 module.exports.createUser = async (req, res) => {
     const newUser = new User(req.body)
+    const {email} = req.body
+    const {username} = req.body
+    const existingUser = await User.findOne({email}) || await User.findOne({username})
+    if (existingUser){
+        return res.status(400).json({mes:"User already exists"})
+    }
     newUser.save()
     .then((user)=>{
         if(!user){

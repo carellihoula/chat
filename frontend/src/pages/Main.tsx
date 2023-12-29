@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 
 const Main: FC = () => {
+  console.log(localStorage.getItem('token'))
   return (
     <MainStyled>
       <LeftSideOfMain />

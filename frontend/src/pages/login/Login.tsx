@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { connectUser } from '../../redux/connectionStatus/status.action';
-import { AppDispatch } from '../../redux/store';
+import { connectUser } from '../../redux/loginAndRegister/status.action';
+import { AppDispatch, RootState } from '../../redux/store';
 import InputField from '../../components/InputField';
 import { FiUser } from "react-icons/fi";
 import { HiOutlineLockClosed } from "react-icons/hi";
@@ -13,6 +13,9 @@ import bg from '../../assets/images/backgroundWhatsapp.jpeg'
 import ButtonAuth2Component from '../../components/ButtonAuth2Component';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookSquare } from "react-icons/fa";
+import Cookie from 'cookie-universal'
+
+
 // Define a type for your state
 type UserInfos = {
   email: string;
@@ -20,7 +23,10 @@ type UserInfos = {
 };
 
 const Login: React.FC = () => {
+  const token = useSelector((state: RootState ) => state.islogged.token)
   const navigate = useNavigate()
+
+  
   const dispatch = useDispatch<AppDispatch>()
   //const user = useSelector(state:RootState => )
   
@@ -29,22 +35,27 @@ const Login: React.FC = () => {
     email: "",
     password: ""
   });
-  const [user, setUser] = useState(null)
+
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Dispatch an action here if needed
     // dispatch(yourActionCreator(userInfos.email, userInfos.password));
-   
-      dispatch(connectUser(userInfos))
-
+    dispatch(connectUser(userInfos))
     setUserInfos({
       email: "",
       password: ""
     });
-
-
+     
   };
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token); // Stockage du token dans le localStorage
+      navigate('/main'); // Redirection vers la page principale
+    }
+  }, [token, navigate]);
+  
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

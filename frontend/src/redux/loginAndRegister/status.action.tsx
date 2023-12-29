@@ -15,7 +15,9 @@ export const connectUser = (userInfos: Partial<User>) => {
     // The function that takes dispatch as an argument
     return async (dispatch: any) => {
          try {
-            const response = await axios.post("http://localhost:9784/auth/login", userInfos );
+            const response = await axios.post("http://localhost:9784/auth/login", userInfos, {
+                withCredentials: true // Ajout de l'option withCredentials
+            } );
             // Dispatch an action with type and payload
             dispatch({
                 type: IS_LOGGED_IN,
@@ -32,7 +34,9 @@ export const registerUser = (userInfos: User) => {
     // The function that takes dispatch as an argument
     return async (dispatch: any) => {
          try {
-            const response = await axios.post("http://localhost:9784/users", userInfos );
+            const response = await axios.post("http://localhost:9784/users", userInfos, {
+                withCredentials: true // Ajout de l'option withCredentials
+            } );
             // Dispatch an action with type and payload
             dispatch({
                 type: REGISTER,
