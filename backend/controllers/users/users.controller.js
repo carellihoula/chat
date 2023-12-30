@@ -1,19 +1,44 @@
 const User = require('../../models/UserModel')
 
+///////////////////////////////////////////////////SEND TOKEN RESPONSE //////////////////////////////////////////////////
+
+const sendTokenResponse = (user, statusCode, res) => {
+    const mes = "User created successfully"
+    const token = user.getSignedJwtToken()
+    const options = {
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE* 60 * 60 * 1000),
+        httpOnly:true
+    }
+
+    if(process.env.NODE_ENV === 'production'){
+        options.secure = true
+    }
+
+    res
+    .status(statusCode)
+    .cookie('token', token, options)
+    .json({
+        succes:true,
+        mes,
+        token 
+    })
+}
+///////////////////////////////////////////////////SEND TOKEN RESPONSE //////////////////////////////////////////////////
 
 module.exports.createUser = async (req, res) => {
-    const newUser = new User(req.body)
     const {email} = req.body
     const {username} = req.body
-    const existingUser = await User.findOne({email}) || await User.findOne({username})
-    if (existingUser){
+    const existingEmailUser = await User.findOne({email}) 
+    const existingUsernameUser = await User.findOne({username})
+    if (existingEmailUser || existingUsernameUser) {
         return res.status(400).json({mes:"User already exists"})
     }
+    const newUser = new User(req.body)
     newUser.save()
     .then((user)=>{
         if(!user){
             const mes = "invalid content"
-            res.status(404).json({mes})
+            return res.status(400).json({mes})
         }
         //const mes = "User created successfully"
         //res.status(200).json({mes,data: user})
@@ -86,32 +111,4 @@ module.exports.deleteUser = async(req, res) => {
 
 
 
-
-
-
-
-
-
-
-const sendTokenResponse = (user, statusCode, res) => {
-    const mes = "User created successfully"
-    const token = user.getSignedJwtToken()
-    const options = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE* 60 * 60 * 1000),
-        httpOnly:true
-    }
-
-    if(process.env.NODE_ENV === 'production'){
-        options.secure = true
-    }
-
-    res
-    .status(statusCode)
-    .cookie('token', token, options)
-    .json({
-        succes:true,
-        mes,
-        token 
-    })
-}
 
