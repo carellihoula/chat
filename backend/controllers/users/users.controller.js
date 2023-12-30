@@ -1,12 +1,12 @@
 const User = require('../../models/UserModel')
-
+const ms = require('ms')
 ///////////////////////////////////////////////////SEND TOKEN RESPONSE //////////////////////////////////////////////////
 
 const sendTokenResponse = (user, statusCode, res) => {
     const mes = "User created successfully"
     const token = user.getSignedJwtToken()
     const options = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE* 60 * 60 * 1000),
+        expires: new Date(Date.now() + ms(process.env.JWT_COOKIE_EXPIRE)),
         httpOnly:true
     }
 
@@ -92,22 +92,38 @@ module.exports.updateUser = async(req,res) => {
     })
 }
 
-module.exports.deleteUser = async(req, res) => {
-    const id = req.params.id
-    await User.findById(id)
-    .then(async (user)=>{
-        if(!user) { return res.status(404).json({mes: "User not found"})}
-        res.status(200).json({success:true, data:user})
+module.exports.deleteUser = async (req, res) => {
+    const id = req.params.id;
 
-        return await user.findByIdAndDelete(id)
+    try {
+        const user = await User.findByIdAndDelete(id);
+        if (!user) {
+            return res.status(404).json({ mes: "User not found" });
+        }
+
+        return res.status(200).json({ success: true, mes: "User deleted successfully", data:user });
+    } catch (error) {
+        console.error("Error in deleting user:", error);
+        return res.status(500).json({ success: false, data: error, mes: "Error from server" });
+    }
+};
+
+module.exports.deleteManyUsers = async(req, res) => {
+    const {ids} = req.body;
+    await User.deleteMany({_id:{$in:ids}})
+    .then((user) =>{
+        if(user.deletedCount===0) {
+            return res.status(404).json({ success: false, message: 'No users found' });
+        }
+        res.status(200).json({ success: true, message: 'Users deleted successfully' });
     })
-    .then(() =>{
-        res.status(200).json({success:true, mes:"User deleted successfully"})
-    })
-    .catch((error)=>{
-        res.status(500).json({success:false, data:error, mes:"error from server"})
+    .catch((error) =>{
+        console.error('Error deleting users:', error);
+        return res.status(500).json({ success: false, error: error.message });
     })
 }
+
+
 
 
 
