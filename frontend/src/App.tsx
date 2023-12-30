@@ -7,6 +7,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import axios from "axios";
+import PublicRoutes from "./components/PublicRoutes";
 
 function App() {
 
@@ -25,10 +26,11 @@ function App() {
   
     <div onClick={logoutHandler} style={{cursor:"pointer"}}>Logout</div>
    <Routes>
-      
-      <Route path="/" element={<Navigate to="/register" />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route element={<PublicRoutes />}>
+        <Route path="/" element={<Navigate to="/register" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
       <Route element={<PrivateRoute />}>
           <Route path="/main" element={<Main />} />
       </Route>

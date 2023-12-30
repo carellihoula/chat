@@ -25,11 +25,79 @@ module.exports.createUser = async (req, res) => {
     })
 }
 
+module.exports.getAllUsers = async(req, res) => {
+    await User.find({})
+    .then((users)=>{
+        res.status(200).json({success:true,data: users, mes:"users list retrieved successfully"})
+    })
+    .catch((error)=>{
+        res.status(500).json({mes:"error from server",data: error})
+    })
+}
+
+module.exports.getUserById = async(req, res) => {
+    const id = req.params.id
+    await User.findById(id)
+    .then((user)=> {
+        if(!user){
+            const mes = "User not found"
+            return res.status(404).json({mes})
+        }
+        res.status(200).json({success:true, data:user, mes:"user retrieve successfully"})
+    })
+    .catch((error)=>{
+        res.status(500).json({success:false, data:error, mes:"Error from server"})
+    })
+}
+
+module.exports.updateUser = async(req,res) => {
+    const id = req.params.id
+    await User.findByIdAndUpdate(id,req.body,{
+        new:true
+    })
+    .then((user)=>{
+        if(!user){
+            const mes = "User not found"
+            return res.status(404).json({mes})
+        }
+        res.status(200).json({success:true, data:user, mes:"user updated successfully"})
+    })
+    .catch((error)=>{
+        res.status(500).json({success:false, data:error, mes:"Error from server"})
+    })
+}
+
+module.exports.deleteUser = async(req, res) => {
+    const id = req.params.id
+    await User.findById(id)
+    .then(async (user)=>{
+        if(!user) { return res.status(404).json({mes: "User not found"})}
+        res.status(200).json({success:true, data:user})
+
+        return await user.findByIdAndDelete(id)
+    })
+    .then(() =>{
+        res.status(200).json({success:true, mes:"User deleted successfully"})
+    })
+    .catch((error)=>{
+        res.status(500).json({success:false, data:error, mes:"error from server"})
+    })
+}
+
+
+
+
+
+
+
+
+
+
 const sendTokenResponse = (user, statusCode, res) => {
     const mes = "User created successfully"
     const token = user.getSignedJwtToken()
     const options = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE* 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE* 60 * 60 * 1000),
         httpOnly:true
     }
 
