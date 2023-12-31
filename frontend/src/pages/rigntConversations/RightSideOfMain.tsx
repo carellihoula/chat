@@ -42,7 +42,7 @@ const RightSideOfMainStyle = styled.div`
     flex-direction: column;
     background: url(${bg}), lightgray 50% / cover no-repeat;
     width: 70%;
-    height: 100%;
+    height: 100vh;
     position: relative;
 `
 

@@ -53,7 +53,8 @@ align-items: center;
 justify-content:center;
 background: #F0F2F5;
 width: 100%;
-height: 90px;
+height: auto;
+padding:20px 0px;
 position: absolute;
 bottom: 0; 
 `

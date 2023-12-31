@@ -28,6 +28,7 @@ span{
 }
 p{
     font-family: 'Work Sans';
+    font-size: 0.8rem;
 }
 `
 

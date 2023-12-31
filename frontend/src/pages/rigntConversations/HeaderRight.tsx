@@ -28,12 +28,12 @@ const NavLeftStyled = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 0 20px;
+padding: 10px 20px;
 background: #F0F2F5;
 width: 100%;
-height: 74px; 
-
+height: auto;
 `
+
 const IconDiv = styled.div`
 display: flex;
 align-items: center;

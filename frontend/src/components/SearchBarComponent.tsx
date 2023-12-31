@@ -29,7 +29,7 @@ const SearchBarComponentStyled = styled.div`
 display: flex;
 flex-direction: row;
 align-items: center;
-width: 420px;
+width: 80%;
 height: 50px;
 padding: 15px 20px;
 align-items: flex-start;

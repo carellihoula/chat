@@ -12,10 +12,12 @@ import {manageConversationSelected} from '../../redux/conversationActive/conv.ac
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { MdArrowBack } from "react-icons/md";
+import ProfileUser from '../profile/ProfileUser';
 
 const LeftSideOfMain: FC = () => {
   const [value, setValue] = useState<string>('')
-  //const borderTypes: string[] = ['full', 'center', 'left', 'right']
+  const [showProfile, setShowProfile] = useState<boolean>(false)
+  //console.log(showProfile)
   const dispatch = useDispatch<AppDispatch>()
 
 
@@ -26,11 +28,18 @@ const LeftSideOfMain: FC = () => {
   const handleConversation = (conv: Conversation) => {
     dispatch(manageConversationSelected(conv));
   }
+  const ProfileClickHandler = () => {
+    setShowProfile(true)
+  }
+  const handleClickBack = () => {
+    setShowProfile(false)
+  }
 
   return (
     <LeftSideOfMainStyle>
-
-        <HeaderLeft />
+      <ProfileUser isClicked={showProfile} handleClickBack={handleClickBack}/>
+        { !showProfile && <>
+        <HeaderLeft ProfileClickHandler={ProfileClickHandler}/>
 
         <SearchAndFilterComponent>
           <SearchBarComponent value={value} handleChange={handleChange}/>
@@ -63,6 +72,8 @@ const LeftSideOfMain: FC = () => {
         <ContainerFootLeft>
           <FooterLeft />
         </ContainerFootLeft>
+  </>}
+        
 
     </LeftSideOfMainStyle>
   )
@@ -78,7 +89,7 @@ position: relative;
 
 const SearchAndFilterComponent = styled.div`
 display:flex;
-gap:15px;
+gap:12px;
 width: 100%;
 justify-content: center;
 align-items: center;

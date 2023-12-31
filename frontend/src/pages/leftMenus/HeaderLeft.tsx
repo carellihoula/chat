@@ -8,12 +8,15 @@ import { MdGroups } from "react-icons/md";
 import iconStatus from '../../assets/images/StatusIcon.png'
 import profileImage from '../../assets/images/profileIcon.png'
 
+interface Props {
+  ProfileClickHandler: React.MouseEventHandler<HTMLDivElement>
+}
 
+const HeaderLeft: FC<Props> = ({ProfileClickHandler}) => {
 
-const HeaderLeft: FC = () => {
   return (
     <NavLeftStyled>
-       <IconProfilComponent imageUrl={profileImage}/>
+       <IconProfilComponent imageUrl={profileImage} ProfileClickHandler={ProfileClickHandler}/>
 
        <IconDiv>
             <IconStandard size={24} Icon={MdGroups}/>
@@ -30,10 +33,10 @@ const NavLeftStyled = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 0 20px;
 background: #F0F2F5;
 width: 100%;
-height: 74px; 
+height: auto;
+padding: 10px 20px; 
 border-right: 1px solid #c9cdcf;
 `
 const IconDiv = styled.div`
