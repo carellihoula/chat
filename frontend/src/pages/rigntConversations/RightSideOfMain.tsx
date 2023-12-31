@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import HeaderRight from './HeaderRight'
 import ChatAreaRightBottom from './ChatAreaRightBottom'
@@ -7,6 +7,7 @@ import MessageComponent from '../../components/MessageComponent'
 import {conversations} from '../../../utils/ListOfConversations'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 interface ConversationAreaProps {
   isSender: boolean
@@ -15,11 +16,18 @@ interface ConversationAreaProps {
 
 const RightSideOfMain: FC = () => {
   const conversationActive = useSelector((state: RootState ) => state.convOpened.selectedConversation)
+  const conversationRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+      if(conversationRef && conversationRef.current){
+        conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
+      }
+  },[conversations])
 
   return (
     <RightSideOfMainStyle>
       <HeaderRight />
-      <ConversationArea>
+      <ConversationArea ref={conversationRef}>
           {
             conversations[conversationActive.conversationId-1].messages.map((msg,index) =>{
               const time = new Date(msg.timestamp).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})

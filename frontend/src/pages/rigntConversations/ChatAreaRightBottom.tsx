@@ -55,6 +55,7 @@ background: #F0F2F5;
 width: 100%;
 height: auto;
 padding:20px 0px;
+border-left: 1px solid #c9cdcf;
 position: absolute;
 bottom: 0; 
 `

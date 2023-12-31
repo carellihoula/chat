@@ -8,11 +8,12 @@ type IconStandardProps = {
     Icon:IconType|string;
     size?:number;
     color?:string;
+    handleClick?:React.MouseEventHandler<HTMLDivElement>
 
 }
-const IconStandard: FC<IconStandardProps> = ({Icon,size,color="#54656F"}) => {
+const IconStandard: FC<IconStandardProps> = ({Icon,size,color="#54656F", handleClick}) => {
   return (
-    <IconStandardStyled>
+    <IconStandardStyled onClick={handleClick}>
         {typeof Icon === "string" ? (
             <img src={Icon} alt="imageIcon" style={{width: size, height: size}} />
         ):(Icon && <Icon size={size} color={color} />)
