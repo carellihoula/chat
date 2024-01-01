@@ -65,14 +65,14 @@ const Register: FC = () => {
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem('token', token); // Stockage du token dans le localStorage
       navigate('/login'); // Redirection vers la page principale
     }
-  }, [token, navigate]);
+  }, [token, navigate,dispatch]);
   
 console.log(localStorage.getItem('token'))
   return (
     <RegisterStyled>
+      
       <div className="form_container">
         <h1>REGISTER</h1>
         <p className='welcome'>Welcome to our site CanoChat</p>

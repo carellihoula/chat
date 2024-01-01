@@ -32,7 +32,7 @@ export const connectUser = (userInfos: Partial<User>) => {
 
 export const registerUser = (userInfos: User) => {
     // The function that takes dispatch as an argument
-    return async (dispatch: any) => {
+    return async (dispatch:any) => {
          try {
             const response = await axios.post("http://localhost:9784/users", userInfos, {
                 withCredentials: true // Ajout de l'option withCredentials

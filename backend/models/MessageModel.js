@@ -1,3 +1,4 @@
+// Remove the line below since 'mongoose' is already declared outside the selection
 const mongoose = require('mongoose')
 
 const messageModel = new mongoose.Schema({
