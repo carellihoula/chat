@@ -68,6 +68,7 @@ module.exports.getUserById = async(req, res) => {
             const mes = "User not found"
             return res.status(404).json({mes})
         }
+        
         res.status(200).json({success:true, data:user, mes:"user retrieve successfully"})
     })
     .catch((error)=>{

@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import conversationReducer from './conversationActive/conv.reducer'
 import loggedReducer from './loginAndRegister/status.reducer';
+import userReducer from './PersonalDataFromUser/userInfo.reducer';
 
 
 const rootReducer = combineReducers({
     convOpened: conversationReducer,
-    islogged: loggedReducer
+    islogged: loggedReducer,
+    user: userReducer,
     
 })
 

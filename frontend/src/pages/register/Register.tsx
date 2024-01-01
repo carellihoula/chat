@@ -9,11 +9,9 @@ import { MdAlternateEmail } from "react-icons/md";
 import ButtonAuth2Component from '../../components/ButtonAuth2Component';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookSquare } from 'react-icons/fa';
-import { registerReducer } from '../../redux/loginAndRegister/status.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { registerUser } from '../../redux/loginAndRegister/status.action';
-import Cookie from 'cookie-universal'
 
 type UserInfos = {
   email: string;
@@ -24,8 +22,9 @@ type UserInfos = {
 
 
 const Register: FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
   const token = useSelector((state: RootState ) => state.islogged.token)
+
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
   const [userInfos, setUserInfos] = useState<UserInfos>({
     username: "",
@@ -45,14 +44,6 @@ const Register: FC = () => {
     }));
   };
   
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem('token', token); // Stockage du token dans le localStorage
-      navigate('/main'); // Redirection vers la page principale
-    }
-  }, [token, navigate]);
-  
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
@@ -63,8 +54,21 @@ const Register: FC = () => {
   
     // Reste de la logique de soumission
     dispatch(registerUser(userInfos))
+    setUserInfos({
+      username: "",
+      email: "",
+      password: "",
+    })
+    setPasswordConfirm('')
     
   };
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token); // Stockage du token dans le localStorage
+      navigate('/login'); // Redirection vers la page principale
+    }
+  }, [token, navigate]);
   
 console.log(localStorage.getItem('token'))
   return (

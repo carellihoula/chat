@@ -1,10 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import IconStandard from '../../components/IconStandard';
 import { IoArrowBack } from "react-icons/io5";
 import profile from '../../assets/images/profile__default.jpg'
 import EditProfileComponent from './EditProfileComponent';
 import { FaCamera } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import {AppDispatch, RootState} from '../../redux/store'
+import { getIdCurrentUser } from '../../../utils/getIdCurrentUser';
+import { getUserInfo } from '../../redux/PersonalDataFromUser/userInfo.action';
 
 interface PropsStyled{
     isClicked: boolean;
@@ -14,7 +18,17 @@ interface PropsProfile {
     handleClickBack:React.MouseEventHandler<HTMLDivElement>
 }
 
+
 const ProfileUser:FC<PropsProfile> = ({isClicked,handleClickBack}) => {
+    const user = useSelector((state:RootState) => state.user.userInfo)
+    const dispatch = useDispatch<AppDispatch>()
+    const id = getIdCurrentUser(JSON.stringify(localStorage.getItem('token')));
+    
+    useEffect(() => {
+        dispatch(getUserInfo(id));
+    }, [dispatch, id]);
+    console.log( user)
+
     const [imgHover, setImgHover] = useState<boolean>(false)
     const mouseOverHandler = () => {
         setImgHover(true)
@@ -42,15 +56,14 @@ const ProfileUser:FC<PropsProfile> = ({isClicked,handleClickBack}) => {
             </div>
         </div>
 
-        <EditProfileComponent label="Your name" value="Carel Ntsoumou"/>
+        <EditProfileComponent label="Your name" value={user?.username}/>
 
         <div className='information__from__site__to__user'>
             <p>This is not your username or pin. This name will be visible to your CanoShop friends</p>
         </div>
 
         <EditProfileComponent label="About" 
-        value="Confronté à la roche, le ruisseau l’emporte toujours, 
-        non par la force mais par la persévérance."
+        value={user?.about}
         />
         
         

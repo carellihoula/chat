@@ -6,13 +6,18 @@ const userModel = new mongoose.Schema({
     username:{
         type: String,
         required: true,
-        //unique: true,
+        unique: true,
         trim: true,
+    },
+    about:{
+        type: String,
+        trim: true,
+        default: ""
     },
     email:{
         type: String,
         required: true,
-        //unique: true,
+        unique: true,
         trim: true,
         match:[/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
          'Veuillez entrer une adresse e-mail valide'
@@ -54,6 +59,22 @@ const userModel = new mongoose.Schema({
     userModel.methods.matchPassword = async function(enteredPassword) {
         return await bcrypt.compare(enteredPassword, this.password)
     }
+    
+    userModel.statics.updateUsersAboutField = async function () {
+        try {
+          const usersWithoutAbout = await this.find({ about: { $exists: false } });
+      
+          const updatePromises = usersWithoutAbout.map(async (user) => {
+            user.about = '';
+            await user.save();
+          });
+      
+          await Promise.all(updatePromises);
+          console.log('Mise à jour des utilisateurs terminée.');
+        } catch (error) {
+          console.error('Erreur lors de la mise à jour des utilisateurs :', error);
+        }
+      };
 
 const User = mongoose.model('User', userModel)
 

@@ -5,7 +5,7 @@ import { MdEdit } from "react-icons/md";
 
 interface EditProps{
     label: string;
-    value: string;
+    value?: string;
 }
 
 const EditProfileComponent:React.FC<EditProps> = ({label, value}) => {
