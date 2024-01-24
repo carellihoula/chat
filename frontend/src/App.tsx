@@ -6,6 +6,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import PrivateRoute from "./components/PrivateRoute";
+import "./index.css";
 //import axios from "axios";
 import PublicRoutes from "./components/PublicRoutes";
 

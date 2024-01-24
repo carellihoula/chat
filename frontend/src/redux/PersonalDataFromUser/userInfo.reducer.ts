@@ -1,25 +1,29 @@
 // userReducer.ts
 
-import { GET_USER_INFO } from './userInfo.action'; 
+import { GET_USER_INFO } from "./userInfo.action";
 
 interface UserState {
   userInfo?: {
+    _id?: string;
     email?: string;
-    username?:string;
+    username?: string;
     about?: string;
   };
 }
 
 const initialState: UserState = {
-    userInfo: {
-        email: '',
-        username:'',
-        about: '',
-      }
+  userInfo: {
+    email: "",
+    username: "",
+    about: "",
+  },
   // Autres états initiaux si nécessaire
 };
 
-const userReducer = (state = initialState, action: { type: string; payload: any }): UserState => {
+const userReducer = (
+  state = initialState,
+  action: { type: string; payload: any }
+): UserState => {
   switch (action.type) {
     case GET_USER_INFO:
       return {

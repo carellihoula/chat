@@ -37,6 +37,7 @@ const EditProfileComponent: React.FC<EditProps> = ({ label, value }) => {
               value={inputValue}
               onChange={changeHandler}
               className={styles.input}
+              required
             />
             <IconStandard
               Icon={VscSend}

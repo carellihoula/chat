@@ -6,26 +6,22 @@ import { IoFilterSharp } from "react-icons/io5";
 import DividerComponent from "../../components/DividerComponent";
 import FooterLeft from "./FooterLeft";
 import UserMessage from "./UserMessage";
-import { conversations } from "../../../utils/ListOfConversations";
-import { Conversation, Message } from "../../../utils/utils";
-import { manageConversationSelected } from "../../redux/conversationActive/conv.action";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
 import ProfileUser from "../profile/ProfileUser";
+import { useUsers } from "../../contextAPI/UsersContextt";
 
 const LeftSideOfMain: FC = () => {
   const [value, setValue] = useState<string>("");
+  const { users, setReceiver } = useUsers();
   const [showProfile, setShowProfile] = useState<boolean>(false);
   //console.log(showProfile)
-  const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const handleConversation = (conv: Conversation) => {
+  /*const handleConversation = (conv: Conversation) => {
     dispatch(manageConversationSelected(conv));
-  };
+  };*/
   const ProfileClickHandler = () => {
     setShowProfile(true);
   };
@@ -48,7 +44,7 @@ const LeftSideOfMain: FC = () => {
           <DividerComponent justifyBorder="full" />
 
           <MessageOverview>
-            {conversations.map((chat, index) => {
+            {/*conversations.map((chat, index) => {
               const lastElement: Message =
                 chat.messages[chat.messages.length - 1];
               const time: string = new Date(
@@ -65,6 +61,23 @@ const LeftSideOfMain: FC = () => {
                     handleConversation={() => handleConversation(chat)}
                   />
                   {index !== conversations.length - 1 && (
+                    <DividerComponent justifyBorder="right" />
+                  )}
+                </>
+              );
+            })*/}
+            {users?.map((user, index) => {
+              return (
+                <>
+                  <UserMessage
+                    name={user.username}
+                    unreadNumber={0}
+                    message={user.username}
+                    time={user.username}
+                    key={index}
+                    handleConversation={() => setReceiver(user)}
+                  />
+                  {index !== users.length - 1 && (
                     <DividerComponent justifyBorder="right" />
                   )}
                 </>
