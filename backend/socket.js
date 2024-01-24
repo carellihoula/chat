@@ -22,6 +22,9 @@ module.exports = (http) => {
       console.error(error);
     }
 
+    const updatedMessages = await Message.find().sort("timestamp");
+    socket.emit("messagesHistory", updatedMessages);
+
     socket.on("join", (userId) => {
       socket.join(userId);
       console.log("user " + userId);
@@ -35,10 +38,10 @@ module.exports = (http) => {
       });
       await message.save();
       console.log(message);
-      io.to(receiverId).emit("receiveMessage", message);
+      socket.to(receiverId).emit("receiveMessage", message);
       //all messages
       const updatedMessages = await Message.find().sort("timestamp");
-      io.emit("messagesHistory", updatedMessages);
+      socket.emit("messagesHistory", updatedMessages);
     });
     socket.on("disconnect", () => {
       console.log("user disconnected " + socket.id);

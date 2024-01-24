@@ -20,7 +20,7 @@ const RightSideOfMain: FC = () => {
     if (conversationRef && conversationRef.current) {
       conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
     }
-  }, []);
+  }, [messages]);
 
   return (
     <RightSideOfMainStyle>
