@@ -8,7 +8,6 @@ import { BiSolidMicrophone } from "react-icons/bi";
 import { VscSend } from "react-icons/vsc";
 import { useEffect, useRef, useState } from "react";
 import io, { Socket } from "socket.io-client";
-import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
 import { useUsers } from "../../contextAPI/UsersContextt";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
@@ -25,8 +24,8 @@ const ChatAreaRightBottom = () => {
   const { setUsers, receiver } = useUsers();
   const user = useSelector((state: RootState) => state.user.userInfo);
   const { messages, setMessages } = useMessages();
-  console.log(receiver);
-  0;
+  const socketRef = useRef<Socket | null>(null);
+
   console.log(messages);
 
   localStorage.setItem("messages", JSON.stringify(messages));
@@ -46,8 +45,6 @@ const ChatAreaRightBottom = () => {
     setTextAreaHeight(e.currentTarget.scrollHeight);
   };
 
-  const socketRef = useRef<Socket | null>(null);
-
   useEffect(() => {
     // Initialisation de la socket
     socketRef.current = io("http://localhost:9784", {
@@ -58,8 +55,7 @@ const ChatAreaRightBottom = () => {
       autoConnect: true, // Se connecte automatiquement dès l'initialisation
       // ...autres options si nécessaire
     });
-    socketRef.current.emit("join", getIdCurrentUser(token));
-    socketRef.current.emit("requestMessagesHistory");
+    //socketRef.current.emit("join", getIdCurrentUser(token));
     socketRef.current.on("messagesHistory", (messagesHistory) => {
       setMessages(messagesHistory);
       console.log(messagesHistory);

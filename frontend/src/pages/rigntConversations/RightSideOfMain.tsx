@@ -26,8 +26,11 @@ const RightSideOfMain: FC = () => {
     <RightSideOfMainStyle>
       <HeaderRight />
       <ConversationArea ref={conversationRef}>
-        {messages.map((msg, index) => {
-          //const time = new Date(msg.timestamp).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})
+        {messages.map((msg: Message, index) => {
+          const timer = new Date(msg.timestamp).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
           return (
             <StyledMessageComponent
               isSender={msg.sender !== getIdCurrentUser(token)}
@@ -36,7 +39,7 @@ const RightSideOfMain: FC = () => {
               <MessageComponent
                 isSender={msg.sender !== getIdCurrentUser(token)}
                 message={msg.content}
-                time={"12:00"}
+                time={timer}
               />
             </StyledMessageComponent>
           );
