@@ -1,44 +1,53 @@
-import  { FC } from 'react'
-import styled from 'styled-components'
-import IconProfilComponent from '../../components/IconProfilComponent'
-import IconStandard from '../../components/IconStandard'
-import { FiMoreVertical } from "react-icons/fi";
+import { FC } from "react";
+import styled from "styled-components";
+import IconStandard from "../../components/IconStandard";
 import { MdLocalPhone } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
-import { IoSearchOutline } from "react-icons/io5";
-import profileImage from '../../assets/images/Ellipse4.png'
+//import profileImage from "../../assets/images/Ellipse4.png";
 
 const HeaderRight: FC = () => {
   return (
     <NavLeftStyled>
-       <IconProfilComponent imageUrl={profileImage}/>
+      {/*<IconProfilComponent imageUrl={profileImage} />*/}
 
-       <IconDiv>
-            <IconStandard size={24} Icon={MdLocalPhone}/>
-            <IconStandard size={24} Icon={IoMdVideocam}/>
-            <IconStandard size={24} Icon={IoSearchOutline}/>
-            <IconStandard size={24} Icon={FiMoreVertical}/>
-       </IconDiv>
-       
+      <IconDiv>
+        <div className="phone_border">
+          <IconStandard size={24} Icon={MdLocalPhone} color="#FFF" />
+        </div>
+        <div className="phone_border">
+          <IconStandard size={24} Icon={IoMdVideocam} color="#FFF" />
+        </div>
+      </IconDiv>
     </NavLeftStyled>
-  )
-}
+  );
+};
 
 const NavLeftStyled = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 10px 20px;
-background: #F0F2F5;
-width: 100%;
-height: auto;
-`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  background: #36393f;
+  width: 100%;
+  height: auto;
+`;
 
 const IconDiv = styled.div`
-display: flex;
-align-items: center;
-gap:25px;
-
-`
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #2f3136;
+  gap: 5px;
+  .phone_border {
+    padding: 8px;
+    border-radius: 10px;
+    &:hover {
+      background-color: #1e1e1e;
+      cursor: pointer;
+    }
+  }
+`;
 
 export default HeaderRight;

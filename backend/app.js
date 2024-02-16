@@ -1,5 +1,7 @@
 const express = require("express");
 const { connectDb } = require("./dbConfig/db");
+const startMqttClient = require("./mqttClient");
+
 const { createServer } = require("node:http");
 const setSoccket = require("./socket");
 //const { join } = require("node:path");
@@ -29,6 +31,8 @@ app.use("/auth", require("./routers/auth.router"));
 
 //import socket.io
 setSoccket(http);
+// Démarrer le client MQTT
+//startMqttClient();
 
 http.listen(PORT, () => {
   console.log("listening on port " + PORT + " ==> http://localhost:" + PORT);

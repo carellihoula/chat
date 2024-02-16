@@ -1,49 +1,55 @@
-import  { FC } from 'react'
-import styled from 'styled-components'
-import IconProfilComponent from '../../components/IconProfilComponent'
-import IconStandard from '../../components/IconStandard'
-import { LiaSmsSolid } from "react-icons/lia"
-import { FiMoreVertical } from "react-icons/fi";
-import { MdGroups } from "react-icons/md";
-import iconStatus from '../../assets/images/StatusIcon.png'
-import profileImage from '../../assets/images/profileIcon.png'
+import { FC } from "react";
+import styled from "styled-components";
+import IconProfilComponent from "../../components/IconProfilComponent";
+import IconStandard from "../../components/IconStandard";
+//import { FiMoreVertical } from "react-icons/fi";
+import profileImage from "../../assets/images/profileIcon.png";
+import { IoMdSettings } from "react-icons/io";
+import { MdOutlineMore } from "react-icons/md";
+import styles from "./LeftSideOfMain.module.css";
 
 interface Props {
-  ProfileClickHandler: React.MouseEventHandler<HTMLDivElement>
+  ProfileClickHandler: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const HeaderLeft: FC<Props> = ({ProfileClickHandler}) => {
-
+const HeaderLeft: FC<Props> = ({ ProfileClickHandler }) => {
   return (
     <NavLeftStyled>
-       <IconProfilComponent imageUrl={profileImage} ProfileClickHandler={ProfileClickHandler}/>
-
-       <IconDiv>
-            <IconStandard size={24} Icon={MdGroups}/>
-            <IconStandard size={24} Icon={iconStatus}/>
-            <IconStandard size={24} Icon={LiaSmsSolid}/>
-            <IconStandard size={24} Icon={FiMoreVertical}/>
-       </IconDiv>
-       
+      <IconDiv>
+        <IconProfilComponent
+          imageUrl={profileImage}
+          ProfileClickHandler={ProfileClickHandler}
+        />
+        <div className={styles.menu_item}>
+          <IconStandard size={24} Icon={IoMdSettings} color={"#FFF"} />
+          <span>Settings</span>
+        </div>
+        <div className={styles.menu_item}>
+          <IconStandard size={20} Icon={MdOutlineMore} color={"#FFF"} />
+          <span>More</span>
+        </div>
+      </IconDiv>
     </NavLeftStyled>
-  )
-}
+  );
+};
 
 const NavLeftStyled = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-background: #F0F2F5;
-width: 100%;
-height: auto;
-padding: 10px 20px; 
-border-right: 1px solid #c9cdcf;
-`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #36393f;
+  width: 100%;
+  height: auto;
+  padding: 10px 20px;
+  border-right: 3px solid #2f3136;
+  span {
+    font-family: "Work Sans";
+  }
+`;
 const IconDiv = styled.div`
-display: flex;
-align-items: center;
-gap:20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
 
-`
-
-export default HeaderLeft
+export default HeaderLeft;

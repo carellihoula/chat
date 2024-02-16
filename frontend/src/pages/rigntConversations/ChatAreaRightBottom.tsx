@@ -22,13 +22,13 @@ const ChatAreaRightBottom = () => {
   const [message, setMessage] = useState<string>("");
   //const [receiverId, setReceiverId] = useState<string>("");
   const { setUsers, receiver } = useUsers();
-  const user = useSelector((state: RootState) => state.user.userInfo);
+  const userId = useSelector((state: RootState) => state.user.userInfo)?._id;
+  console.log(userId);
   const { messages, setMessages } = useMessages();
   const socketRef = useRef<Socket | null>(null);
 
   console.log(messages);
 
-  localStorage.setItem("messages", JSON.stringify(messages));
   const token = JSON.stringify(localStorage.getItem("token"));
   console.log(token);
 
@@ -45,55 +45,22 @@ const ChatAreaRightBottom = () => {
     setTextAreaHeight(e.currentTarget.scrollHeight);
   };
 
-  useEffect(() => {
-    // Initialisation de la socket
-    socketRef.current = io("http://localhost:9784", {
-      reconnection: true, // Active la reconnexion automatique
-      reconnectionAttempts: 5, // Nombre maximal de tentatives de reconnexion
-      reconnectionDelay: 1000, // Délai initial avant de retenter une reconnexion (ms)
-      reconnectionDelayMax: 5000, // Délai maximal entre les tentatives de reconnexion (ms)
-      autoConnect: true, // Se connecte automatiquement dès l'initialisation
-      // ...autres options si nécessaire
-    });
-    //socketRef.current.emit("join", getIdCurrentUser(token));
-    socketRef.current.on("messagesHistory", (messagesHistory) => {
-      setMessages(messagesHistory);
-      console.log(messagesHistory);
-    });
-    socketRef.current.on("receiveMessage", (msg: Message) => {
-      setMessages((prevMessages: Message[]) => [...prevMessages, msg]);
-    });
-
-    socketRef.current.on("usersList", (usersList) => {
-      setUsers(usersList);
-    });
-
-    // Nettoyage
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.disconnect();
-        socketRef.current = null;
-      }
-    };
-  }, []); // Ajoutez les dépendances nécessaires
-
   const sendMessage = () => {
     if (socketRef.current) {
       socketRef.current.emit("sendMessage", {
-        senderId: user?._id,
+        senderId: userId,
         receiverId: receiver?._id,
         content: message,
       });
       setMessage("");
-      console.log(user?._id);
+      console.log(userId);
     }
   };
 
   return (
     <ChatAreaRightBottomStyled>
       <ContainerComponent>
-        <IconStandard size={24} Icon={BsEmojiSmile} />
-        <IconStandard size={24} Icon={GrAttachment} />
+        <IconStandard size={24} Icon={BsEmojiSmile} color="#FFF" />
         <TextZoneComponent
           value={message}
           handleChange={handleChange}
@@ -101,9 +68,14 @@ const ChatAreaRightBottom = () => {
           textAreaHeight={textAreaHeight}
         />
         {value ? (
-          <IconStandard size={24} Icon={VscSend} handleClick={sendMessage} />
+          <IconStandard
+            size={24}
+            Icon={VscSend}
+            handleClick={sendMessage}
+            color="#FFF"
+          />
         ) : (
-          <IconStandard size={24} Icon={BiSolidMicrophone} />
+          <IconStandard size={24} Icon={BiSolidMicrophone} color="#FFF" />
         )}
       </ContainerComponent>
     </ChatAreaRightBottomStyled>
@@ -114,11 +86,10 @@ const ChatAreaRightBottomStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f0f2f5;
+  background: #36393f;
   width: 100%;
   height: auto;
   padding: 20px 0px;
-  border-left: 1px solid #c9cdcf;
   position: absolute;
   bottom: 0;
 `;

@@ -1,35 +1,33 @@
 import { FaLock } from "react-icons/fa";
-import styled from 'styled-components';
+import styled from "styled-components";
+import IconStandard from "../../components/IconStandard";
 
 const FooterLeft = () => {
   return (
     <FooterLeftStyled>
-      <FaLock color="#6B7C85"/>
-      <p>your personnal messages are <span>end-to-end encrypted</span></p>
+      <IconStandard size={16} Icon={FaLock} color="#FFF" />
+      <div className="copyright">Built by Carel@Dev</div>
     </FooterLeftStyled>
-  )
-}
+  );
+};
 
 const FooterLeftStyled = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-width: 90%;
-height: 50px;
-gap : 5px;
-position: absolute;
-bottom: 0;
-background: #FFF;
-border-top: 1px solid #E9EDEF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 50px;
+  gap: 10px;
+  position: absolute;
+  bottom: 0;
+  background: #2f3136;
+  border-top: 3px solid #36393f;
 
-span{
-    color:#55a8cd;
-    
-}
-p{
-    font-family: 'Work Sans';
+  .copyright {
+    font-family: "Work Sans";
+    color: #fff;
     font-size: 0.8rem;
-}
-`
+  }
+`;
 
-export default FooterLeft
+export default FooterLeft;

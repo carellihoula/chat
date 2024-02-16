@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { connectUser } from "../../redux/loginAndRegister/status.action";
+import Spinner from "react-bootstrap/Spinner";
 import { AppDispatch, RootState } from "../../redux/store";
 import InputField from "../../components/InputField";
 import { FiUser } from "react-icons/fi";
@@ -12,6 +13,7 @@ import bg from "../../assets/images/backgroundWhatsapp.jpeg";
 import ButtonAuth2Component from "../../components/ButtonAuth2Component";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookSquare } from "react-icons/fa";
+import { loginUser } from "../../api/API";
 
 // Define a type for your state
 type UserInfos = {
@@ -22,8 +24,9 @@ type UserInfos = {
 const Login: React.FC = () => {
   const token = useSelector((state: RootState) => state.islogged.token);
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+  const [data, setData] = useState(null);
   //const user = useSelector(state:RootState => )
 
   const [userInfos, setUserInfos] = useState<UserInfos>({
@@ -31,23 +34,33 @@ const Login: React.FC = () => {
     password: "",
   });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Dispatch an action here if needed
     // dispatch(yourActionCreator(userInfos.email, userInfos.password));
-    dispatch(connectUser(userInfos));
-    setUserInfos({
-      email: "",
-      password: "",
-    });
-  };
+    //dispatch(connectUser(userInfos));
 
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem("token", token); // Stockage du token dans le localStorage
-      navigate("/main"); // Redirection vers la page principale
+    try {
+      const response = await loginUser("/connexion", userInfos);
+      setData(response);
+      //console.log(response.bearer);
+      localStorage.setItem("token", response.bearer);
+      localStorage.setItem("refreshToken", response.refresh);
+
+      setUserInfos({
+        email: "",
+        password: "",
+      });
+
+      setLoading(true);
+      //attendre 2s avant d'etre redirigé vers la page main
+      setTimeout(() => {
+        navigate("/main");
+      }, 1000);
+    } catch (error) {
+      console.log("probleme de connexion error: " + error);
     }
-  }, [token, navigate]);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,7 +69,7 @@ const Login: React.FC = () => {
       [name]: value,
     }));
   };
-
+  console.log("refresh: " + localStorage.getItem("refreshToken"));
   // JSX remains unchanged
   return (
     <LoginStyled>
@@ -80,19 +93,27 @@ const Login: React.FC = () => {
             onChange={handleChange}
             name={"password"}
           />
+          {loading ? (
+            <SubmitButtonLoginRegister isSpinner={true} />
+          ) : (
+            <SubmitButtonLoginRegister label="Login Now" />
+          )}
 
-          <SubmitButtonLoginRegister label="Login Now" />
           <small>
-            Don't have an account?
+            Don't have an account ?
             <Link to="/register">
-              <span className="login"> Sign Up</span>
+              <span> Sign Up</span>
             </Link>
           </small>
         </form>
         <h3>Login with Others</h3>
         <Auth2Button>
           <ButtonAuth2Component label="Google" icon={FcGoogle} />
-          <ButtonAuth2Component label="Facebook" icon={FaFacebookSquare} />
+          <ButtonAuth2Component
+            label="Facebook"
+            icon={FaFacebookSquare}
+            color={"#FFF"}
+          />
         </Auth2Button>
       </div>
     </LoginStyled>
@@ -103,11 +124,12 @@ export default Login;
 
 const LoginStyled = styled.div`
   display: flex;
+  color: white;
   justify-content: center;
   align-items: center;
   height: 100vh;
   //background: url(${bg}), lightgray 50% / cover no-repeat;
-  background: #8da4ef;
+  background: #23272a;
   form {
     display: flex;
     flex-direction: column;
@@ -115,7 +137,7 @@ const LoginStyled = styled.div`
     padding: 8px;
   }
   h1 {
-    color: #000;
+    color: #fff;
     font-family: "Poppins";
     font-size: 30px;
     font-style: normal;
@@ -124,7 +146,7 @@ const LoginStyled = styled.div`
     text-transform: uppercase;
   }
   .welcome {
-    color: #525252;
+    color: #fff;
     font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
@@ -137,19 +159,20 @@ const LoginStyled = styled.div`
     align-items: center;
     justify-content: center;
     padding: 40px;
-    background: #fff;
+    background: #36393f;
     border-radius: 15px;
     gap: 20px;
+    z-index: 2;
   }
   h3 {
-    color: #1c1c1c;
+    color: #fff;
     font-family: "Poppins";
     font-size: 1.2rem;
     font-style: normal;
     line-height: normal;
   }
   small {
-    color: #1c1c1c;
+    color: #fff;
     font-family: "Poppins";
     font-size: 0.8rem;
     font-style: normal;
@@ -158,7 +181,7 @@ const LoginStyled = styled.div`
     text-align: center;
   }
   .login {
-    color: #0588f0;
+    color: white;
     text-decoration: underline;
   }
 `;

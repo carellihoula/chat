@@ -3,25 +3,52 @@ import styled from "styled-components";
 import HeaderLeft from "./HeaderLeft";
 import SearchBarComponent from "../../components/SearchBarComponent";
 import { IoFilterSharp } from "react-icons/io5";
-import DividerComponent from "../../components/DividerComponent";
 import FooterLeft from "./FooterLeft";
 import UserMessage from "./UserMessage";
 import ProfileUser from "../profile/ProfileUser";
-import { useUsers } from "../../contextAPI/UsersContextt";
+import IconStandard from "../../components/IconStandard";
+
+interface User {
+  username: string;
+  message: string;
+  createdAt: Date;
+  unreadCount: number;
+  profileImage: string;
+}
 
 const LeftSideOfMain: FC = () => {
   const [value, setValue] = useState<string>("");
-  const { users, setReceiver } = useUsers();
+  const [usersMessages, setUsersMessages] = useState<User[]>([
+    {
+      username: "Carel Lihoula",
+      message: "salut carel",
+      createdAt: new Date(),
+      unreadCount: 100,
+      profileImage:
+        "https://storage.googleapis.com/netflixproject/assets/assets/profileIcon.png",
+    },
+    {
+      username: "Luco Ntsoumou",
+      message: "comment vas tu ? ",
+      createdAt: new Date(),
+      unreadCount: 5,
+      profileImage:
+        "https://storage.googleapis.com/netflixproject/assets/assets/profileIcon.png",
+    },
+  ]);
+
   const [showProfile, setShowProfile] = useState<boolean>(false);
   //console.log(showProfile)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+  const [selectedItem, setSelectedItem] = useState<User>(usersMessages[0]);
+  const ElementSelected = (item: User) => {
+    setSelectedItem(item);
+    console.log(selectedItem);
+  };
 
-  /*const handleConversation = (conv: Conversation) => {
-    dispatch(manageConversationSelected(conv));
-  };*/
   const ProfileClickHandler = () => {
     setShowProfile(true);
   };
@@ -38,10 +65,8 @@ const LeftSideOfMain: FC = () => {
 
           <SearchAndFilterComponent>
             <SearchBarComponent value={value} handleChange={handleChange} />
-            <IoFilterSharp color={"#54656F"} size={24} />
+            <IconStandard size={24} Icon={IoFilterSharp} color={"#FFF"} />
           </SearchAndFilterComponent>
-
-          <DividerComponent justifyBorder="full" />
 
           <MessageOverview>
             {/*conversations.map((chat, index) => {
@@ -66,24 +91,30 @@ const LeftSideOfMain: FC = () => {
                 </>
               );
             })*/}
-            {users?.map((user, index) => {
+            {usersMessages?.map((user: User, index: number) => {
+              const timer: string = user.createdAt.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
               return (
                 <>
                   <UserMessage
                     name={user.username}
-                    unreadNumber={0}
-                    message={user.username}
-                    time={user.username}
+                    unreadNumber={user.unreadCount}
+                    message={user.message}
+                    profil={user.profileImage}
+                    isSelected={selectedItem === user}
+                    bg={selectedItem === user ? "#454950" : ""}
+                    time={timer}
                     key={index}
-                    handleConversation={() => setReceiver(user)}
+                    handleClick={() => ElementSelected(user)}
                   />
-                  {index !== users.length - 1 && (
+                  {/*index !== usersMessages.length - 1 && (
                     <DividerComponent justifyBorder="right" />
-                  )}
+                  )*/}
                 </>
               );
             })}
-            {/*<UserMessage /> */}
           </MessageOverview>
 
           <ContainerFootLeft>
@@ -96,7 +127,7 @@ const LeftSideOfMain: FC = () => {
 };
 
 const LeftSideOfMainStyle = styled.div`
-  background: #fff;
+  background: #2f3136;
   width: 30%;
   height: 100%;
   position: relative;
@@ -121,7 +152,9 @@ const ContainerFootLeft = styled.div`
 const MessageOverview = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
+  margin-top: 20px;
   padding-bottom: 40px;
   overflow-y: auto;
   max-height: 75%;

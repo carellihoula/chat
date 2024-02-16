@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import profileImage from "../../assets/images/profileIcon.png";
 import IconProfilComponent from "../../components/IconProfilComponent";
 
 interface MessageComponentProps {
@@ -8,21 +7,32 @@ interface MessageComponentProps {
   message: string;
   unreadNumber: number;
   time: string;
-  handleConversation?: React.MouseEventHandler<HTMLDivElement>;
+  profil: string;
+  isSelected: boolean;
+  bg: string;
+  handleClick?: React.MouseEventHandler<HTMLDivElement>;
 }
+
+type StyledProps = {
+  bg: string;
+  isSelected: boolean;
+};
 
 const UserMessage: React.FC<MessageComponentProps> = ({
   name,
   message,
   unreadNumber,
   time,
-  handleConversation,
+  profil,
+  handleClick,
+  isSelected,
+  bg,
 }) => {
   return (
-    <UserMessageStyled onClick={handleConversation}>
+    <UserMessageStyled onClick={handleClick} bg={bg} isSelected={isSelected}>
       <UserPhotoAndMessage>
         <div>
-          <IconProfilComponent imageUrl={profileImage} />
+          <IconProfilComponent imageUrl={profil} />
         </div>
         <div className="name-message-author">
           <p className="name">{name}</p>
@@ -38,34 +48,37 @@ const UserMessage: React.FC<MessageComponentProps> = ({
   );
 };
 
-const UserMessageStyled = styled.div`
+const UserMessageStyled = styled.div<StyledProps>`
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;
   align-items: center;
-  gap: 15px;
+  width: 90%;
+  gap: 5px;
+  border-radius: 14px;
+  background-color: ${(props) => props.bg};
   //margin-bottom: 10px;
-  //margin-top: 10px;
+  margin-top: 10px;
   &:hover {
-    background: #f0f2f5;
+    background: #454950;
     cursor: pointer;
   }
   .name-message-author {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 5px;
+
     .name {
-      color: var(--Color-3, #6b7c85);
+      color: ${(props) => (props.isSelected ? "#d8d8d8" : "#6b7c85")};
       font-family: "Work Sans";
-      font-size: 20px;
+      font-size: 0.9rem;
       font-style: normal;
-      font-weight: 600;
+      font-weight: 800;
       line-height: normal;
       letter-spacing: -0.5px;
     }
     .message {
-      color: var(--Color-3, #6b7c85);
+      color: ${(props) => (props.isSelected ? "#d8d8d8" : "#6b7c85")};
       font-family: Work Sans;
       font-size: 16px;
       font-style: normal;
@@ -82,10 +95,11 @@ const UserMessageStyled = styled.div`
   }
   .time-and-messages-unread p {
     border-radius: 10px;
-    background: var(--Green-1, #25d366);
+
+    background: #f83f3f;
     text-align: center;
     padding: 5px;
-    color: #fff;
+    color: #d8d8d8;
     font-family: "Work Sans";
     font-size: 14px;
     font-style: normal;
@@ -94,7 +108,7 @@ const UserMessageStyled = styled.div`
   }
 
   .time-and-messages-unread small {
-    color: var(--Color-3, #6b7c85);
+    color: ${(props) => (props.isSelected ? "#d8d8d8" : "#6b7c85")};
     font-family: "Work Sans";
     font-size: 14px;
     font-style: normal;

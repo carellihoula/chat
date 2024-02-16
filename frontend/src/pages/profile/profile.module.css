@@ -4,3 +4,51 @@
   outline: none;
   /**background-color: red;**/
 }
+.logout__div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout__button {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #1e1e1e;
+  font-family: "Poppins";
+}
+.logout__button:hover {
+  background-color: #36393f;
+  cursor: pointer;
+}
+
+.container__user__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-self: center;
+  font-size: 1rem;
+  padding: 8px;
+  font-family: "Poppins";
+  background-color: #202225;
+  min-height: 160px;
+  height: auto;
+  width: 80%;
+  border-radius: 10px;
+  color: #fff;
+}
+.div__icon__userInfo {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+.sub_div__icon__userInfo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

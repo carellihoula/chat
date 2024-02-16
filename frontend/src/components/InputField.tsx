@@ -22,7 +22,7 @@ const InputField: React.FC<InputFieldProps> = ({
 }) => {
   return (
     <InputFieldStyled>
-      <IconStandard Icon={icon} size={24} color={"#1C1C1C"} />
+      <IconStandard Icon={icon} size={24} color={"#FFF"} />
       <input
         type={type}
         name={name}
@@ -42,13 +42,13 @@ const InputFieldStyled = styled.div`
   align-items: center;
   padding-left: 15px;
   border-radius: 16px;
-  background: rgba(240, 237, 255, 0.8);
+  background: #23272a;
   width: 364px;
   height: 52px;
   flex-shrink: 0;
   margin-bottom: 10px;
   input {
-    color: #1c1c1c;
+    color: #fff;
     font-family: "Poppins";
     font-size: 15px;
     font-style: normal;
@@ -56,12 +56,12 @@ const InputFieldStyled = styled.div`
     padding-left: 10px;
     line-height: normal;
     border-style: none;
-    background: rgba(240, 237, 255, 0.8);
+    background: #23272a;
     outline: none;
     width: 90%;
     height: 100%;
     &::placeholder {
-      color: #1c1c1c;
+      color: #fff;
       font-family: "Poppins";
       font-size: 12px;
       font-style: normal;

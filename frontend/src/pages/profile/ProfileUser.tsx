@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
+import "../../output.css";
 import IconStandard from "../../components/IconStandard";
 import { IoArrowBack } from "react-icons/io5";
 import profile from "../../assets/images/profile__default.jpg";
@@ -9,7 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
 import { getUserInfo } from "../../redux/PersonalDataFromUser/userInfo.action";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { CiLogout } from "react-icons/ci";
+import styles from "./profile.module.css";
+import { InfoUserComponent } from "./InfoUserComponent";
+//import axios from "axios";
 
 interface PropsStyled {
   isClicked: boolean;
@@ -22,6 +27,7 @@ interface PropsProfile {
 const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
   const user = useSelector((state: RootState) => state.user.userInfo);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const id = getIdCurrentUser(JSON.stringify(localStorage.getItem("token")));
 
   useEffect(() => {
@@ -37,12 +43,8 @@ const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
     setImgHover(false);
   };
   const logoutHandler = () => {
-    axios
-      .post("http://localhost:9784/auth/logout", { withCredentials: true })
-      .then(() => {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-      });
+    localStorage.removeItem("token");
+    navigate("/login");
   };
   return (
     <ProfileUserStyled isClicked={isClicked}>
@@ -54,10 +56,8 @@ const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
             color={"#FFF"}
             handleClick={handleClickBack}
           />
-          <p className="label__profile">Profile</p>
         </div>
       </div>
-
       <div className="profile__image">
         <div
           className="photo__container"
@@ -72,19 +72,18 @@ const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
           )}
         </div>
       </div>
-      <div onClick={logoutHandler} style={{ cursor: "pointer" }}>
-        Logout
+      <div className={styles.logout__div}>
+        <div className={styles.logout__button} onClick={logoutHandler}>
+          <IconStandard Icon={CiLogout} size={30} color={"#FFF"} /> Logged Out
+        </div>
       </div>
-      <EditProfileComponent label="Your name" value={user?.username} />
+      {/*<EditProfileComponent value={"carel Ntsoumou"} />
+      <EditProfileComponent value={"tout est bien qui fini bien !"} />*/}
 
-      <div className="information__from__site__to__user">
-        <p>
-          This is not your username or pin. This name will be visible to your
-          CanoShop friends
-        </p>
-      </div>
-
-      <EditProfileComponent label="About" value={user?.about} />
+      <InfoUserComponent
+        about="tout est bien qui fini bien !"
+        username="carel Ntsoumou"
+      />
     </ProfileUserStyled>
   );
 };
@@ -97,7 +96,7 @@ const ProfileUserStyled = styled.div<PropsStyled>`
   width: 100%; /* Largeur du profil, à ajuster selon votre conception */
   height: ${(props) => (props.isClicked ? "100vh" : "100vh")};
   gap: 25px;
-  background: #f0f2f5;
+  background: #2f3136;
   transition: transform ${(props) => (props.isClicked ? "0.3s" : "0.2s")}
     ease-in-out;
   transform: translateX(${(props) => (props.isClicked ? "0%" : "-100%")});
@@ -109,7 +108,7 @@ const ProfileUserStyled = styled.div<PropsStyled>`
     display: flex;
     align-items: flex-end;
     //gap:18px;
-    background: #008069;
+    background: transparent;
     height: 100px;
     padding: 10px 30px;
     width: 100%;
@@ -118,7 +117,11 @@ const ProfileUserStyled = styled.div<PropsStyled>`
   .header__content {
     display: flex;
     align-items: center;
+    padding: 10px;
+    background: #36393f;
+    border-radius: 10px;
     gap: 18px;
+    cursor: pointer;
   }
   .label__profile {
     color: #fff;
@@ -131,25 +134,22 @@ const ProfileUserStyled = styled.div<PropsStyled>`
     justify-content: center;
     width: 100%;
   }
-
-  .information__from__site__to__user {
-    padding: 5px 28px;
-    color: #6d7d87;
-    font-family: "Work Sans";
-  }
-
   .photo__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     font-family: "Work Sans";
-    width: 220px;
-    height: 220px;
-    border-radius: 220px;
+    width: 155px;
+    height: 155px;
+    border-radius: 155px;
+    border: 3px solid #fff;
     cursor: pointer;
 
     img {
-      border-radius: 220px;
-      width: 220px;
-      height: 220px;
+      border-radius: 150px;
+      width: 150px;
+      height: 150px;
       &:hover {
         filter: brightness(70%); /* Assombrit la photo au survol */
       }

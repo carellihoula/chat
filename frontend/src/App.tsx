@@ -1,12 +1,13 @@
 //import { useSelector } from "react-redux"
 import Main from "./pages/Main";
-//import Login from "./pages/login/Login"
-//import { RootState } from "./redux/store"
+import "./index.css";
+import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 //import axios from "axios";
 import PublicRoutes from "./components/PublicRoutes";
 

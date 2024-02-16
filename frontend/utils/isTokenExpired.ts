@@ -7,6 +7,6 @@ interface DecodedToken {
 export const isTokenExpired = (token: string) => {
   const decoded: DecodedToken = jwtDecode<DecodedToken>(token);
   const dateExpToken = decoded.exp;
-  console.log(dateExpToken, Date.now() / 1000);
+  console.log("expires at :" + dateExpToken, "now: " + Date.now() / 1000);
   return dateExpToken < Date.now() / 1000;
 };

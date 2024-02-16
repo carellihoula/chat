@@ -22,13 +22,22 @@ module.exports = (http) => {
       console.error(error);
     }
 
-    const updatedMessages = await Message.find().sort("timestamp");
-    socket.emit("messagesHistory", updatedMessages);
+    socket.on("getPersonalMessages", async (userId) => {
+      try {
+        const personalMessages = await Message.find({
+          $or: [{ sender: userId }, { receiver: userId }],
+        }).sort("timestamp");
 
-    socket.on("join", (userId) => {
+        socket.emit("personalMessages", personalMessages);
+      } catch (error) {
+        console.error(error);
+      }
+    });
+
+    /*socket.on("join", (userId) => {
       socket.join(userId);
       console.log("user " + userId);
-    });
+    });*/
 
     socket.on("sendMessage", async ({ senderId, receiverId, content }) => {
       const message = new Message({
@@ -40,8 +49,10 @@ module.exports = (http) => {
       console.log(message);
       socket.to(receiverId).emit("receiveMessage", message);
       //all messages
-      const updatedMessages = await Message.find().sort("timestamp");
-      socket.emit("messagesHistory", updatedMessages);
+      const updatedMessagesForSender = await Message.find({
+        $or: [{ sender: senderId }, { receiver: senderId }],
+      }).sort("timestamp");
+      socket.emit("personalMessages", updatedMessagesForSender);
     });
     socket.on("disconnect", () => {
       console.log("user disconnected " + socket.id);

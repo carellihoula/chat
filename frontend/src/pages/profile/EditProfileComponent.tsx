@@ -6,8 +6,8 @@ import { VscSend } from "react-icons/vsc";
 import styles from "./profile.module.css";
 
 interface EditProps {
-  label: string;
-  value?: string;
+  label?: string;
+  value: string;
 }
 
 const EditProfileComponent: React.FC<EditProps> = ({ label, value }) => {
@@ -18,7 +18,6 @@ const EditProfileComponent: React.FC<EditProps> = ({ label, value }) => {
   };
   return (
     <EditStyled>
-      <p className="name">{label}</p>
       <div className="profile__content">
         {!showInputField ? (
           <>
@@ -60,7 +59,6 @@ const EditStyled = styled.div`
   height: auto;
   padding: 10px 25px;
   flex-shrink: 0;
-  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   gap: 36px;
 

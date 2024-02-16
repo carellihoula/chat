@@ -1,0 +1,15 @@
+.menu_item {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #2f3136;
+  font-family: "Poppins";
+}
+.menu_item:hover {
+  background-color: #1e1e1e;
+  cursor: pointer;
+}
