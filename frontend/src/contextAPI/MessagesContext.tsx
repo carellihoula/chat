@@ -1,20 +1,12 @@
 // MessagesContext.tsx
 import React, { createContext, useState, useContext } from "react";
-
-export interface Message {
-  _id: string;
-  sender: string;
-  receiver: string;
-  content: string;
-  timestamp: Date;
-  // Ajoutez d'autres champs si nécessaire
-}
+import { ChatMessage } from "../websocket/useChat";
 
 interface MessagesContextType {
-  messages: Message[];
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
-  selectedMessage: Message | null;
-  setSelectedMessage: React.Dispatch<React.SetStateAction<Message | null>>;
+  messages: ChatMessage[];
+  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
+  selectedMessage: ChatMessage | null;
+  setSelectedMessage: React.Dispatch<React.SetStateAction<ChatMessage | null>>;
 }
 
 const MessagesContext = createContext<MessagesContextType>(
@@ -34,8 +26,10 @@ export const useMessages = () => {
 export const MessagesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [selectedMessage, setSelectedMessage] = useState<ChatMessage | null>(
+    null
+  );
 
   return (
     <MessagesContext.Provider

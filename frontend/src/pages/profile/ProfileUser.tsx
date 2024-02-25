@@ -1,19 +1,17 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "../../output.css";
 import IconStandard from "../../components/IconStandard";
 import { IoArrowBack } from "react-icons/io5";
 import profile from "../../assets/images/profile__default.jpg";
-import EditProfileComponent from "./EditProfileComponent";
 import { FaCamera } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
-import { getUserInfo } from "../../redux/PersonalDataFromUser/userInfo.action";
 import { useNavigate } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import styles from "./profile.module.css";
 import { InfoUserComponent } from "./InfoUserComponent";
+import { useUsers } from "../../contextAPI/UsersContextt";
+import { getUserInfo, uploadPhoto } from "../../api/API";
 //import axios from "axios";
 
 interface PropsStyled {
@@ -25,17 +23,14 @@ interface PropsProfile {
 }
 
 const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
-  const user = useSelector((state: RootState) => state.user.userInfo);
-  const dispatch = useDispatch<AppDispatch>();
+  const { userInfo, setUserInfo } = useUsers();
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  const id = getIdCurrentUser(JSON.stringify(localStorage.getItem("token")));
-
-  useEffect(() => {
-    dispatch(getUserInfo(id));
-  }, [dispatch, id]);
-  console.log(user);
-
+  const id = getIdCurrentUser(JSON.stringify(token));
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [imgHover, setImgHover] = useState<boolean>(false);
+  const [profileImageUrl, setProfileImageUrl] = useState<string>(profile);
+
   const mouseOverHandler = () => {
     setImgHover(true);
   };
@@ -46,16 +41,55 @@ const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+  const handleOnChangePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0] && token) {
+      const file = e.target.files?.[0];
+      const formData = new FormData();
+      formData.append("file", file);
+
+      //logique pour soumettre par axios en cas de changement
+      uploadPhoto(`/users/upload/${id}`, token, formData)
+        .then((data) => {
+          //console.log(data, typeof data);
+          setProfileImageUrl(data || profile);
+        })
+        .catch((err) => {
+          console.error("Chargement echoué: " + err);
+        });
+    } else {
+      console.log("Aucune image selectionnée...");
+    }
+  };
+
+  const handleClickOnChangePhoto = () => {
+    fileInputRef.current?.click();
+  };
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const res = await getUserInfo(`/users/${id}`, token);
+        console.log(res);
+        setUserInfo(res ?? null);
+      } catch (err) {
+        console.log(err);
+        setUserInfo(null);
+      }
+    };
+    if (token && id) {
+      fetchUserInfo();
+    }
+  }, [token, setUserInfo, id]);
+
+  useEffect(() => {
+    if (userInfo?.profileImage) setProfileImageUrl(userInfo?.profileImage);
+  }, [userInfo?.profileImage]);
+
   return (
     <ProfileUserStyled isClicked={isClicked}>
       <div className="header__profile">
-        <div className="header__content">
-          <IconStandard
-            Icon={IoArrowBack}
-            size={24}
-            color={"#FFF"}
-            handleClick={handleClickBack}
-          />
+        <div className="header__content" onClick={handleClickBack}>
+          <IconStandard Icon={IoArrowBack} size={24} color={"#FFF"} />
         </div>
       </div>
       <div className="profile__image">
@@ -63,13 +97,20 @@ const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
           className="photo__container"
           onMouseOver={mouseOverHandler}
           onMouseLeave={mouseLeaveHandler}
+          onClick={handleClickOnChangePhoto}
         >
-          <img src={profile} alt="profile" />
+          <img src={profileImageUrl} alt="profile" />
           {imgHover && (
             <div className="icon">
               <IconStandard Icon={FaCamera} size={24} /> CHANGE PROFILE PHOTO
             </div>
           )}
+          <input
+            type="file"
+            hidden
+            onChange={handleOnChangePhoto}
+            ref={fileInputRef}
+          />
         </div>
       </div>
       <div className={styles.logout__div}>
@@ -77,13 +118,7 @@ const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
           <IconStandard Icon={CiLogout} size={30} color={"#FFF"} /> Logged Out
         </div>
       </div>
-      {/*<EditProfileComponent value={"carel Ntsoumou"} />
-      <EditProfileComponent value={"tout est bien qui fini bien !"} />*/}
-
-      <InfoUserComponent
-        about="tout est bien qui fini bien !"
-        username="carel Ntsoumou"
-      />
+      <InfoUserComponent about={"salut"} username={userInfo?.name} />
     </ProfileUserStyled>
   );
 };
@@ -94,14 +129,14 @@ const ProfileUserStyled = styled.div<PropsStyled>`
   display: flex;
   flex-direction: column;
   width: 100%; /* Largeur du profil, à ajuster selon votre conception */
-  height: ${(props) => (props.isClicked ? "100vh" : "100vh")};
+  height: 100%;
   gap: 25px;
   background: #2f3136;
   transition: transform ${(props) => (props.isClicked ? "0.3s" : "0.2s")}
     ease-in-out;
   transform: translateX(${(props) => (props.isClicked ? "0%" : "-100%")});
   position: absolute;
-  //top:0;
+  bottom: 0;
   z-index: 2;
 
   .header__profile {

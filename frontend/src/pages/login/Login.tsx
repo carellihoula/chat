@@ -1,10 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { connectUser } from "../../redux/loginAndRegister/status.action";
-import Spinner from "react-bootstrap/Spinner";
-import { AppDispatch, RootState } from "../../redux/store";
 import InputField from "../../components/InputField";
 import { FiUser } from "react-icons/fi";
 import { HiOutlineLockClosed } from "react-icons/hi";
@@ -22,10 +18,8 @@ type UserInfos = {
 };
 
 const Login: React.FC = () => {
-  const token = useSelector((state: RootState) => state.islogged.token);
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const dispatch = useDispatch<AppDispatch>();
   const [data, setData] = useState(null);
   //const user = useSelector(state:RootState => )
 
@@ -36,16 +30,13 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Dispatch an action here if needed
-    // dispatch(yourActionCreator(userInfos.email, userInfos.password));
-    //dispatch(connectUser(userInfos));
 
     try {
-      const response = await loginUser("/connexion", userInfos);
+      const response = await loginUser("/auth/login", userInfos);
       setData(response);
       //console.log(response.bearer);
-      localStorage.setItem("token", response.bearer);
-      localStorage.setItem("refreshToken", response.refresh);
+      localStorage.setItem("token", response.access_token);
+      localStorage.setItem("refreshToken", response.refresh_token);
 
       setUserInfos({
         email: "",

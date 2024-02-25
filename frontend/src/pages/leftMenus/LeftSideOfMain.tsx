@@ -7,6 +7,7 @@ import FooterLeft from "./FooterLeft";
 import UserMessage from "./UserMessage";
 import ProfileUser from "../profile/ProfileUser";
 import IconStandard from "../../components/IconStandard";
+import styles from "./LeftSideOfMain.module.css";
 
 interface User {
   username: string;
@@ -50,7 +51,7 @@ const LeftSideOfMain: FC = () => {
   };
 
   const ProfileClickHandler = () => {
-    setShowProfile(true);
+    setShowProfile(!showProfile);
   };
   const handleClickBack = () => {
     setShowProfile(false);
@@ -58,70 +59,51 @@ const LeftSideOfMain: FC = () => {
 
   return (
     <LeftSideOfMainStyle>
-      <ProfileUser isClicked={showProfile} handleClickBack={handleClickBack} />
-      {!showProfile && (
-        <>
-          <HeaderLeft ProfileClickHandler={ProfileClickHandler} />
+      <HeaderLeft ProfileClickHandler={ProfileClickHandler} />
+      <div className={styles.container__intermediate}>
+        {/** profile utiilisateur */}
+        <ProfileUser
+          isClicked={showProfile}
+          handleClickBack={handleClickBack}
+        />
 
-          <SearchAndFilterComponent>
-            <SearchBarComponent value={value} handleChange={handleChange} />
-            <IconStandard size={24} Icon={IoFilterSharp} color={"#FFF"} />
-          </SearchAndFilterComponent>
+        {/** menu principal */}
+        <SearchAndFilterComponent>
+          <SearchBarComponent value={value} handleChange={handleChange} />
+          <IconStandard size={24} Icon={IoFilterSharp} color={"#FFF"} />
+        </SearchAndFilterComponent>
 
-          <MessageOverview>
-            {/*conversations.map((chat, index) => {
-              const lastElement: Message =
-                chat.messages[chat.messages.length - 1];
-              const time: string = new Date(
-                lastElement.timestamp
-              ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-              return (
-                <>
-                  <UserMessage
-                    name={lastElement.senderName}
-                    unreadNumber={chat.unreadNumber}
-                    message={lastElement.text}
-                    time={time}
-                    key={index}
-                    handleConversation={() => handleConversation(chat)}
-                  />
-                  {index !== conversations.length - 1 && (
-                    <DividerComponent justifyBorder="right" />
-                  )}
-                </>
-              );
-            })*/}
-            {usersMessages?.map((user: User, index: number) => {
-              const timer: string = user.createdAt.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              });
-              return (
-                <>
-                  <UserMessage
-                    name={user.username}
-                    unreadNumber={user.unreadCount}
-                    message={user.message}
-                    profil={user.profileImage}
-                    isSelected={selectedItem === user}
-                    bg={selectedItem === user ? "#454950" : ""}
-                    time={timer}
-                    key={index}
-                    handleClick={() => ElementSelected(user)}
-                  />
-                  {/*index !== usersMessages.length - 1 && (
+        <MessageOverview>
+          {usersMessages?.map((user: User, index: number) => {
+            const timer: string = user.createdAt.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+            return (
+              <>
+                {/** differente conersation  */}
+                <UserMessage
+                  name={user.username}
+                  unreadNumber={user.unreadCount}
+                  message={user.message}
+                  profil={user.profileImage}
+                  isSelected={selectedItem === user}
+                  bg={selectedItem === user ? "#454950" : ""}
+                  time={timer}
+                  key={index}
+                  handleClick={() => ElementSelected(user)}
+                />
+                {/*index !== usersMessages.length - 1 && (
                     <DividerComponent justifyBorder="right" />
                   )*/}
-                </>
-              );
-            })}
-          </MessageOverview>
-
-          <ContainerFootLeft>
-            <FooterLeft />
-          </ContainerFootLeft>
-        </>
-      )}
+              </>
+            );
+          })}
+        </MessageOverview>
+      </div>
+      <ContainerFootLeft>
+        <FooterLeft />
+      </ContainerFootLeft>
     </LeftSideOfMainStyle>
   );
 };
@@ -129,8 +111,8 @@ const LeftSideOfMain: FC = () => {
 const LeftSideOfMainStyle = styled.div`
   background: #2f3136;
   width: 30%;
-  height: 100%;
-  position: relative;
+  height: 100vh;
+  //position: relative;
 `;
 
 const SearchAndFilterComponent = styled.div`
@@ -158,5 +140,13 @@ const MessageOverview = styled.div`
   padding-bottom: 40px;
   overflow-y: auto;
   max-height: 75%;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #fff; /* Couleur de la barre de défilement elle-même */
+  }
 `;
 export default LeftSideOfMain;

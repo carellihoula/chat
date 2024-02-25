@@ -1,19 +1,20 @@
-import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 interface DecodedToken {
-  id: string;
+  userId: number;
+  sub: string;
+  iat: number;
+  exp: number;
 }
 
 //const token = localStorage.getItem("token");
 
-export const getIdCurrentUser = (token: string) => {
+export const getIdCurrentUser = (token: string): number => {
   const decoded: DecodedToken = jwtDecode<DecodedToken>(token);
-  const idCurrentUser = decoded.id;
-  //console.log(idCurrentUser) ;
-  return idCurrentUser;
+  return decoded.userId;
 };
-export const getCurrentUser = async (token: string) => {
+
+/*export const getCurrentUser = async (token: string) => {
   try {
     const response = await axios.get(
       `https://localhost:9784/users/${getIdCurrentUser(token)}`
@@ -24,4 +25,4 @@ export const getCurrentUser = async (token: string) => {
     console.error(error);
     throw error;
   }
-};
+};*/

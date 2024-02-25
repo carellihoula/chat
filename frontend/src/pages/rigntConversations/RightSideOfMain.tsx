@@ -3,9 +3,9 @@ import styled from "styled-components";
 import HeaderRight from "./HeaderRight";
 import ChatAreaRightBottom from "./ChatAreaRightBottom";
 import MessageComponent from "../../components/MessageComponent";
-import { Message, useMessages } from "../../contextAPI/MessagesContext";
+import { useMessages } from "../../contextAPI/MessagesContext";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
-import { ChatComponent } from "../../components/ChatComponent";
+import { ChatMessage } from "../../websocket/useChat";
 //import "../../output.css";
 
 interface ConversationAreaProps {
@@ -14,6 +14,7 @@ interface ConversationAreaProps {
 
 const RightSideOfMain: FC = () => {
   const { messages } = useMessages();
+  console.log(messages);
   const conversationRef = useRef<HTMLDivElement>(null);
   const token = JSON.stringify(localStorage.getItem("token"));
 
@@ -27,33 +28,28 @@ const RightSideOfMain: FC = () => {
     <RightSideOfMainStyle>
       <HeaderRight />
       <ConversationArea ref={conversationRef}>
-        {/*messages.map((msg: Message, index) => {
+        {messages.map((msg: ChatMessage, index) => {
           const timer = new Date(msg.timestamp).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           });
           return (
             <StyledMessageComponent
-              isSender={msg.sender !== getIdCurrentUser(token)}
+              isSender={msg.senderId !== getIdCurrentUser(token)}
               key={index}
             >
               <MessageComponent
-                isSender={msg.sender !== getIdCurrentUser(token)}
+                isSender={msg.senderId !== getIdCurrentUser(token)}
                 message={msg.content}
                 time={timer}
               />
             </StyledMessageComponent>
           );
-        })*/}
+        })}
+
         <div className="flex  flex-col self-end justify-end w-full"></div>
-        {/*<ChatComponent position="start" />
-        <ChatComponent position="end" />
-        <ChatComponent position="start" />
-        <ChatComponent position="end" />
-        <ChatComponent position="end" />
-        <ChatComponent position="start" />
-      <ChatComponent position="start" />*/}
-        <MessageComponent
+
+        {/*<MessageComponent
           isSender={false}
           message="salut, comment vas-tu ?"
           time="12:00"
@@ -72,7 +68,7 @@ const RightSideOfMain: FC = () => {
           isSender={true}
           message="salut, comment vas-tu ?"
           time="12:00"
-        />
+    />*/}
       </ConversationArea>
       <ChatAreaRightBottom />
     </RightSideOfMainStyle>

@@ -7,8 +7,8 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 
 interface PropsUserInfo {
-  username: string;
-  about: string;
+  username?: string;
+  about?: string;
 }
 
 export const InfoUserComponent: FC<PropsUserInfo> = ({ username, about }) => {

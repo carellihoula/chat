@@ -13,3 +13,9 @@
   background-color: #1e1e1e;
   cursor: pointer;
 }
+.container__intermediate {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}

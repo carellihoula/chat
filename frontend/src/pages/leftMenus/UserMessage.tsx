@@ -59,6 +59,7 @@ const UserMessageStyled = styled.div<StyledProps>`
   background-color: ${(props) => props.bg};
   //margin-bottom: 10px;
   margin-top: 10px;
+  user-select: none;
   &:hover {
     background: #454950;
     cursor: pointer;

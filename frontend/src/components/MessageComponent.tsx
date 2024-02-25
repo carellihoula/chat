@@ -31,8 +31,8 @@ const MessageContent = styled.div<MessageContentProps>`
   //20px 20px 2px 20px'
   border-radius: ${(props) =>
     props.sender ? "20px 2px 20px 2px" : "2px 20px 2px 20px"};
-  background: ${(props) => (props.sender ? "#5865f2" : "#FFF")};
-  color: ${(props) => (props.sender ? "#FFF" : "#000")};
+  background: ${(props) => (props.sender ? "#FFF" : "#5865f2")};
+  color: ${(props) => (props.sender ? "#000" : "#FFF")};
   margin-left: -10px;
   margin-bottom: 10px;
   position: relative;

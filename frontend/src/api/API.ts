@@ -1,3 +1,4 @@
+import { User } from "../contextAPI/UsersContextt";
 import { UserInfos } from "../pages/register/Register";
 import { axiosInstance } from "./AxiosInstance";
 
@@ -31,17 +32,58 @@ export const getData = async (endpoint: string) => {
     );
   }
 };
-
-export const refreshToken = async () => {
-  const refresh = localStorage.getItem("refreshToken");
+export const getUserInfo = async (endpoint: string, token: string | null) => {
   try {
-    const response = await axiosInstance.post(`/refresh-token`, {
-      refresh: refresh,
+    const response = await axiosInstance.get<User | null>(endpoint, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    localStorage.setItem("token", JSON.stringify(response.data.token));
-    return response.data.bearer;
+    if (response && response.data) {
+      return response.data;
+    }
   } catch (error) {
-    console.log("Une erreur s'est produite lors de la generation du token.");
-    throw error;
+    console.log(
+      "Une erreur s'est produite lors de la recuperation de données."
+    );
+    return null;
   }
+};
+
+export const uploadPhoto = async (
+  endpoint: string,
+  token: string,
+  formData: FormData
+) => {
+  return await axiosInstance
+    .post(endpoint, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error("error: " + error);
+      throw error;
+    });
+};
+
+export const refreshToken = async (endpoint: string, refresh: string) => {
+  return await axiosInstance
+    .post(
+      endpoint,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${refresh}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error("Erreur de renouvellement du refreshToken  " + error);
+      throw error;
+    });
 };
