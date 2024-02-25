@@ -1,4 +1,5 @@
 # Project Name
+
 ChatApp
 
 ## Overview
@@ -16,8 +17,10 @@ The Chap App is a user-friendly platform that enables seamless communication. It
 
 - React
 - TypeScript
-- Firebase (or any backend service used)
-- Additional libraries or frameworks used
+- Spring Framework (Java) (or any backend service used)
+- Amazon Web Services
+- PostgreSQL (Database)
+- Additional libraries such as SockJS, StompJS, daisyUI, styled components, etc
 
 ## Installation
 
@@ -31,3 +34,4 @@ git clone https://github.com/carellihoula/chatapp.git
 cd project-folder
 npm install
 npm start
+```
