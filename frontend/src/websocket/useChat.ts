@@ -14,7 +14,7 @@ export interface ChatMessage {
 export const useChat = (userId: string) => {
   //const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-  const { messages, setMessages } = useMessages();
+  const { setMessages } = useMessages();
   const [stompClient, setStompClient] = useState<Client | null>(null);
 
   useEffect(() => {
@@ -35,6 +35,7 @@ export const useChat = (userId: string) => {
             const newMessage: ChatMessage = JSON.parse(message.body);
             setMessages((prev) => {
               const msgExists = prev.find((msg) => msg.id === newMessage.id);
+              //eviter les doublants
               if (!msgExists) {
                 return [...prev, newMessage];
               } else {

@@ -29,6 +29,7 @@ const RightSideOfMain: FC = () => {
       <HeaderRight />
       <ConversationArea ref={conversationRef}>
         {messages.map((msg: ChatMessage, index) => {
+          console.log(msg);
           const timer = new Date(msg.timestamp).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
