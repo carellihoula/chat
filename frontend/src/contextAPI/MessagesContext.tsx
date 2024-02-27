@@ -3,12 +3,16 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { ChatMessage } from "../websocket/useChat";
 import { findChatMessages } from "../api/apiChat";
 import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
+import { MenuItemProps } from "../pages/leftMenus/MenuItem";
+import { listMenuItems } from "../pages/leftMenus/listMenuItems";
 
 interface MessagesContextType {
   messages: ChatMessage[];
   setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   selectedMessage: ChatMessage | null;
   setSelectedMessage: React.Dispatch<React.SetStateAction<ChatMessage | null>>;
+  selectedMenuItem: MenuItemProps;
+  setSelectedMenuItem: React.Dispatch<React.SetStateAction<MenuItemProps>>;
 }
 
 const MessagesContext = createContext<MessagesContextType>(
@@ -33,23 +37,34 @@ export const MessagesProvider: React.FC<{ children: React.ReactNode }> = ({
   const [selectedMessage, setSelectedMessage] = useState<ChatMessage | null>(
     null
   );
-  // historique de messages depuis la database
-  const initMessages = (senderId: number, recipientId: number) => {
-    const data = findChatMessages(`${senderId}/${recipientId}`, token);
-    return data;
-  };
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItemProps>(
+    listMenuItems[0]
+  );
+
   const senderId = getIdCurrentUser(token);
-  const recipientId = 2;
+  const recipientId = getIdCurrentUser(token) === 1 ? 3 : 1;
   //faire la persistance grace aux messages recuperés depuis la database
   useEffect(() => {
+    // historique de messages depuis la database
+    const initMessages = (senderId: number, recipientId: number) => {
+      const data = findChatMessages(`${senderId}/${recipientId}`, token);
+      return data;
+    };
     initMessages(senderId, recipientId).then((data) => {
       setMessages(data);
     });
-  }, [senderId, recipientId]);
+  }, [senderId, recipientId, token]);
 
   return (
     <MessagesContext.Provider
-      value={{ messages, setMessages, selectedMessage, setSelectedMessage }}
+      value={{
+        messages,
+        setMessages,
+        selectedMessage,
+        setSelectedMessage,
+        selectedMenuItem,
+        setSelectedMenuItem,
+      }}
     >
       {children}
     </MessagesContext.Provider>

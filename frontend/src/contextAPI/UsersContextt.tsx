@@ -1,9 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
-interface Authority {
-  authority: string;
-}
-
 export interface User {
   id: number;
   email: string;
@@ -13,12 +9,6 @@ export interface User {
   active: boolean;
   password: string;
   role: string;
-  enabled: boolean;
-  username: string;
-  accountNonLocked: boolean;
-  authorities: Authority[];
-  accountNonExpired: boolean;
-  credentialsNonExpired: boolean;
 }
 
 interface UsersContextType {

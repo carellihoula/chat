@@ -1,5 +1,4 @@
 //import React from 'react'
-import styled from "styled-components";
 import TextZoneComponent from "../../components/TextZoneComponent";
 import IconStandard from "../../components/IconStandard";
 import { BsEmojiSmile } from "react-icons/bs";
@@ -8,7 +7,7 @@ import { VscSend } from "react-icons/vsc";
 import { useState } from "react";
 import { useChat } from "../../websocket/useChat";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
-
+import styles from "./ChatAreaRightBottom.module.css";
 /*interface Props {
   value: string;
   handleChange: React.ChangeEventHandler<HTMLTextAreaElement>;
@@ -36,7 +35,7 @@ const ChatAreaRightBottom = () => {
   const sendMessageHandler = () => {
     sendMessage({
       senderId: userId,
-      recipientId: 2,
+      recipientId: userId === 1 ? 3 : 1,
       content: message,
       timestamp: new Date(),
     });
@@ -44,8 +43,8 @@ const ChatAreaRightBottom = () => {
   };
 
   return (
-    <ChatAreaRightBottomStyled>
-      <ContainerComponent>
+    <div className={styles.container__div}>
+      <div className={styles.sub__container}>
         <IconStandard size={24} Icon={BsEmojiSmile} color="#FFF" />
         <TextZoneComponent
           value={message}
@@ -63,28 +62,9 @@ const ChatAreaRightBottom = () => {
         ) : (
           <IconStandard size={24} Icon={BiSolidMicrophone} color="#FFF" />
         )}
-      </ContainerComponent>
-    </ChatAreaRightBottomStyled>
+      </div>
+    </div>
   );
 };
-
-const ChatAreaRightBottomStyled = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #36393f;
-  width: 100%;
-  height: auto;
-  padding: 20px 0px;
-  position: absolute;
-  bottom: 0;
-`;
-
-const ContainerComponent = styled.div`
-  display: flex;
-  align-items: center;
-  //justify-content: center;
-  gap: 25px;
-`;
 
 export default ChatAreaRightBottom;

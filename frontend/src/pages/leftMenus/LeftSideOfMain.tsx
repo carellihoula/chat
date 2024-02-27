@@ -8,6 +8,9 @@ import UserMessage from "./UserMessage";
 import ProfileUser from "../profile/ProfileUser";
 import IconStandard from "../../components/IconStandard";
 import styles from "./LeftSideOfMain.module.css";
+import { listMenuItems } from "./listMenuItems";
+import { ListOfUsersComponent } from "../friends/ListOfUsersComponent";
+import { useMessages } from "../../contextAPI/MessagesContext";
 
 interface User {
   username: string;
@@ -37,9 +40,9 @@ const LeftSideOfMain: FC = () => {
         "https://storage.googleapis.com/netflixproject/assets/assets/profileIcon.png",
     },
   ]);
-
+  const { selectedMenuItem } = useMessages();
   const [showProfile, setShowProfile] = useState<boolean>(false);
-  //console.log(showProfile)
+  console.log(showProfile);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -57,49 +60,61 @@ const LeftSideOfMain: FC = () => {
     setShowProfile(false);
   };
 
+  const hiddenProfile = () => {
+    setShowProfile(false);
+  };
   return (
     <LeftSideOfMainStyle>
-      <HeaderLeft ProfileClickHandler={ProfileClickHandler} />
+      <HeaderLeft
+        ProfileClickHandler={ProfileClickHandler}
+        hiddenProfile={hiddenProfile}
+        listMenuItems={listMenuItems}
+      />
       <div className={styles.container__intermediate}>
-        {/** profile utiilisateur */}
-        <ProfileUser
-          isClicked={showProfile}
-          handleClickBack={handleClickBack}
-        />
-
         {/** menu principal */}
         <SearchAndFilterComponent>
           <SearchBarComponent value={value} handleChange={handleChange} />
           <IconStandard size={24} Icon={IoFilterSharp} color={"#FFF"} />
         </SearchAndFilterComponent>
-
-        <MessageOverview>
-          {usersMessages?.map((user: User, index: number) => {
-            const timer: string = user.createdAt.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-            return (
-              <>
-                {/** differente conersation  */}
-                <UserMessage
-                  name={user.username}
-                  unreadNumber={user.unreadCount}
-                  message={user.message}
-                  profil={user.profileImage}
-                  isSelected={selectedItem === user}
-                  bg={selectedItem === user ? "#454950" : ""}
-                  time={timer}
-                  key={index}
-                  handleClick={() => ElementSelected(user)}
-                />
-                {/*index !== usersMessages.length - 1 && (
+        {selectedMenuItem.label === "Chat" ? (
+          <MessageOverview>
+            {usersMessages?.map((user: User, index: number) => {
+              const timer: string = user.createdAt.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+              return (
+                <>
+                  {/** differente conersation  */}
+                  <UserMessage
+                    name={user.username}
+                    unreadNumber={user.unreadCount}
+                    message={user.message}
+                    profil={user.profileImage}
+                    isSelected={selectedItem === user}
+                    bg={selectedItem === user ? "#454950" : ""}
+                    time={timer}
+                    key={index}
+                    handleClick={() => ElementSelected(user)}
+                  />
+                  {/*index !== usersMessages.length - 1 && (
                     <DividerComponent justifyBorder="right" />
                   )*/}
-              </>
-            );
-          })}
-        </MessageOverview>
+                </>
+              );
+            })}
+          </MessageOverview>
+        ) : selectedMenuItem.label === "Friends" ? (
+          <ListOfUsersComponent hiddenProfile={hiddenProfile} />
+        ) : (
+          <div style={{ color: "#FFF", textAlign: "center" }}>
+            EN COURS DE PROGRAMMATION
+          </div>
+        )}
+        <ProfileUser
+          isClicked={showProfile}
+          handleClickBack={handleClickBack}
+        />
       </div>
       <ContainerFootLeft>
         <FooterLeft />

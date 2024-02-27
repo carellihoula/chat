@@ -50,6 +50,27 @@ export const getUserInfo = async (endpoint: string, token: string | null) => {
   }
 };
 
+export const getAllUsers = async (
+  endpoint: string,
+  token: string | null
+): Promise<User[] | null> => {
+  try {
+    const response = await axiosInstance.get<User[] | null>(endpoint, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response && response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log(
+      "Une erreur s'est produite lors de la recuperation de données."
+    );
+    return null;
+  }
+};
+
 export const uploadPhoto = async (
   endpoint: string,
   token: string,

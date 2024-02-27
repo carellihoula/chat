@@ -1,18 +1,30 @@
 import { FC } from "react";
 import styled from "styled-components";
 import IconProfilComponent from "../../components/IconProfilComponent";
-import IconStandard from "../../components/IconStandard";
-//import { FiMoreVertical } from "react-icons/fi";
 import profileImage from "../../assets/images/profileIcon.png";
-import { IoMdSettings } from "react-icons/io";
-import { MdOutlineMore } from "react-icons/md";
-import styles from "./LeftSideOfMain.module.css";
+import MenuItem, { MenuItemProps } from "./MenuItem";
+import { useMessages } from "../../contextAPI/MessagesContext";
+//import { listMenuItems } from "./listMenuItems";
 
 interface Props {
   ProfileClickHandler: React.MouseEventHandler<HTMLDivElement>;
+  hiddenProfile: () => void;
+  listMenuItems: MenuItemProps[];
 }
 
-const HeaderLeft: FC<Props> = ({ ProfileClickHandler }) => {
+const HeaderLeft: FC<Props> = ({
+  ProfileClickHandler,
+  listMenuItems,
+  hiddenProfile,
+}) => {
+  const { selectedMenuItem, setSelectedMenuItem } = useMessages();
+
+  const selectedMenuItemHandler = (item: MenuItemProps) => {
+    setSelectedMenuItem(item);
+    hiddenProfile();
+  };
+  console.log(selectedMenuItem);
+
   return (
     <NavLeftStyled>
       <IconDiv>
@@ -20,14 +32,20 @@ const HeaderLeft: FC<Props> = ({ ProfileClickHandler }) => {
           imageUrl={profileImage}
           ProfileClickHandler={ProfileClickHandler}
         />
-        <div className={styles.menu_item}>
-          <IconStandard size={24} Icon={IoMdSettings} color={"#FFF"} />
-          <span>Settings</span>
-        </div>
-        <div className={styles.menu_item}>
-          <IconStandard size={20} Icon={MdOutlineMore} color={"#FFF"} />
-          <span>More</span>
-        </div>
+        {listMenuItems.map((item, index) => {
+          return (
+            <MenuItem
+              key={index}
+              label={item.label}
+              icon={item.icon}
+              color={item.color}
+              handleClick={() => selectedMenuItemHandler(item)}
+            />
+          );
+        })}
+        {/*<MenuItem label={"Chat"} icon={MdOutlineChat} color={"#FFF"} />
+        <MenuItem label={"Friends"} icon={LiaUserFriendsSolid} color={"#FFF"} />
+      <MenuItem label={"Settings"} icon={IoMdSettings} color={"#FFF"} />*/}
       </IconDiv>
     </NavLeftStyled>
   );
