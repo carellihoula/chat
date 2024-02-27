@@ -1,9 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
 import { getAllUsers } from "../../api/API";
-import { User } from "../../contextAPI/UsersContextt";
+import { User, useUsers } from "../../contextAPI/UsersContextt";
 import { UserComponent } from "./UserComponent";
 import styles from "./users.module.css";
-import { useMessages } from "../../contextAPI/MessagesContext";
+import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
+//import { useMessages } from "../../contextAPI/MessagesContext";
 
 interface Props {
   hiddenProfile: React.MouseEventHandler<HTMLDivElement>;
@@ -11,8 +12,9 @@ interface Props {
 
 export const ListOfUsersComponent: FC<Props> = () => {
   const token = localStorage.getItem("token");
+  const { userSelected, setUserSelected } = useUsers();
   const [friends, setFriends] = useState<User[]>([]);
-  const { selectedMenuItem } = useMessages();
+  //const { selectedMenuItem } = useMessages();
   useEffect(() => {
     const getFriends = async () => {
       const res = await getAllUsers("/users", token);
@@ -22,15 +24,17 @@ export const ListOfUsersComponent: FC<Props> = () => {
     };
     getFriends();
   }, [token]);
+
+  const selectedUserHandleClick = (item: User) => {
+    setUserSelected(item);
+  };
+  console.log(userSelected);
+  const listFiltered = friends.filter(
+    (friend) => friend.id !== getIdCurrentUser(token as string)
+  );
   return (
-    <div
-      className={`${styles.list__users__div} ${
-        selectedMenuItem.label === "Friends"
-          ? styles.transform__0
-          : styles.transform__100
-      }`}
-    >
-      {friends?.map((user: User, index: number) => {
+    <div className={styles.list__users__div}>
+      {listFiltered?.map((user: User, index: number) => {
         return (
           <div key={index}>
             <UserComponent
@@ -39,6 +43,7 @@ export const ListOfUsersComponent: FC<Props> = () => {
               key={index}
               bg="#2f3136"
               isSelected={true}
+              handleClick={() => selectedUserHandleClick(user)}
             />
           </div>
         );

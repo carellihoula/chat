@@ -3,13 +3,20 @@ import styled from "styled-components";
 import IconStandard from "../../components/IconStandard";
 import { MdLocalPhone } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
+import styles from "./headerRight.module.css";
+import IconProfilComponent from "../../components/IconProfilComponent";
 //import profileImage from "../../assets/images/Ellipse4.png";
+import { useUsers } from "../../contextAPI/UsersContextt";
 
 const HeaderRight: FC = () => {
+  const { userSelected } = useUsers();
+
   return (
     <NavLeftStyled>
-      {/*<IconProfilComponent imageUrl={profileImage} />*/}
-
+      <div className={styles.user__selected}>
+        <IconProfilComponent imageUrl={userSelected?.profileImage} />
+        <div className={styles.name__user}>{userSelected?.name}</div>
+      </div>
       <IconDiv>
         <div className="phone_border">
           <IconStandard size={24} Icon={MdLocalPhone} color="#FFF" />
@@ -25,7 +32,7 @@ const HeaderRight: FC = () => {
 const NavLeftStyled = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 10px 20px;
   background: #36393f;
   width: 100%;

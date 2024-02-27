@@ -6,14 +6,14 @@ import { LiaEditSolid } from "react-icons/lia";
 interface MessageComponentProps {
   name: string;
   profil: string;
-  isSelected: boolean;
-  bg: string;
+  isSelected?: boolean;
+  bg?: string;
   handleClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 type StyledProps = {
-  bg: string;
-  isSelected: boolean;
+  bg?: string;
+  isSelected?: boolean;
 };
 
 export const UserComponent: React.FC<MessageComponentProps> = ({
@@ -24,7 +24,7 @@ export const UserComponent: React.FC<MessageComponentProps> = ({
   bg,
 }) => {
   return (
-    <UserMessageStyled onClick={handleClick} bg={bg} isSelected={isSelected}>
+    <UserStyled onClick={handleClick} bg={bg} isSelected={isSelected}>
       <div>
         <IconProfilComponent imageUrl={profil} />
       </div>
@@ -34,11 +34,11 @@ export const UserComponent: React.FC<MessageComponentProps> = ({
           <LiaEditSolid size={20} color="#FFF" />
         </div>
       </div>
-    </UserMessageStyled>
+    </UserStyled>
   );
 };
 
-const UserMessageStyled = styled.div<StyledProps>`
+const UserStyled = styled.div<StyledProps>`
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useChat } from "../../websocket/useChat";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
 import styles from "./ChatAreaRightBottom.module.css";
+import { useUsers } from "../../contextAPI/UsersContextt";
 /*interface Props {
   value: string;
   handleChange: React.ChangeEventHandler<HTMLTextAreaElement>;
@@ -21,7 +22,7 @@ const ChatAreaRightBottom = () => {
   //const token = JSON.stringify(localStorage.getItem("token"))
   const [value, setValue] = useState<string>("");
   const [textAreaHeight, setTextAreaHeight] = useState<string | number>("");
-
+  const { userSelected } = useUsers();
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextAreaHeight("auto");
     setMessage(e.target.value);
@@ -35,7 +36,7 @@ const ChatAreaRightBottom = () => {
   const sendMessageHandler = () => {
     sendMessage({
       senderId: userId,
-      recipientId: userId === 1 ? 3 : 1,
+      recipientId: userSelected?.id,
       content: message,
       timestamp: new Date(),
     });

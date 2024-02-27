@@ -5,6 +5,7 @@ import { findChatMessages } from "../api/apiChat";
 import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
 import { MenuItemProps } from "../pages/leftMenus/MenuItem";
 import { listMenuItems } from "../pages/leftMenus/listMenuItems";
+import { useUsers } from "./UsersContextt";
 
 interface MessagesContextType {
   messages: ChatMessage[];
@@ -40,9 +41,10 @@ export const MessagesProvider: React.FC<{ children: React.ReactNode }> = ({
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItemProps>(
     listMenuItems[0]
   );
+  const { userSelected } = useUsers(); //recuperer le User selectionné
 
   const senderId = getIdCurrentUser(token);
-  const recipientId = getIdCurrentUser(token) === 1 ? 3 : 1;
+  const recipientId = userSelected?.id;
   //faire la persistance grace aux messages recuperés depuis la database
   useEffect(() => {
     // historique de messages depuis la database

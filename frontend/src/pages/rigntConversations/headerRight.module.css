@@ -1,0 +1,9 @@
+.user__selected {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.name__user {
+  color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

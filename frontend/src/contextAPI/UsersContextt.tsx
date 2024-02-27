@@ -14,6 +14,8 @@ export interface User {
 interface UsersContextType {
   userInfo: User | null;
   setUserInfo: React.Dispatch<React.SetStateAction<User | null>>;
+  userSelected: User | null;
+  setUserSelected: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 const UsersContext = createContext<UsersContextType | undefined>(undefined);
@@ -22,9 +24,12 @@ export const UsersProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [userInfo, setUserInfo] = useState<User | null>(null);
+  const [userSelected, setUserSelected] = useState<User | null>(null);
 
   return (
-    <UsersContext.Provider value={{ userInfo, setUserInfo }}>
+    <UsersContext.Provider
+      value={{ userInfo, setUserInfo, userSelected, setUserSelected }}
+    >
       {children}
     </UsersContext.Provider>
   );

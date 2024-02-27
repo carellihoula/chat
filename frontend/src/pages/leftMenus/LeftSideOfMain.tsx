@@ -31,14 +31,6 @@ const LeftSideOfMain: FC = () => {
       profileImage:
         "https://storage.googleapis.com/netflixproject/assets/assets/profileIcon.png",
     },
-    {
-      username: "Luco Ntsoumou",
-      message: "comment vas tu ? ",
-      createdAt: new Date(),
-      unreadCount: 5,
-      profileImage:
-        "https://storage.googleapis.com/netflixproject/assets/assets/profileIcon.png",
-    },
   ]);
   const { selectedMenuItem } = useMessages();
   const [showProfile, setShowProfile] = useState<boolean>(false);

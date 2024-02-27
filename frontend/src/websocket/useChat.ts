@@ -6,7 +6,7 @@ import { useMessages } from "../contextAPI/MessagesContext";
 export interface ChatMessage {
   id?: number;
   senderId: number;
-  recipientId: number;
+  recipientId?: number;
   content: string;
   timestamp: Date;
 }
@@ -46,7 +46,7 @@ export const useChat = (userId: string) => {
         },
         (onError) => {
           console.log("il y a une erreur + " + onError);
-          setTimeout(connect, 1000); // Reconnexion après 1 secondes
+          setTimeout(connect, 200); // Reconnexion après 1 secondes
         }
       );
     };
