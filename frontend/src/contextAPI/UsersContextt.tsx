@@ -45,7 +45,7 @@ export const UsersProvider: React.FC<{ children: ReactNode }> = ({
       }
     };
     getFriends();
-  }, []);
+  }, [token]);
 
   /*useEffect(() => {
     if (usersList.length > 0) {

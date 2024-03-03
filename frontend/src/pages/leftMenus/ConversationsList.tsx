@@ -4,6 +4,7 @@ import { getSpecificUser } from "../../../utils/getSpecificUserFromListUser";
 import { User, useUsers } from "../../contextAPI/UsersContextt";
 import UserMessage from "./UserMessage";
 import { ChatMessage } from "../../websocket/useChat";
+import styles from "./LeftSideOfMain.module.css";
 
 export const ConversationsList = () => {
   const { msgByCurrentUser } = useMessages();
@@ -31,7 +32,7 @@ export const ConversationsList = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container__conversations}>
       {filteredConversations.map((message) => {
         const timer = new Date(message.timestamp).toLocaleTimeString([], {
           hour: "2-digit",

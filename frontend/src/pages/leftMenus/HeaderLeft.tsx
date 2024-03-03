@@ -40,13 +40,11 @@ const HeaderLeft: FC<Props> = ({
               label={item.label}
               icon={item.icon}
               color={item.color}
+              bg={item.label === selectedMenuItem.label}
               handleClick={() => selectedMenuItemHandler(item)}
             />
           );
         })}
-        {/*<MenuItem label={"Chat"} icon={MdOutlineChat} color={"#FFF"} />
-        <MenuItem label={"Friends"} icon={LiaUserFriendsSolid} color={"#FFF"} />
-      <MenuItem label={"Settings"} icon={IoMdSettings} color={"#FFF"} />*/}
       </IconDiv>
     </NavLeftStyled>
   );
