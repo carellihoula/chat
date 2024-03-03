@@ -11,6 +11,7 @@ import styles from "./LeftSideOfMain.module.css";
 import { listMenuItems } from "./listMenuItems";
 import { ListOfUsersComponent } from "../friends/ListOfUsersComponent";
 import { useMessages } from "../../contextAPI/MessagesContext";
+import { ConversationsList } from "./ConversationsList";
 
 interface User {
   username: string;
@@ -68,34 +69,9 @@ const LeftSideOfMain: FC = () => {
           <SearchBarComponent value={value} handleChange={handleChange} />
           <IconStandard size={24} Icon={IoFilterSharp} color={"#FFF"} />
         </SearchAndFilterComponent>
+
         {selectedMenuItem.label === "Chat" ? (
-          <MessageOverview>
-            {usersMessages?.map((user: User, index: number) => {
-              const timer: string = user.createdAt.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              });
-              return (
-                <>
-                  {/** differente conersation  */}
-                  <UserMessage
-                    name={user.username}
-                    unreadNumber={user.unreadCount}
-                    message={user.message}
-                    profil={user.profileImage}
-                    isSelected={selectedItem === user}
-                    bg={selectedItem === user ? "#454950" : ""}
-                    time={timer}
-                    key={index}
-                    handleClick={() => ElementSelected(user)}
-                  />
-                  {/*index !== usersMessages.length - 1 && (
-                    <DividerComponent justifyBorder="right" />
-                  )*/}
-                </>
-              );
-            })}
-          </MessageOverview>
+          <ConversationsList />
         ) : selectedMenuItem.label === "Friends" ? (
           <ListOfUsersComponent hiddenProfile={hiddenProfile} />
         ) : (

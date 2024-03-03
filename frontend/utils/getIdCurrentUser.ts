@@ -9,7 +9,10 @@ interface DecodedToken {
 
 //const token = localStorage.getItem("token");
 
-export const getIdCurrentUser = (token: string): number => {
+export const getIdCurrentUser = (token: string | null): number | null => {
+  if (token == null) {
+    return null;
+  }
   const decoded: DecodedToken = jwtDecode<DecodedToken>(token);
   return decoded.userId;
 };

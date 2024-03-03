@@ -56,7 +56,8 @@ const UserMessageStyled = styled.div<StyledProps>`
   width: 90%;
   gap: 5px;
   border-radius: 14px;
-  background-color: ${(props) => props.bg};
+  background-color: ${(props) =>
+    props.isSelected ? "#454950" : "transparent"};
   //margin-bottom: 10px;
   margin-top: 10px;
   user-select: none;

@@ -6,6 +6,7 @@ import MessageComponent from "../../components/MessageComponent";
 import { useMessages } from "../../contextAPI/MessagesContext";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
 import { ChatMessage } from "../../websocket/useChat";
+import { useUsers } from "../../contextAPI/UsersContextt";
 //import "../../output.css";
 
 interface ConversationAreaProps {
@@ -14,6 +15,7 @@ interface ConversationAreaProps {
 
 const RightSideOfMain: FC = () => {
   const { messages } = useMessages();
+  const { userSelected } = useUsers();
   console.log(messages);
   const conversationRef = useRef<HTMLDivElement>(null);
   const token = JSON.stringify(localStorage.getItem("token"));
@@ -24,11 +26,19 @@ const RightSideOfMain: FC = () => {
     }
   }, [messages]);
 
+  const messagesFiltered = messages.filter((msg) => {
+    const currentUserId = getIdCurrentUser(token);
+    return (
+      (msg.senderId === currentUserId &&
+        msg.recipientId === userSelected?.id) ||
+      (msg.senderId === userSelected?.id && msg.recipientId === currentUserId)
+    );
+  });
   return (
     <RightSideOfMainStyle>
       <HeaderRight />
       <ConversationArea ref={conversationRef}>
-        {messages.map((msg: ChatMessage, index) => {
+        {messagesFiltered.map((msg: ChatMessage, index) => {
           console.log(msg);
           const timer = new Date(msg.timestamp).toLocaleTimeString([], {
             hour: "2-digit",

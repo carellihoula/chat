@@ -4,6 +4,8 @@ import { User, useUsers } from "../../contextAPI/UsersContextt";
 import { UserComponent } from "./UserComponent";
 import styles from "./users.module.css";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
+import { listMenuItems } from "../leftMenus/listMenuItems";
+import { useMessages } from "../../contextAPI/MessagesContext";
 //import { useMessages } from "../../contextAPI/MessagesContext";
 
 interface Props {
@@ -12,14 +14,15 @@ interface Props {
 
 export const ListOfUsersComponent: FC<Props> = () => {
   const token = localStorage.getItem("token");
-  const { userSelected, setUserSelected } = useUsers();
+  const { userSelected, setUserSelected, setUsersList } = useUsers();
   const [friends, setFriends] = useState<User[]>([]);
-  //const { selectedMenuItem } = useMessages();
+  const { setSelectedMenuItem } = useMessages();
   useEffect(() => {
     const getFriends = async () => {
       const res = await getAllUsers("/users", token);
       if (res) {
         setFriends(res);
+        setUsersList(res);
       }
     };
     getFriends();
@@ -27,6 +30,7 @@ export const ListOfUsersComponent: FC<Props> = () => {
 
   const selectedUserHandleClick = (item: User) => {
     setUserSelected(item);
+    setSelectedMenuItem(listMenuItems[0]);
   };
   console.log(userSelected);
   const listFiltered = friends.filter(

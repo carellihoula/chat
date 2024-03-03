@@ -5,6 +5,7 @@ import { useMessages } from "../contextAPI/MessagesContext";
 
 export interface ChatMessage {
   id?: number;
+  chatId?: string;
   senderId: number;
   recipientId?: number;
   content: string;
@@ -18,6 +19,11 @@ export const useChat = (userId: string) => {
   const [stompClient, setStompClient] = useState<Client | null>(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("user not logged in");
+      return;
+    }
     const sockjs = new SockJS("http://localhost:8080/ws");
     const stomp = Stomp.over(sockjs);
 

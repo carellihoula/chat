@@ -1,9 +1,10 @@
 import { FC } from "react";
 import styled from "styled-components";
 import IconProfilComponent from "../../components/IconProfilComponent";
-import profileImage from "../../assets/images/profileIcon.png";
+//import profileImage from "../../assets/images/profileIcon.png";
 import MenuItem, { MenuItemProps } from "./MenuItem";
 import { useMessages } from "../../contextAPI/MessagesContext";
+import { useUsers } from "../../contextAPI/UsersContextt";
 //import { listMenuItems } from "./listMenuItems";
 
 interface Props {
@@ -18,7 +19,7 @@ const HeaderLeft: FC<Props> = ({
   hiddenProfile,
 }) => {
   const { selectedMenuItem, setSelectedMenuItem } = useMessages();
-
+  const { userInfo } = useUsers();
   const selectedMenuItemHandler = (item: MenuItemProps) => {
     setSelectedMenuItem(item);
     hiddenProfile();
@@ -29,7 +30,7 @@ const HeaderLeft: FC<Props> = ({
     <NavLeftStyled>
       <IconDiv>
         <IconProfilComponent
-          imageUrl={profileImage}
+          imageUrl={userInfo?.profileImage}
           ProfileClickHandler={ProfileClickHandler}
         />
         {listMenuItems.map((item, index) => {
