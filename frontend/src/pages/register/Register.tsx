@@ -9,27 +9,30 @@ import { MdAlternateEmail } from "react-icons/md";
 import ButtonAuth2Component from "../../components/ButtonAuth2Component";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookSquare } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-//import { registerUser } from "../../redux/loginAndRegister/status.action";
 import { postData } from "../../api/API";
+import {
+  validateEmail,
+  validatePasswordComplexity,
+} from "../../validators/validators";
 
 export type UserInfos = {
   email: string;
   password: string;
-  nom: string; // Champ pour le nom d'utilisateur
-  // Champ pour la confirmation du mot de passe
+  username: string; // Champ pour le nom d'utilisateur
 };
 
 const Register: FC = () => {
-  const token = useSelector((state: RootState) => state.islogged.token);
+  const token = localStorage.getItem("token");
+  const [errorEmail, setErrorEmail] = useState<string>("");
+  const [errorPasswordComplexity, setErrorPasswordComplexity] =
+    useState<string>("");
 
-  const dispatch = useDispatch<AppDispatch>();
+  //const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [userInfos, setUserInfos] = useState<UserInfos>({
-    nom: "",
-    email: "",
     password: "",
+    email: "",
+    username: "",
   });
 
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -50,19 +53,27 @@ const Register: FC = () => {
       setErrorPassword("Passwords do not match.");
       return;
     }
+    if (!validatePasswordComplexity(userInfos.password)) {
+      setErrorPasswordComplexity(
+        "Password must be at least 8 characters long and include uppercase letters, numbers, and symbols."
+      );
+      return;
+    }
+    if (!validateEmail(userInfos.email)) {
+      setErrorEmail("Invalid email format.");
+      return;
+    }
 
-    // Reste de la logique de soumission
-    //dispatch(registerUser(userInfos));
     try {
-      const result = await postData("/inscription", userInfos);
-      console.log("Données envoyées avec succès :", result);
+      await postData("/auth/register", userInfos);
+      //console.log("Données envoyées avec succès :", result);
       navigate("/login");
     } catch (error) {
       console.error("Erreur lors de l'envoi des données", error);
     }
 
     setUserInfos({
-      nom: "",
+      username: "",
       email: "",
       password: "",
     });
@@ -73,7 +84,7 @@ const Register: FC = () => {
     if (token) {
       navigate("/login"); // Redirection vers la page principale
     }
-  }, [token, navigate, dispatch]);
+  }, [token, navigate]);
 
   //console.log(localStorage.getItem("token"));
   return (
@@ -86,9 +97,9 @@ const Register: FC = () => {
             type="text"
             placeholder="Username"
             icon={FiUser}
-            value={userInfos.nom}
+            value={userInfos.username}
             onChange={handleChange}
-            name="nom"
+            name="username"
           />
           <InputField
             type="email"
@@ -116,7 +127,7 @@ const Register: FC = () => {
           />
 
           <SubmitButtonLoginRegister label="Sign Up" />
-          <small style={{ color: "red" }}>{errorPassword}</small>
+
           <small>
             Already have an account ?
             <Link to="/login">
@@ -124,6 +135,20 @@ const Register: FC = () => {
             </Link>
           </small>
         </form>
+
+        <small className="error__message" style={{ color: "red" }}>
+          {errorPassword}
+        </small>
+        {errorPasswordComplexity && (
+          <small className="error__message" style={{ color: "red" }}>
+            {errorPasswordComplexity}
+          </small>
+        )}
+        {errorEmail && (
+          <small className="error__message" style={{ color: "red" }}>
+            {errorEmail}
+          </small>
+        )}
 
         <h3>Continue with Others</h3>
         <Auth2Button>
@@ -167,19 +192,26 @@ const RegisterStyled = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 40px;
+    width: 500px;
+    padding: 10px 0;
+    box-sizing: content-box;
     background: #36393f;
     border-radius: 15px;
     gap: 10px;
   }
   small {
     color: #fff;
+    text-align: center;
+    //max-width: 100%;
     font-family: "Poppins";
     font-size: 0.8rem;
     font-style: normal;
     line-height: normal;
-    margin-top: 10px;
+    margin-top: 5px;
     text-align: center;
+  }
+  .error__message {
+    width: 100%;
   }
   .sign__up {
     color: #0588f0;

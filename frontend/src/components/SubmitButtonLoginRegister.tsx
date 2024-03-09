@@ -20,10 +20,10 @@ const ButtonStyled = styled.button`
   align-self: center;
   align-items: center;
   justify-content: center;
-  border-radius: 16px;
-  background: #7289da;
+  border-radius: 10px;
+  background: #5865f2;
   box-shadow: 0px 8px 21px 0px rgba(0, 0, 0, 0.16);
-  width: 124px;
+  width: 100%;
   height: 52px;
   flex-shrink: 0;
   border-style: none;

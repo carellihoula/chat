@@ -29,7 +29,15 @@ const UserMessage: React.FC<MessageComponentProps> = ({
   bg,
 }) => {
   return (
-    <UserMessageStyled onClick={handleClick} bg={bg} isSelected={isSelected}>
+    <UserMessageStyled
+      onClick={handleClick}
+      bg={bg}
+      isSelected={isSelected}
+      onContextMenu={(event) => {
+        event.preventDefault();
+        alert("salut");
+      }}
+    >
       <UserPhotoAndMessage>
         <div>
           <IconProfilComponent imageUrl={profil} />

@@ -5,7 +5,7 @@ import { MdLocalPhone } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
 import styles from "./headerRight.module.css";
 import IconProfilComponent from "../../components/IconProfilComponent";
-//import profileImage from "../../assets/images/Ellipse4.png";
+//import default__img from "../../assets/images/default__image.jpg";
 import { useUsers } from "../../contextAPI/UsersContextt";
 
 const HeaderRight: FC = () => {

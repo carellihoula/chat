@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import IconProfilComponent from "../../components/IconProfilComponent";
-//import profileImage from "../../assets/images/profileIcon.png";
+import default__img from "../../assets/images/default__image.jpg";
 import MenuItem, { MenuItemProps } from "./MenuItem";
 import { useMessages } from "../../contextAPI/MessagesContext";
 import { useUsers } from "../../contextAPI/UsersContextt";
@@ -30,7 +30,7 @@ const HeaderLeft: FC<Props> = ({
     <NavLeftStyled>
       <IconDiv>
         <IconProfilComponent
-          imageUrl={userInfo?.profileImage}
+          imageUrl={userInfo?.profileImage || default__img}
           ProfileClickHandler={ProfileClickHandler}
         />
         {listMenuItems.map((item, index) => {

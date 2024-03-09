@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #2f3136;
+}
+.form__container {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 500px;
+  border-radius: 10px;
+  background-color: #36393f;
+  padding: 100px;
+  position: relative;
+}
+.response {
+  position: absolute;
+  top: 10%; /* Positionnez juste en dessous du formulaire */
+  left: 50%; /* Commence au milieu */
+  font-size: 1rem;
+  transform: translateX(-50%);
+  margin-top: 5px;
+  text-align: center;
+}
+.response__error {
+  color: rgb(234, 10, 10);
+}
+.response__success {
+  color: green;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
+}
+.input__container {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+.button__send {
+  color: #fff;
+  border-radius: 5px;
+  font-family: "Work Sans";
+  padding: 10px;
+  font-weight: 600;
+  text-align: center;
+  background-color: #5865f2;
+}
+.button__send:hover {
+  filter: brightness(80%);
+}
+.label__code {
+  color: #fff;
+  font-weight: 400;
+}
+.input {
+  height: 40px;
+  outline: none;
+  width: 100%;
+  border-radius: 5px;
+  padding-left: 5px;
+  font-family: "Work Sans";
+}
+.account__verif {
+  color: #fff;
+  font-weight: 600;
+  font-family: "Work Sans";
+  text-align: center;
+  font-size: 1.2rem;
+}

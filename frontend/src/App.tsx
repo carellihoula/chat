@@ -13,6 +13,7 @@ import PublicRoutes from "./components/PublicRoutes";
 import { useEffect } from "react";
 import { getTokenExpirationDate } from "../utils/getTokenExpirationDate";
 import { refreshToken } from "./api/API";
+import ActivateAccount from "./pages/activate-account/ActivateAccount";
 
 function App() {
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ function App() {
           <Route path="/" element={<Navigate to="/register" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/activate" element={<ActivateAccount />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/main" element={<Main />} />

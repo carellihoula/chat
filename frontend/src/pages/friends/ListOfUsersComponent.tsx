@@ -6,6 +6,7 @@ import styles from "./users.module.css";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
 import { listMenuItems } from "../leftMenus/listMenuItems";
 import { useMessages } from "../../contextAPI/MessagesContext";
+import default__img from "../../assets/images/default__image.jpg";
 //import { useMessages } from "../../contextAPI/MessagesContext";
 
 interface Props {
@@ -26,7 +27,7 @@ export const ListOfUsersComponent: FC<Props> = () => {
       }
     };
     getFriends();
-  }, [token]);
+  }, [setUsersList, token]);
 
   const selectedUserHandleClick = (item: User) => {
     setUserSelected(item);
@@ -43,7 +44,7 @@ export const ListOfUsersComponent: FC<Props> = () => {
           <div key={index}>
             <UserComponent
               name={user.name}
-              profil={user.profileImage}
+              profil={user.profileImage || default__img}
               key={index}
               bg="#2f3136"
               isSelected={true}

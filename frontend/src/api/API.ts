@@ -21,6 +21,15 @@ export const loginUser = async (endpoint: string, data: Partial<UserInfos>) => {
     throw error;
   }
 };
+export const validAccount = async (endpoint: string, code: string) => {
+  try {
+    const response = await axiosInstance.post(endpoint, { code });
+    return response.data;
+  } catch (error) {
+    console.log("Une erreur s'est produite lors de la validation du compte.");
+    throw error;
+  }
+};
 
 export const getData = async (endpoint: string) => {
   try {
@@ -53,7 +62,7 @@ export const getUserInfo = async (endpoint: string, token: string | null) => {
 export const getAllUsers = async (
   endpoint: string,
   token: string | null
-): Promise<User[] | null> => {
+): Promise<User[] | null | undefined> => {
   try {
     const response = await axiosInstance.get<User[] | null>(endpoint, {
       headers: {
