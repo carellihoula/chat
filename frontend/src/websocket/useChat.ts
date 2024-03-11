@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import Stomp, { Client } from "stompjs";
 import SockJS from "sockjs-client";
 import { useMessages } from "../contextAPI/MessagesContext";
+//import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
 
 export interface ChatMessage {
   id?: number;
   chatId?: string;
-  senderId: number;
+  senderId: number | null;
   recipientId?: number;
   content: string;
+  //read: boolean;
   timestamp: Date;
 }
 
-export const useChat = (userId: string) => {
+export const useChat = (userId: number | null) => {
   //const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const { setMessages } = useMessages();
@@ -34,7 +36,16 @@ export const useChat = (userId: string) => {
         () => {
           console.log("you're connected ");
           setStompClient(stomp);
-
+          /*stomp.send(
+            "/app/chat/history",
+            {},
+            JSON.stringify({ userId: getIdCurrentUser(token) })
+          );
+          stomp.subscribe(`/user/queue/history`, (message) => {
+            const historyMessages: ChatMessage[] = JSON.parse(message.body);
+            setMessages(historyMessages); // Mettre à jour l'état avec l'historique des messages
+            console.log("History messages received:", historyMessages);
+          });*/
           //souscrire
           stomp.subscribe(`/user/${userId}/queue/messages`, (message) => {
             console.log("msg from server : " + message);

@@ -6,6 +6,8 @@ import React, {
   useEffect,
 } from "react";
 import { getAllUsers } from "../api/API";
+import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
+//import { useMessages } from "./MessagesContext";
 //import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
 
 export interface User {
@@ -13,6 +15,7 @@ export interface User {
   email: string;
   profileImage: string;
   name: string;
+  username: string;
   status: string | null;
   active: boolean;
   password: string;
@@ -33,7 +36,9 @@ const UsersContext = createContext<UsersContextType | undefined>(undefined);
 export const UsersProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  //const { msgByCurrentUser, setMsgByCurrentUser } = useMessages();
   const token = localStorage.getItem("token");
+
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [usersList, setUsersList] = useState<User[]>([]);
   const [userSelected, setUserSelected] = useState<User | null>(null);
@@ -47,16 +52,16 @@ export const UsersProvider: React.FC<{ children: ReactNode }> = ({
     getFriends();
   }, [token]);
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (usersList.length > 0) {
-      const currentUserID = getIdCurrentUser(token as string);
+      const currentUserID = getIdCurrentUser(token);
       const defaultUser =
         usersList.find((user) => user.id !== currentUserID) || usersList[0];
       setUserSelected(defaultUser);
     }
   }, [usersList, token]);
 
-  console.log(usersList);*/
+  console.log(usersList);
 
   return (
     <UsersContext.Provider

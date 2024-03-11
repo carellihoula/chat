@@ -16,8 +16,8 @@ import { useUsers } from "../../contextAPI/UsersContextt";
 
 const ChatAreaRightBottom = () => {
   const token = localStorage.getItem("token");
-  const userId = getIdCurrentUser(token as string);
-  const { sendMessage } = useChat(userId.toString());
+  const userId = getIdCurrentUser(token);
+  const { sendMessage } = useChat(userId);
   const [message, setMessage] = useState<string>("");
   //const token = JSON.stringify(localStorage.getItem("token"))
   const [value, setValue] = useState<string>("");
@@ -38,6 +38,7 @@ const ChatAreaRightBottom = () => {
       senderId: userId,
       recipientId: userSelected?.id,
       content: message,
+      //read: false,
       timestamp: new Date(),
     });
     setMessage("");

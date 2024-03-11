@@ -5,7 +5,7 @@ import { MdLocalPhone } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
 import styles from "./headerRight.module.css";
 import IconProfilComponent from "../../components/IconProfilComponent";
-//import default__img from "../../assets/images/default__image.jpg";
+import default__img from "../../assets/images/default__image.jpg";
 import { useUsers } from "../../contextAPI/UsersContextt";
 
 const HeaderRight: FC = () => {
@@ -14,7 +14,9 @@ const HeaderRight: FC = () => {
   return (
     <NavLeftStyled>
       <div className={styles.user__selected}>
-        <IconProfilComponent imageUrl={userSelected?.profileImage} />
+        <IconProfilComponent
+          imageUrl={userSelected?.profileImage || default__img}
+        />
         <div className={styles.name__user}>{userSelected?.name}</div>
       </div>
       <IconDiv>

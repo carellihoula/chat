@@ -76,7 +76,7 @@ export const MessagesProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     };
     fetchMessagesByUser();
-  }, [token]);
+  }, [token, messages]);
 
   return (
     <MessagesContext.Provider
