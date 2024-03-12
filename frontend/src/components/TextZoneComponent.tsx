@@ -43,6 +43,7 @@ const TextZoneComponent: FC<ComponentProps> = ({
         onChange={handleChange}
         style={textAreaStyles}
         onInput={handleResizeHeight}
+        autoFocus
       />
     </TextZoneComponentStyled>
   );

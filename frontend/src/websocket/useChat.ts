@@ -10,8 +10,14 @@ export interface ChatMessage {
   senderId: number | null;
   recipientId?: number;
   content: string;
-  //read: boolean;
+  isRead?: boolean;
   timestamp: Date;
+}
+export interface Conversation {
+  chatId: string;
+  messages: ChatMessage[];
+  unreadCount: number;
+  lastMessage: ChatMessage;
 }
 
 export const useChat = (userId: number | null) => {

@@ -38,7 +38,7 @@ const ChatAreaRightBottom = () => {
       senderId: userId,
       recipientId: userSelected?.id,
       content: message,
-      //read: false,
+      isRead: false,
       timestamp: new Date(),
     });
     setMessage("");

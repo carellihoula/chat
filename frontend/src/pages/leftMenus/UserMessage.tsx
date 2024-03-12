@@ -50,7 +50,7 @@ const UserMessage: React.FC<MessageComponentProps> = ({
 
       <div className="time-and-messages-unread">
         <small>{time}</small>
-        <p>{unreadNumber}</p>
+        {unreadNumber > 0 && <p>{unreadNumber}</p>}
       </div>
     </UserMessageStyled>
   );
@@ -99,7 +99,9 @@ const UserMessageStyled = styled.div<StyledProps>`
   }
   .time-and-messages-unread {
     display: flex;
+    height: 100%;
     flex-direction: column;
+    justify-content: center;
     align-self: flex-end;
     gap: 10px;
   }

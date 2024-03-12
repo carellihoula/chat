@@ -17,7 +17,7 @@ export const ListOfUsersComponent: FC<Props> = () => {
   const token = localStorage.getItem("token");
   const { userSelected, setUserSelected, setUsersList } = useUsers();
   const [friends, setFriends] = useState<User[]>([]);
-  const { setSelectedMenuItem } = useMessages();
+  const { selectedMenuItem, setSelectedMenuItem } = useMessages();
   useEffect(() => {
     const getFriends = async () => {
       const res = await getAllUsers("/users", token);
@@ -27,7 +27,7 @@ export const ListOfUsersComponent: FC<Props> = () => {
       }
     };
     getFriends();
-  }, [setUsersList, token]);
+  }, [token, selectedMenuItem, setUsersList]);
 
   const selectedUserHandleClick = (item: User) => {
     setUserSelected(item);
