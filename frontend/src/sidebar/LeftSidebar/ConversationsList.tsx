@@ -2,10 +2,10 @@ import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
 import { useMessages } from "../../contextAPI/MessagesContext";
 import { getSpecificUser } from "../../../utils/getSpecificUserFromListUser";
 import { User, useUsers } from "../../contextAPI/UsersContextt";
-import UserMessage from "./UserMessage";
+import UserMessage from "./ConversationItem.tsx";
 import { ChatMessage, Conversation } from "../../websocket/useChat";
 //import FlipMove from "react-flip-move";
-import styles from "./LeftSideOfMain.module.css";
+import styles from "./LeftSidebar.module.css";
 import { useEffect, useState } from "react";
 import default_img from "../../assets/images/default__image.jpg";
 
@@ -59,21 +59,6 @@ export const ConversationsList = () => {
 
   const selectUser = (user: User) => {
     setUserSelected(user);
-    /**
-    // Met à jour le nombre de messages non lus pour la conversation sélectionnée avec cet utilisateur
-    const updatedConversations = sortedConversations.map((conversation) => {
-      // Identifier la conversation à partir de l'ID de l'autre utilisateur dans la conversation
-      const otherUserId =
-        conversation.lastMessage.senderId === getIdCurrentUser(token)
-          ? conversation.lastMessage.recipientId
-          : conversation.lastMessage.senderId;
-      if (otherUserId === user.id) {
-        // Si l'utilisateur sélectionné correspond à l'autre utilisateur dans la conversation, réinitialiser le compteur
-        return { ...conversation, unreadCount: 0 };
-      }
-      return conversation;
-    });
-    setSortedConversations(updatedConversations); */
   };
 
   return (

@@ -9,7 +9,7 @@ type MessageContentProps = {
   sender: boolean;
 };
 
-const MessageComponent: React.FC<Props> = ({ isSender, message, time }) => {
+const MessageItem: React.FC<Props> = ({ isSender, message, time }) => {
   return (
     <MessageContent sender={isSender}>
       <p>{message}</p>
@@ -50,4 +50,4 @@ const MessageContent = styled.div<MessageContentProps>`
   }
 `;
 
-export default MessageComponent;
+export default MessageItem;

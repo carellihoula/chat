@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import IconProfilComponent from "../../components/IconProfilComponent";
+import { Avatar } from "../../components/Avatar.tsx";
 import { LiaEditSolid } from "react-icons/lia";
 
 interface MessageComponentProps {
@@ -26,7 +26,7 @@ export const UserComponent: React.FC<MessageComponentProps> = ({
   return (
     <UserStyled onClick={handleClick} bg={bg} isSelected={isSelected}>
       <div>
-        <IconProfilComponent imageUrl={profil} />
+        <Avatar imageUrl={profil} />
       </div>
       <div className="name-message-author">
         <div>{name}</div>

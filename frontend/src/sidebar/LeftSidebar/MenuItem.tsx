@@ -1,6 +1,6 @@
 import { FC } from "react";
 import IconStandard from "../../components/IconStandard";
-import styles from "./LeftSideOfMain.module.css";
+import styles from "./LeftSidebar.module.css";
 import { IconType } from "react-icons";
 export interface MenuItemProps {
   label: string;

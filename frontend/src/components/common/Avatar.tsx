@@ -6,14 +6,14 @@ type Props = {
   ProfileClickHandler?: React.MouseEventHandler<HTMLDivElement>; //() => void
 };
 
-const IconProfilComponent: FC<Props> = ({ imageUrl, ProfileClickHandler }) => {
+export const Avatar: FC<Props> = ({ imageUrl, ProfileClickHandler }) => {
   return (
-    <IconProfilComponentStyled onClick={ProfileClickHandler}>
+    <AvatarStyled onClick={ProfileClickHandler}>
       <img src={imageUrl} alt="profile" />
-    </IconProfilComponentStyled>
+    </AvatarStyled>
   );
 };
-const IconProfilComponentStyled = styled.div`
+const AvatarStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,4 +28,4 @@ const IconProfilComponentStyled = styled.div`
   }
 `;
 
-export default IconProfilComponent;
+//export default Avatar;

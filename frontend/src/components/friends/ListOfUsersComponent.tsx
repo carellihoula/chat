@@ -4,7 +4,7 @@ import { User, useUsers } from "../../contextAPI/UsersContextt";
 import { UserComponent } from "./UserComponent";
 import styles from "./users.module.css";
 import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
-import { listMenuItems } from "../leftMenus/listMenuItems";
+import { listMenuItems } from "../../sidebar/LeftSidebar/listMenuItems";
 import { useMessages } from "../../contextAPI/MessagesContext";
 import default__img from "../../assets/images/default__image.jpg";
 //import { useMessages } from "../../contextAPI/MessagesContext";

@@ -18,7 +18,7 @@ interface MessageComponentProps {
   //showDeleteOptions: boolean;
 }
 
-type PropsOptionsStyled = {
+type optionPosition = {
   x: number;
   y: number;
 };
@@ -28,7 +28,7 @@ type StyledProps = {
   isSelected: boolean;
 };
 
-const UserMessage: React.FC<MessageComponentProps> = ({
+const ConversationItem: React.FC<MessageComponentProps> = ({
   name,
   message,
   unreadNumber,
@@ -63,8 +63,8 @@ const UserMessage: React.FC<MessageComponentProps> = ({
   }, []);
 
   return (
-    <Container>
-      <UserMessageStyled
+    <Wrapper>
+      <ConversationContainer
         onClick={handleClick}
         bg={bg}
         isSelected={isSelected}
@@ -89,7 +89,7 @@ const UserMessage: React.FC<MessageComponentProps> = ({
           <ShowOptions x={clickPosition.x} y={clickPosition.y}>
             <div onClick={handleDeleteConv} className="options">
               <MdOutlineMarkEmailUnread size={20} color="#FFF" />
-              <div>Mark as read</div>
+              <div>Mark as unread</div>
             </div>
             <div onClick={handleDeleteConv} className="options">
               <MdDeleteOutline size={20} color="#FFF" />
@@ -105,19 +105,19 @@ const UserMessage: React.FC<MessageComponentProps> = ({
             </div>
           </ShowOptions>
         )}
-      </UserMessageStyled>
-    </Container>
+      </ConversationContainer>
+    </Wrapper>
   );
 };
 
-const Container = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
 `;
 
-const UserMessageStyled = styled.div<StyledProps>`
+const ConversationContainer = styled.div<StyledProps>`
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;
@@ -197,7 +197,7 @@ const UserPhotoAndMessage = styled.div`
   gap: 10px;
 `;
 
-const ShowOptions = styled.div<PropsOptionsStyled>`
+const ShowOptions = styled.div<optionPosition>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -226,4 +226,4 @@ const ShowOptions = styled.div<PropsOptionsStyled>`
   }
 `;
 
-export default UserMessage;
+export default ConversationItem;
