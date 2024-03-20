@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import IconProfilComponent from "../../components/IconProfilComponent";
+import { MdDeleteOutline } from "react-icons/md";
+import { MdOutlineMarkEmailUnread } from "react-icons/md";
+import { LuArchive } from "react-icons/lu";
+import { AiOutlineClear } from "react-icons/ai";
 
 interface MessageComponentProps {
   name: string;
@@ -11,7 +15,13 @@ interface MessageComponentProps {
   isSelected: boolean;
   bg: string;
   handleClick?: React.MouseEventHandler<HTMLDivElement>;
+  //showDeleteOptions: boolean;
 }
+
+type PropsOptionsStyled = {
+  x: number;
+  y: number;
+};
 
 type StyledProps = {
   bg: string;
@@ -28,33 +38,84 @@ const UserMessage: React.FC<MessageComponentProps> = ({
   isSelected,
   bg,
 }) => {
-  return (
-    <UserMessageStyled
-      onClick={handleClick}
-      bg={bg}
-      isSelected={isSelected}
-      onContextMenu={(event) => {
-        event.preventDefault();
-        alert("salut");
-      }}
-    >
-      <UserPhotoAndMessage>
-        <div>
-          <IconProfilComponent imageUrl={profil} />
-        </div>
-        <div className="name-message-author">
-          <p className="name">{name}</p>
-          <p className="message">{message}</p>
-        </div>
-      </UserPhotoAndMessage>
+  const [showDeleteOptions, setShowDeleteOptions] = useState(false);
+  const convRef = useRef<HTMLDivElement>(null);
+  //const optionsRef = useRef<HTMLDivElement>(null);
+  const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
+  const handleDeleteConv = () => {};
 
-      <div className="time-and-messages-unread">
-        <small>{time}</small>
-        {unreadNumber > 0 && <p>{unreadNumber}</p>}
-      </div>
-    </UserMessageStyled>
+  //comportements
+  const handleClickRight = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setClickPosition({ x: e.clientX, y: e.clientY });
+    setShowDeleteOptions(true);
+  };
+  useEffect(() => {
+    // Function to detect click outside of component
+    const handleClickOutside = (e: MouseEvent) => {
+      if (convRef.current && !convRef.current.contains(e.target as Node)) {
+        setShowDeleteOptions(false);
+      }
+    };
+
+    addEventListener("mousedown", handleClickOutside);
+    return () => removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <Container>
+      <UserMessageStyled
+        onClick={handleClick}
+        bg={bg}
+        isSelected={isSelected}
+        onContextMenu={handleClickRight}
+        ref={convRef}
+      >
+        <UserPhotoAndMessage>
+          <div>
+            <IconProfilComponent imageUrl={profil} />
+          </div>
+          <div className="name-message-author">
+            <p className="name">{name}</p>
+            <p className="message">{message}</p>
+          </div>
+        </UserPhotoAndMessage>
+
+        <div className="time-and-messages-unread">
+          <small>{time}</small>
+          {unreadNumber > 0 && <p>{unreadNumber}</p>}
+        </div>
+        {showDeleteOptions && (
+          <ShowOptions x={clickPosition.x} y={clickPosition.y}>
+            <div onClick={handleDeleteConv} className="options">
+              <MdOutlineMarkEmailUnread size={20} color="#FFF" />
+              <div>Mark as read</div>
+            </div>
+            <div onClick={handleDeleteConv} className="options">
+              <MdDeleteOutline size={20} color="#FFF" />
+              <div>Delete</div>
+            </div>
+            <div onClick={handleDeleteConv} className="options">
+              <AiOutlineClear size={20} color="#FFF" />
+              <div>Clear all messages</div>
+            </div>
+            <div onClick={handleDeleteConv} className="options">
+              <LuArchive size={20} color="#FFF" />
+              <div>Archive</div>
+            </div>
+          </ShowOptions>
+        )}
+      </UserMessageStyled>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+`;
 
 const UserMessageStyled = styled.div<StyledProps>`
   display: flex;
@@ -62,6 +123,7 @@ const UserMessageStyled = styled.div<StyledProps>`
   padding: 10px 15px;
   align-items: center;
   width: 90%;
+  position: relative;
   gap: 5px;
   border-radius: 14px;
   background-color: ${(props) =>
@@ -133,6 +195,35 @@ const UserMessageStyled = styled.div<StyledProps>`
 const UserPhotoAndMessage = styled.div`
   display: flex;
   gap: 10px;
+`;
+
+const ShowOptions = styled.div<PropsOptionsStyled>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  //flex: 1;
+  width: 200px;
+  padding: 10px;
+  gap: 10px;
+  position: fixed;
+  top: ${(props) => props.y}px;
+  left: ${(props) => props.x}px;
+  background-color: #36393f;
+  border-radius: 5px;
+  color: #fff;
+  font-family: "Work Sans";
+  z-index: 2;
+  .options {
+    display: flex;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    gap: 5px;
+    &:hover {
+      background-color: red;
+    }
+  }
 `;
 
 export default UserMessage;

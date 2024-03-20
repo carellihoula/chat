@@ -39,7 +39,7 @@ export const ConversationsList = () => {
             chatId: msg.chatId,
             messages: [msg],
             unreadCount:
-              !msg.isRead && msg.senderId !== getIdCurrentUser(token) ? 0 : 0,
+              !msg.isRead && msg.senderId !== getIdCurrentUser(token) ? 1 : 0,
             lastMessage: msg,
           });
         }
@@ -59,15 +59,21 @@ export const ConversationsList = () => {
 
   const selectUser = (user: User) => {
     setUserSelected(user);
-    // Met à jour le nombre de messages non lus pour la conversation sélectionnée
+    /**
+    // Met à jour le nombre de messages non lus pour la conversation sélectionnée avec cet utilisateur
     const updatedConversations = sortedConversations.map((conversation) => {
-      if (conversation.lastMessage.recipientId === user.id) {
-        // Vérifiez si cette condition est correcte pour votre application
+      // Identifier la conversation à partir de l'ID de l'autre utilisateur dans la conversation
+      const otherUserId =
+        conversation.lastMessage.senderId === getIdCurrentUser(token)
+          ? conversation.lastMessage.recipientId
+          : conversation.lastMessage.senderId;
+      if (otherUserId === user.id) {
+        // Si l'utilisateur sélectionné correspond à l'autre utilisateur dans la conversation, réinitialiser le compteur
         return { ...conversation, unreadCount: 0 };
       }
       return conversation;
     });
-    setSortedConversations(updatedConversations);
+    setSortedConversations(updatedConversations); */
   };
 
   return (
