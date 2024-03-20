@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import IconProfilComponent from "../../components/IconProfilComponent";
+import { Avatar } from "../../components/common/Avatar.tsx";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { LuArchive } from "react-icons/lu";
@@ -73,7 +73,7 @@ const ConversationItem: React.FC<MessageComponentProps> = ({
       >
         <UserPhotoAndMessage>
           <div>
-            <IconProfilComponent imageUrl={profil} />
+            <Avatar imageUrl={profil} />
           </div>
           <div className="name-message-author">
             <p className="name">{name}</p>

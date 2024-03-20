@@ -3,6 +3,9 @@
   gap: 5px;
   align-items: center;
   justify-content: center;
+  -webkit-user-select: none; /* Safari 3.1+, iOS Safari 3.2+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* Internet Explorer 10+ */
   user-select: none;
   color: #fff;
   padding: 10px;

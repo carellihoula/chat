@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./profile.module.css";
-import DividerComponent from "../../components/DividerComponent";
-import IconStandard from "../../components/IconStandard";
+import DividerComponent from "../common/DividerComponent.tsx";
+import IconStandard from "../common/IconStandard.tsx";
 import { FaUser } from "react-icons/fa";
 import { BsEmojiSmile } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";

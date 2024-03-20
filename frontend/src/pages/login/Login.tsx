@@ -1,12 +1,12 @@
-import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import InputField from "../../components/InputField";
+import InputField from "../../components/common/InputField.tsx";
 import { FiUser } from "react-icons/fi";
 import { HiOutlineLockClosed } from "react-icons/hi";
-import SubmitButtonLoginRegister from "../../components/SubmitButtonLoginRegister";
+import SubmitButtonLoginRegister from "../../components/ui/SubmitButtonLoginRegister.tsx";
 import bg from "../../assets/images/backgroundWhatsapp.jpeg";
-import ButtonAuth2Component from "../../components/ButtonAuth2Component";
+import ButtonAuth2Component from "../../components/ui/ButtonAuth2Component.tsx";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookSquare } from "react-icons/fa";
 import { loginUser } from "../../api/API";

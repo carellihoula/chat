@@ -1,6 +1,6 @@
 import { FaLock } from "react-icons/fa";
 import styled from "styled-components";
-import IconStandard from "../../components/IconStandard";
+import IconStandard from "../../components/common/IconStandard.tsx";
 
 const FooterLeft = () => {
   return (

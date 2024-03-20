@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import IconStandard from "./IconStandard";
+import IconStandard from "../common/IconStandard.tsx";
 import { IconType } from "react-icons";
 
 interface Props {

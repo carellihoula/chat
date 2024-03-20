@@ -1,17 +1,17 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "../../output.css";
-import IconStandard from "../../components/IconStandard";
+import IconStandard from "../common/IconStandard.tsx";
 import { IoArrowBack } from "react-icons/io5";
 import profile from "../../assets/images/profile__default.jpg";
 import { FaCamera } from "react-icons/fa";
-import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
+import { getIdCurrentUser } from "../../../utils/getIdCurrentUser.ts";
 import { useNavigate } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import styles from "./profile.module.css";
-import { InfoUserComponent } from "./InfoUserComponent";
-import { useUsers } from "../../contextAPI/UsersContextt";
-import { getUserInfo, uploadPhoto } from "../../api/API";
+import { InfoUserComponent } from "./InfoUserComponent.tsx";
+import { useUsers } from "../../contextAPI/UsersContextt.tsx";
+import { getUserInfo, uploadPhoto } from "../../api/API.ts";
 //import axios from "axios";
 
 interface PropsStyled {

@@ -1,13 +1,13 @@
 import { FC } from "react";
-import LeftSideOfMain from "./leftMenus/LeftSideOfMain";
-import RightSideOfMain from "./rigntConversations/RightSideOfMain";
+import LeftSidebar from "../sidebar/LeftSidebar/LeftSidebar.tsx";
+import RightSideOfMain from "../sidebar/RightSidebar/RightSideOfMain";
 import styled from "styled-components";
 
 const Main: FC = () => {
   console.log(localStorage.getItem("token"));
   return (
     <MainStyled>
-      <LeftSideOfMain />
+      <LeftSidebar />
       <RightSideOfMain />
     </MainStyled>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Stomp, { Client } from "stompjs";
 import SockJS from "sockjs-client";
-import { useMessages } from "../contextAPI/MessagesContext";
+import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 //import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
 
 export interface ChatMessage {

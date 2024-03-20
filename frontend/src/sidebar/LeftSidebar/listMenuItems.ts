@@ -1,7 +1,7 @@
 import { IoMdSettings } from "react-icons/io";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { MdOutlineChat } from "react-icons/md";
-import { MenuItemProps } from "./MenuItem";
+import { MenuItemProps } from "./MenuItem.tsx";
 
 export const listMenuItems: MenuItemProps[] = [
   { label: "Chat", icon: MdOutlineChat, color: "#FFF" },

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import IconStandard from "../../components/IconStandard";
+import IconStandard from "../../components/common/IconStandard.tsx";
 import styles from "./LeftSidebar.module.css";
 import { IconType } from "react-icons";
 export interface MenuItemProps {

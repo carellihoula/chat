@@ -1,12 +1,12 @@
 import { FC } from "react";
 import styled from "styled-components";
-import IconStandard from "../../components/IconStandard";
+import IconStandard from "../../components/common/IconStandard.tsx";
 import { MdLocalPhone } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
 import styles from "./headerRight.module.css";
-import IconProfilComponent from "../../components/IconProfilComponent";
+import { Avatar } from "../../components/common/Avatar.tsx";
 import default__img from "../../assets/images/default__image.jpg";
-import { useUsers } from "../../contextAPI/UsersContextt";
+import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 
 const HeaderRight: FC = () => {
   const { userSelected } = useUsers();
@@ -14,9 +14,7 @@ const HeaderRight: FC = () => {
   return (
     <NavLeftStyled>
       <div className={styles.user__selected}>
-        <IconProfilComponent
-          imageUrl={userSelected?.profileImage || default__img}
-        />
+        <Avatar imageUrl={userSelected?.profileImage || default__img} />
         <div className={styles.name__user}>{userSelected?.name}</div>
       </div>
       <IconDiv>

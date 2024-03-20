@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import IconStandard from "./common/IconStandard.tsx";
+import IconStandard from "../common/IconStandard.tsx";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdArrowBack } from "react-icons/md";
 

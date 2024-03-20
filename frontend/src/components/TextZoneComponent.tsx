@@ -1,7 +1,7 @@
 //import React from 'react'
 
 import styled from "styled-components";
-import IconStandard from "./IconStandard";
+import IconStandard from "./common/IconStandard.tsx";
 import { FC } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 

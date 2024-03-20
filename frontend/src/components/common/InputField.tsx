@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
-import IconStandard from "./IconStandard";
+import IconStandard from "./IconStandard.tsx";
 import { IconType } from "react-icons";
 
 interface InputFieldProps {

@@ -1,6 +1,5 @@
-import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import {isTokenExpired} from '../../utils/isTokenExpired'
+import {isTokenExpired} from '../../../utils/isTokenExpired.ts'
 
 const PublicRoutes = () => {
     const token = (localStorage.getItem('token'))

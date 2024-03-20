@@ -1,14 +1,14 @@
 //import React from 'react'
-import TextZoneComponent from "../../components/TextZoneComponent";
-import IconStandard from "../../components/IconStandard";
+import TextZoneComponent from "../../components/TextZoneComponent.tsx";
+import IconStandard from "../../components/common/IconStandard.tsx";
 import { BsEmojiSmile } from "react-icons/bs";
 import { BiSolidMicrophone } from "react-icons/bi";
 import { VscSend } from "react-icons/vsc";
 import { useState } from "react";
-import { useChat } from "../../websocket/useChat";
-import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
+import { useChat } from "../../hook/websocket/useChat.ts";
+import { getIdCurrentUser } from "../../../utils/getIdCurrentUser.ts";
 import styles from "./ChatAreaRightBottom.module.css";
-import { useUsers } from "../../contextAPI/UsersContextt";
+import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 /*interface Props {
   value: string;
   handleChange: React.ChangeEventHandler<HTMLTextAreaElement>;

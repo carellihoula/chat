@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import { getAllUsers } from "../../api/API";
-import { User, useUsers } from "../../contextAPI/UsersContextt";
-import { UserComponent } from "./UserComponent";
+import { getAllUsers } from "../../api/API.ts";
+import { User, useUsers } from "../../contextAPI/UsersContextt.tsx";
+import { UserComponent } from "./UserComponent.tsx";
 import styles from "./users.module.css";
-import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
-import { listMenuItems } from "../../sidebar/LeftSidebar/listMenuItems";
-import { useMessages } from "../../contextAPI/MessagesContext";
+import { getIdCurrentUser } from "../../../utils/getIdCurrentUser.ts";
+import { listMenuItems } from "../../sidebar/LeftSidebar/listMenuItems.ts";
+import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import default__img from "../../assets/images/default__image.jpg";
 //import { useMessages } from "../../contextAPI/MessagesContext";
 

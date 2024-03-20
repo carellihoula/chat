@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {getJustifyContent} from '../../utils/getJustifyContent'
+import {getJustifyContent} from '../../../utils/getJustifyContent.ts'
 
 type DividerProps = {
     justifyBorder: 'full'|'center'|'left'|'right'  

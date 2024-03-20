@@ -1,16 +1,16 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
-import HeaderLeft from "./HeaderLeft";
-import SearchBarComponent from "../../components/SearchBarComponent";
+import HeaderLeft from "./HeaderLeft.tsx";
+import SearchBarComponent from "../../components/search/SearchBarComponent.tsx";
 import { IoFilterSharp } from "react-icons/io5";
-import FooterLeft from "./FooterLeft";
-import ProfileUser from "../profile/ProfileUser";
-import IconStandard from "../../components/IconStandard";
+import FooterLeft from "./FooterLeft.tsx";
+import ProfileUser from "../../components/profile/ProfileUser.tsx";
+import IconStandard from "../../components/common/IconStandard.tsx";
 import styles from "./LeftSidebar.module.css";
-import { listMenuItems } from "./listMenuItems";
-import { ListOfUsersComponent } from "../friends/ListOfUsersComponent";
-import { useMessages } from "../../contextAPI/MessagesContext";
-import { ConversationsList } from "./ConversationsList";
+import { listMenuItems } from "./listMenuItems.ts";
+import { ListOfUsersComponent } from "../../components/friends/ListOfUsersComponent.tsx";
+import { useMessages } from "../../contextAPI/MessagesContext.tsx";
+import { ConversationsList } from "./ConversationsList.tsx";
 
 const LeftSidebar: FC = () => {
   const [value, setValue] = useState<string>("");

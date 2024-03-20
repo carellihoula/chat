@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import IconStandard from "../../components/IconStandard";
+import IconStandard from "../common/IconStandard.tsx";
 import { MdEdit } from "react-icons/md";
 import { VscSend } from "react-icons/vsc";
 import styles from "./profile.module.css";

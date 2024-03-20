@@ -1,9 +1,9 @@
-import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
-import { useMessages } from "../../contextAPI/MessagesContext";
-import { getSpecificUser } from "../../../utils/getSpecificUserFromListUser";
-import { User, useUsers } from "../../contextAPI/UsersContextt";
+import { getIdCurrentUser } from "../../../utils/getIdCurrentUser.ts";
+import { useMessages } from "../../contextAPI/MessagesContext.tsx";
+import { getSpecificUser } from "../../../utils/getSpecificUserFromListUser.ts";
+import { User, useUsers } from "../../contextAPI/UsersContextt.tsx";
 import UserMessage from "./ConversationItem.tsx";
-import { ChatMessage, Conversation } from "../../websocket/useChat";
+import { ChatMessage, Conversation } from "../../hook/websocket/useChat.ts";
 //import FlipMove from "react-flip-move";
 import styles from "./LeftSidebar.module.css";
 import { useEffect, useState } from "react";

@@ -1,10 +1,10 @@
 import { FC } from "react";
 import styled from "styled-components";
-import IconProfilComponent from "../../components/IconProfilComponent";
+import { Avatar } from "../../components/common/Avatar.tsx";
 import default__img from "../../assets/images/default__image.jpg";
-import MenuItem, { MenuItemProps } from "./MenuItem";
-import { useMessages } from "../../contextAPI/MessagesContext";
-import { useUsers } from "../../contextAPI/UsersContextt";
+import MenuItem, { MenuItemProps } from "./MenuItem.tsx";
+import { useMessages } from "../../contextAPI/MessagesContext.tsx";
+import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 //import { listMenuItems } from "./listMenuItems";
 
 interface Props {
@@ -29,7 +29,7 @@ const HeaderLeft: FC<Props> = ({
   return (
     <NavLeftStyled>
       <IconDiv>
-        <IconProfilComponent
+        <Avatar
           imageUrl={userInfo?.profileImage || default__img}
           ProfileClickHandler={ProfileClickHandler}
         />

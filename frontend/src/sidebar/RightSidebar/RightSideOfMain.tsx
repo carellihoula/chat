@@ -1,12 +1,12 @@
 import { FC, useEffect, useRef } from "react";
 import styled from "styled-components";
-import HeaderRight from "./HeaderRight";
-import ChatAreaRightBottom from "./ChatAreaRightBottom";
-import MessageComponent from "../../components/MessageComponent";
-import { useMessages } from "../../contextAPI/MessagesContext";
-import { getIdCurrentUser } from "../../../utils/getIdCurrentUser";
-import { ChatMessage } from "../../websocket/useChat";
-import { useUsers } from "../../contextAPI/UsersContextt";
+import HeaderRight from "./HeaderRight.tsx";
+import ChatAreaRightBottom from "./ChatAreaRightBottom.tsx";
+import MessageComponent from "../../components/message/MessageItem.tsx";
+import { useMessages } from "../../contextAPI/MessagesContext.tsx";
+import { getIdCurrentUser } from "../../../utils/getIdCurrentUser.ts";
+import { ChatMessage } from "../../hook/websocket/useChat.ts";
+import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 //import "../../output.css";
 
 interface ConversationAreaProps {

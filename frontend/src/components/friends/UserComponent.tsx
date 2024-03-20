@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Avatar } from "../../components/Avatar.tsx";
+import { Avatar } from "../common/Avatar.tsx";
 import { LiaEditSolid } from "react-icons/lia";
 
 interface MessageComponentProps {
