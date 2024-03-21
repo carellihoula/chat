@@ -1,7 +1,7 @@
 //import React from 'react'
 
 import styled from "styled-components";
-import IconStandard from "./common/IconStandard.tsx";
+import IconStandard from "../common/IconStandard.tsx";
 import { FC } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 
@@ -12,7 +12,7 @@ interface ComponentProps {
   textAreaHeight: string | number;
 }
 
-const TextZoneComponent: FC<ComponentProps> = ({
+export const MessageInput: FC<ComponentProps> = ({
   value,
   handleChange,
   handleResizeHeight,
@@ -35,7 +35,7 @@ const TextZoneComponent: FC<ComponentProps> = ({
   };
 
   return (
-    <TextZoneComponentStyled>
+    <MessageInputContainer>
       <IconStandard Icon={FaCirclePlus} size={24} color="#FFF" />
       <textarea
         placeholder="type a message"
@@ -45,11 +45,11 @@ const TextZoneComponent: FC<ComponentProps> = ({
         onInput={handleResizeHeight}
         autoFocus
       />
-    </TextZoneComponentStyled>
+    </MessageInputContainer>
   );
 };
 
-const TextZoneComponentStyled = styled.div`
+const MessageInputContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100vh;
@@ -69,4 +69,4 @@ const TextZoneComponentStyled = styled.div`
     background-color: #202225;
   }
 `;
-export default TextZoneComponent;
+

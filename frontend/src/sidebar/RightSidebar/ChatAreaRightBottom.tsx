@@ -1,5 +1,5 @@
 //import React from 'react'
-import TextZoneComponent from "../../components/TextZoneComponent.tsx";
+import {MessageInput} from "../../components/message/MessageInput.tsx";
 import IconStandard from "../../components/common/IconStandard.tsx";
 import { BsEmojiSmile } from "react-icons/bs";
 import { BiSolidMicrophone } from "react-icons/bi";
@@ -48,7 +48,7 @@ const ChatAreaRightBottom = () => {
     <div className={styles.container__div}>
       <div className={styles.sub__container}>
         <IconStandard size={24} Icon={BsEmojiSmile} color="#FFF" />
-        <TextZoneComponent
+        <MessageInput
           value={message}
           handleChange={handleChange}
           handleResizeHeight={handleResizeHeight}
