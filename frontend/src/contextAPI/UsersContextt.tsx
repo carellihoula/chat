@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import { getAllUsers } from "../api/API";
-import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
+import { getIdCurrentUser } from "../utils/getIdCurrentUser";
 import {User} from "../types_interfaces";
 //import { useMessages } from "./MessagesContext";
 //import { getIdCurrentUser } from "../../utils/getIdCurrentUser";

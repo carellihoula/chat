@@ -11,7 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //import axios from "axios";
 import PublicRoutes from "./components/routes/PublicRoutes.tsx";
 import { useEffect } from "react";
-import { getTokenExpirationDate } from "../utils/getTokenExpirationDate";
+import { getTokenExpirationDate } from "./utils/getTokenExpirationDate";
 import { refreshToken } from "./api/API";
 import ActivateAccount from "./pages/activate-account/ActivateAccount";
 

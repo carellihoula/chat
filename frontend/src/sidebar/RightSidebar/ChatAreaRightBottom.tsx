@@ -6,7 +6,7 @@ import { BiSolidMicrophone } from "react-icons/bi";
 import { VscSend } from "react-icons/vsc";
 import { useState } from "react";
 import { useChat } from "../../hook/websocket/useChat.ts";
-import { getIdCurrentUser } from "../../../utils/getIdCurrentUser.ts";
+import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
 import styles from "./ChatAreaRightBottom.module.css";
 import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 /*interface Props {

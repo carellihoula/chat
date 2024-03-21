@@ -1,4 +1,4 @@
-import { User } from "../src/contextAPI/UsersContextt";
+import { User } from "../contextAPI/UsersContextt.tsx";
 
 export const getSpecificUser = (usersList: User[], userId: number): User => {
   const user = usersList.find((user) => user.id === userId);

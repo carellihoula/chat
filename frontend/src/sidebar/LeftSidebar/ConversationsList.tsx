@@ -1,6 +1,6 @@
-import { getIdCurrentUser } from "../../../utils/getIdCurrentUser.ts";
+import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
-import { getSpecificUser } from "../../../utils/getSpecificUserFromListUser.ts";
+import { getSpecificUser } from "../../utils/getSpecificUserFromListUser.ts";
 import {  useUsers } from "../../contextAPI/UsersContextt.tsx";
 import UserMessage from "./ConversationItem.tsx";
 import styles from "./LeftSidebar.module.css";

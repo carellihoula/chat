@@ -209,19 +209,21 @@ const ShowOptions = styled.div<optionPosition>`
   position: fixed;
   top: ${(props) => props.y}px;
   left: ${(props) => props.x}px;
-  background-color: #36393f;
+  background-color: #292b2d;
   border-radius: 5px;
   color: #fff;
   font-family: "Work Sans";
   z-index: 2;
+
   .options {
     display: flex;
     padding: 5px;
     border-radius: 5px;
     width: 100%;
     gap: 5px;
+
     &:hover {
-      background-color: red;
+      background-color: #5865f2;
     }
   }
 `;
