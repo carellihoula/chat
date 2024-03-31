@@ -1,11 +1,11 @@
 // MessagesContext.tsx
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { ChatMessage } from "../hook/websocket/useChat";
 import { findChatMessages, findChatsByCurrentUser } from "../api/apiChat";
 import { getIdCurrentUser } from "../utils/getIdCurrentUser";
 import { MenuItemProps } from "../sidebar/LeftSidebar/MenuItem";
 import { listMenuItems } from "../sidebar/LeftSidebar/listMenuItems";
 import { useUsers } from "./UsersContextt";
+import { ChatMessage } from "../types_interfaces";
 
 interface MessagesContextType {
   messages: ChatMessage[];

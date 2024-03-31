@@ -5,8 +5,9 @@ import ChatAreaRightBottom from "./ChatAreaRightBottom.tsx";
 import MessageComponent from "../../components/message/MessageItem.tsx";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
-import { ChatMessage } from "../../hook/websocket/useChat.ts";
+//import { ChatMessage } from "../../hook/websocket/useChat.ts";
 import { useUsers } from "../../contextAPI/UsersContextt.tsx";
+import { ChatMessage } from "../../types_interfaces/index.ts";
 //import "../../output.css";
 
 interface ConversationAreaProps {
@@ -59,27 +60,6 @@ const RightSideOfMain: FC = () => {
         })}
 
         <div className="flex  flex-col self-end justify-end w-full"></div>
-
-        {/*<MessageComponent
-          isSender={false}
-          message="salut, comment vas-tu ?"
-          time="12:00"
-        />
-        <MessageComponent
-          isSender={false}
-          message="salut, comment vas-tu ? , hier je suis venu chez toi, je t'ai pas vu, ou etais-tu  ?"
-          time="12:00"
-        />
-        <MessageComponent
-          isSender={true}
-          message="salut, comment vas-tu ?"
-          time="12:00"
-        />
-        <MessageComponent
-          isSender={true}
-          message="salut, comment vas-tu ?"
-          time="12:00"
-    />*/}
       </ConversationArea>
       <ChatAreaRightBottom />
     </RightSideOfMainStyle>
