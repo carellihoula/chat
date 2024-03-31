@@ -209,7 +209,8 @@ const ShowOptions = styled.div<optionPosition>`
   position: fixed;
   top: ${(props) => props.y}px;
   left: ${(props) => props.x}px;
-  background-color: #292b2d;
+  background-color: rgba(41, 43, 45, 0.8);
+  //background-color: #292b2d;
   border-radius: 5px;
   color: #fff;
   font-family: "Work Sans";
