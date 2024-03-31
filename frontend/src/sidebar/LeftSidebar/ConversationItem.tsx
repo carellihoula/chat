@@ -133,8 +133,10 @@ const ConversationContainer = styled.div<StyledProps>`
   user-select: none;
   &:hover {
     background: #454950;
+    color: #fff;
     cursor: pointer;
   }
+
   .name-message-author {
     display: flex;
     flex-direction: column;
@@ -210,7 +212,6 @@ const ShowOptions = styled.div<optionPosition>`
   top: ${(props) => props.y}px;
   left: ${(props) => props.x}px;
   background-color: rgba(41, 43, 45, 0.8);
-  //background-color: #292b2d;
   border-radius: 5px;
   color: #fff;
   font-family: "Work Sans";
