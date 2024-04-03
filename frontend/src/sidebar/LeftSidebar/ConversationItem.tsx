@@ -163,6 +163,10 @@ const ConversationContainer = styled.div<StyledProps>`
   }
   .time-and-messages-unread {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    //background: red !important;
     height: 100%;
     flex-direction: column;
     justify-content: center;
@@ -171,10 +175,9 @@ const ConversationContainer = styled.div<StyledProps>`
   }
   .time-and-messages-unread p {
     border-radius: 10px;
-
+    padding: 10px;
     background: #f83f3f;
     text-align: center;
-    padding: 5px;
     color: #d8d8d8;
     font-family: "Work Sans";
     font-size: 14px;
