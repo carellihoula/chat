@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import { LuArchive } from "react-icons/lu";
 import { MdDeleteOutline, MdOutlineMarkEmailUnread } from "react-icons/md";
@@ -18,22 +18,22 @@ export const ConversationOptions: FC<optionPosition> = ({
       <OptionItem
         label="Mark as unread"
         Icon={MdOutlineMarkEmailUnread}
-        onClickHandler={onMarkHandler}
+        handleClick={onMarkHandler}
       />
       <OptionItem
         label="Delete"
         Icon={MdDeleteOutline}
-        onClickHandler={onDeleteHandler}
+        handleClick={onDeleteHandler}
       />
       <OptionItem
         label="Clear All"
         Icon={AiOutlineClear}
-        onClickHandler={onClearAllHandler}
+        handleClick={onClearAllHandler}
       />
       <OptionItem
         label="Archive"
         Icon={LuArchive}
-        onClickHandler={onArchiveHandler}
+        handleClick={onArchiveHandler}
       />
     </ShowOptions>
   );
@@ -42,10 +42,10 @@ export const ConversationOptions: FC<optionPosition> = ({
 export const OptionItem: FC<OptionItemConversation> = ({
   label,
   Icon,
-  onClickHandler,
+  handleClick,
 }) => {
   return (
-    <div onClick={onClickHandler} className="options">
+    <div onClick={handleClick} className="options">
       {Icon && <Icon size={20} color="#FFF" />}
       <div>{label}</div>
     </div>
@@ -76,6 +76,7 @@ const ShowOptions = styled.div<optionPosition>`
     border-radius: 5px;
     width: 100%;
     gap: 5px;
+    cursor: pointer;
 
     &:hover {
       background-color: #5865f2;

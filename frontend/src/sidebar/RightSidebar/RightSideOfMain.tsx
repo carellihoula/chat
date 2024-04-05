@@ -16,7 +16,7 @@ interface ConversationAreaProps {
 }
 
 const RightSideOfMain: FC = () => {
-  const { messages } = useMessages();
+  const { messages, msgByCurrentUser } = useMessages();
   //const { userSelected } = useUsers();
   console.log(messages);
   const conversationRef = useRef<HTMLDivElement>(null);
@@ -28,11 +28,10 @@ const RightSideOfMain: FC = () => {
     }
   }, [messages]);
 
-  const messagesFiltered = messages.filter((msg) => {
-    const currentUserId = getIdCurrentUser(token);
+  const messagesFiltered = msgByCurrentUser.filter((msg) => {
+    //const currentUserId = getIdCurrentUser(token);
     return (
-      (msg.senderId === currentUserId && msg.recipientId === userSelectedId) ||
-      (msg.senderId === userSelectedId && msg.recipientId === currentUserId)
+      msg.recipientId === userSelectedId || msg.senderId === userSelectedId
     );
   });
   return (

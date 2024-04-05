@@ -40,5 +40,5 @@ export type optionPosition = {
 export type OptionItemConversation = {
   label: string;
   Icon: IconType | string;
-  onClickHandler?: React.MouseEventHandler<HTMLDivElement>;
+  handleClick?: React.MouseEventHandler<HTMLDivElement>;
 };
