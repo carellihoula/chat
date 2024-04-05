@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Avatar } from "../../components/common/Avatar.tsx";
-import { MdDeleteOutline } from "react-icons/md";
-import { MdOutlineMarkEmailUnread } from "react-icons/md";
-import { LuArchive } from "react-icons/lu";
-import { AiOutlineClear } from "react-icons/ai";
+import { ConversationOptions } from "./ConversationOptions.tsx";
 
 interface MessageComponentProps {
   name: string;
@@ -17,11 +14,6 @@ interface MessageComponentProps {
   handleClick?: React.MouseEventHandler<HTMLDivElement>;
   //showDeleteOptions: boolean;
 }
-
-type optionPosition = {
-  x: number;
-  y: number;
-};
 
 type StyledProps = {
   bg: string;
@@ -42,7 +34,7 @@ const ConversationItem: React.FC<MessageComponentProps> = ({
   const convRef = useRef<HTMLDivElement>(null);
   //const optionsRef = useRef<HTMLDivElement>(null);
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
-  const handleDeleteConv = () => {};
+  //const handleDeleteConv = () => {};
 
   //comportements
   const handleClickRight = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -85,27 +77,10 @@ const ConversationItem: React.FC<MessageComponentProps> = ({
           <small>{time}</small>
           {unreadNumber > 0 && <p>{unreadNumber}</p>}
         </div>
-        {showDeleteOptions && (
-          <ShowOptions x={clickPosition.x} y={clickPosition.y}>
-            <div onClick={handleDeleteConv} className="options">
-              <MdOutlineMarkEmailUnread size={20} color="#FFF" />
-              <div>Mark as unread</div>
-            </div>
-            <div onClick={handleDeleteConv} className="options">
-              <MdDeleteOutline size={20} color="#FFF" />
-              <div>Delete</div>
-            </div>
-            <div onClick={handleDeleteConv} className="options">
-              <AiOutlineClear size={20} color="#FFF" />
-              <div>Clear all messages</div>
-            </div>
-            <div onClick={handleDeleteConv} className="options">
-              <LuArchive size={20} color="#FFF" />
-              <div>Archive</div>
-            </div>
-          </ShowOptions>
-        )}
       </ConversationContainer>
+      {showDeleteOptions && (
+        <ConversationOptions x={clickPosition.x} y={clickPosition.y} />
+      )}
     </Wrapper>
   );
 };
@@ -200,37 +175,6 @@ const ConversationContainer = styled.div<StyledProps>`
 const UserPhotoAndMessage = styled.div`
   display: flex;
   gap: 10px;
-`;
-
-const ShowOptions = styled.div<optionPosition>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  //flex: 1;
-  width: 200px;
-  padding: 10px;
-  gap: 10px;
-  position: fixed;
-  top: ${(props) => props.y}px;
-  left: ${(props) => props.x}px;
-  background-color: rgba(41, 43, 45, 0.8);
-  border-radius: 5px;
-  color: #fff;
-  font-family: "Work Sans";
-  z-index: 2;
-
-  .options {
-    display: flex;
-    padding: 5px;
-    border-radius: 5px;
-    width: 100%;
-    gap: 5px;
-
-    &:hover {
-      background-color: #5865f2;
-    }
-  }
 `;
 
 export default ConversationItem;
