@@ -1,18 +1,22 @@
 import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import { getSpecificUser } from "../../utils/getSpecificUserFromListUser.ts";
-import {  useUsers } from "../../contextAPI/UsersContextt.tsx";
+import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 import UserMessage from "./ConversationItem.tsx";
 import styles from "./LeftSidebar.module.css";
 import { useEffect, useState } from "react";
 import default_img from "../../assets/images/default__image.jpg";
-import {ChatMessage, Conversation, User} from "../../types_interfaces";
+import { ChatMessage, Conversation, User } from "../../types_interfaces";
+import { setUserSelectedId } from "../../localStorage/setUserSelected.ts";
+import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
+//import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
 
 export const ConversationsList = () => {
   const { msgByCurrentUser, messages } = useMessages();
   const [sortedConversations, setSortedConversations] = useState<
     Conversation[]
   >([]);
+  const userSelectedId = Number(getUserSelectedId());
   const { usersList, setUserSelected, userSelected } = useUsers();
   const token = localStorage.getItem("token");
   useEffect(() => {
@@ -58,6 +62,7 @@ export const ConversationsList = () => {
 
   const selectUser = (user: User) => {
     setUserSelected(user);
+    setUserSelectedId(user.id.toString());
   };
 
   return (
@@ -87,7 +92,7 @@ export const ConversationsList = () => {
             unreadNumber={message.unreadCount}
             time={timer}
             profil={otherUserInfo?.profileImage || default_img}
-            isSelected={userSelected?.id === otherUserInfo.id}
+            isSelected={userSelectedId === otherUserInfo.id}
             bg={isSelected ? "#selectedColor" : "#defaultColor"}
             handleClick={() => selectUser(otherUserInfo)}
           />

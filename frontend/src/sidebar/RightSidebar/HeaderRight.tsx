@@ -7,15 +7,18 @@ import styles from "./headerRight.module.css";
 import { Avatar } from "../../components/common/Avatar.tsx";
 import default__img from "../../assets/images/default__image.jpg";
 import { useUsers } from "../../contextAPI/UsersContextt.tsx";
+import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
 
 const HeaderRight: FC = () => {
-  const { userSelected } = useUsers();
+  const { usersList } = useUsers();
+  const userSelectedId = Number(getUserSelectedId());
+  const user = usersList.find((user) => user.id === userSelectedId);
 
   return (
     <NavLeftStyled>
       <div className={styles.user__selected}>
-        <Avatar imageUrl={userSelected?.profileImage || default__img} />
-        <div className={styles.name__user}>{userSelected?.name}</div>
+        <Avatar imageUrl={user?.profileImage || default__img} />
+        <div className={styles.name__user}>{user?.name}</div>
       </div>
       <IconDiv>
         <div className="phone_border">

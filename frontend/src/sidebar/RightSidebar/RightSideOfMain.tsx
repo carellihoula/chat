@@ -6,8 +6,9 @@ import MessageComponent from "../../components/message/MessageItem.tsx";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
 //import { ChatMessage } from "../../hook/websocket/useChat.ts";
-import { useUsers } from "../../contextAPI/UsersContextt.tsx";
+//import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 import { ChatMessage } from "../../types_interfaces/index.ts";
+import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
 //import "../../output.css";
 
 interface ConversationAreaProps {
@@ -16,11 +17,11 @@ interface ConversationAreaProps {
 
 const RightSideOfMain: FC = () => {
   const { messages } = useMessages();
-  const { userSelected } = useUsers();
+  //const { userSelected } = useUsers();
   console.log(messages);
   const conversationRef = useRef<HTMLDivElement>(null);
   const token = JSON.stringify(localStorage.getItem("token"));
-
+  const userSelectedId = Number(getUserSelectedId());
   useEffect(() => {
     if (conversationRef && conversationRef.current) {
       conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
@@ -30,9 +31,8 @@ const RightSideOfMain: FC = () => {
   const messagesFiltered = messages.filter((msg) => {
     const currentUserId = getIdCurrentUser(token);
     return (
-      (msg.senderId === currentUserId &&
-        msg.recipientId === userSelected?.id) ||
-      (msg.senderId === userSelected?.id && msg.recipientId === currentUserId)
+      (msg.senderId === currentUserId && msg.recipientId === userSelectedId) ||
+      (msg.senderId === userSelectedId && msg.recipientId === currentUserId)
     );
   });
   return (
