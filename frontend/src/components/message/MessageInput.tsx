@@ -1,48 +1,45 @@
-//import React from 'react'
-
+import React from "react";
 import styled from "styled-components";
-import IconStandard from "../common/IconStandard.tsx";
-import { FC } from "react";
+import { TextareaAutosize } from "@mui/base";
 import { FaCirclePlus } from "react-icons/fa6";
+import { FC } from "react";
 
 interface ComponentProps {
   value: string;
-  handleChange: React.ChangeEventHandler<HTMLTextAreaElement>;
-  handleResizeHeight: React.FormEventHandler<HTMLTextAreaElement>;
-  textAreaHeight: string | number;
+  handleChange: React.ChangeEventHandler<
+    HTMLTextAreaElement | HTMLInputElement
+  >;
 }
 
-export const MessageInput: FC<ComponentProps> = ({
-  value,
-  handleChange,
-  handleResizeHeight,
-  textAreaHeight,
-}) => {
-  const textAreaStyles: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    outline: "none",
-    resize: "none",
-    width: "100%",
-    paddingTop: "10px",
-    boxSizing: "border-box",
-    height: textAreaHeight,
-    overflow: "hidden",
-    border: "none",
-    borderRadius: "10px",
-    fontSize: "16px",
-  };
+const textAreaStyles: React.CSSProperties = {
+  width: "100%",
+  paddingLeft: "50px", // Ajustez en fonction de la taille de l'icône
+  border: "none",
+  borderRadius: "10px",
+  backgroundColor: "#202225",
+  color: "#d8d8d8",
+  fontFamily: "Work Sans, sans-serif",
+  fontSize: "14px",
+  resize: "none",
+  boxSizing: "border-box",
+  outline: "none",
+};
 
+export const MessageInput: FC<ComponentProps> = ({ value, handleChange }) => {
   return (
     <MessageInputContainer>
-      <IconStandard Icon={FaCirclePlus} size={24} color="#FFF" />
-      <textarea
-        placeholder="type a message"
+      <IconContainer>
+        <FaCirclePlus size={24} color="#FFF" />
+      </IconContainer>
+      <TextareaAutosize
+        style={textAreaStyles}
+        minRows={1.5}
+        maxRows={6}
+        maxLength={1000}
+        aria-label="message input"
+        placeholder="Type a message"
         value={value}
         onChange={handleChange}
-        style={textAreaStyles}
-        onInput={handleResizeHeight}
         autoFocus
       />
     </MessageInputContainer>
@@ -50,23 +47,20 @@ export const MessageInput: FC<ComponentProps> = ({
 };
 
 const MessageInputContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
-  width: 100vh;
-  height: 50px;
-  gap: 10px;
-  padding-left: 10px;
+  width: 70%;
+  padding: 10px;
   border-radius: 10px;
   background: #202225;
-  textarea {
-    color: #d8d8d8;
-    font-family: "Work Sans", sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.35px;
-    background-color: #202225;
-  }
 `;
 
+const IconContainer = styled.div`
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+export default MessageInput;

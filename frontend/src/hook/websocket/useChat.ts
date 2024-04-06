@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import Stomp, { Client } from "stompjs";
 import SockJS from "sockjs-client";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
-import {ChatMessage} from "../../types_interfaces";
+import { ChatMessage } from "../../types_interfaces";
 //import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
-
-
-
 
 export const useChat = (userId: number | null) => {
   //const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-  const { setMessages } = useMessages();
+  const { setMessages, setMsgByCurrentUser } = useMessages();
   const [stompClient, setStompClient] = useState<Client | null>(null);
 
   useEffect(() => {
@@ -36,6 +33,15 @@ export const useChat = (userId: number | null) => {
             console.log("msg from server : " + message);
             const newMessage: ChatMessage = JSON.parse(message.body);
             setMessages((prev) => {
+              const msgExists = prev.find((msg) => msg.id === newMessage.id);
+              //eviter les doublants
+              if (!msgExists) {
+                return [...prev, newMessage];
+              } else {
+                return prev;
+              }
+            });
+            setMsgByCurrentUser((prev) => {
               const msgExists = prev.find((msg) => msg.id === newMessage.id);
               //eviter les doublants
               if (!msgExists) {

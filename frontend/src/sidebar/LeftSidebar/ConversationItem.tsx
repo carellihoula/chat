@@ -12,6 +12,7 @@ interface MessageComponentProps {
   isSelected: boolean;
   bg: string;
   handleClick?: React.MouseEventHandler<HTMLDivElement>;
+  onDeleteHandler?: React.MouseEventHandler<HTMLDivElement>;
   //showDeleteOptions: boolean;
 }
 
@@ -28,6 +29,7 @@ const ConversationItem: React.FC<MessageComponentProps> = ({
   profil,
   handleClick,
   isSelected,
+  onDeleteHandler,
   bg,
 }) => {
   const [showDeleteOptions, setShowDeleteOptions] = useState(false);
@@ -79,7 +81,11 @@ const ConversationItem: React.FC<MessageComponentProps> = ({
         </div>
       </ConversationContainer>
       {showDeleteOptions && (
-        <ConversationOptions x={clickPosition.x} y={clickPosition.y} />
+        <ConversationOptions
+          x={clickPosition.x}
+          y={clickPosition.y}
+          onDeleteHandler={onDeleteHandler}
+        />
       )}
     </Wrapper>
   );

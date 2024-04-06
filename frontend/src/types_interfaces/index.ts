@@ -10,6 +10,7 @@ export interface User {
   active: boolean;
   password: string;
   role: string;
+  bio: string;
 }
 export interface ChatMessage {
   id?: number;
@@ -40,5 +41,5 @@ export type optionPosition = {
 export type OptionItemConversation = {
   label: string;
   Icon: IconType | string;
-  onClickHandler?: React.MouseEventHandler<HTMLDivElement>;
+  handleClick?: React.MouseEventHandler<HTMLDivElement>;
 };

@@ -2,17 +2,18 @@ import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import { getSpecificUser } from "../../utils/getSpecificUserFromListUser.ts";
 import { useUsers } from "../../contextAPI/UsersContextt.tsx";
-import UserMessage from "./ConversationItem.tsx";
+
 import styles from "./LeftSidebar.module.css";
 import { useEffect, useState } from "react";
 import default_img from "../../assets/images/default__image.jpg";
 import { ChatMessage, Conversation, User } from "../../types_interfaces";
 import { setUserSelectedId } from "../../localStorage/setUserSelected.ts";
 import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
+import ConversationItem from "./ConversationItem.tsx";
 //import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
 
 export const ConversationsList = () => {
-  const { msgByCurrentUser, messages } = useMessages();
+  const { msgByCurrentUser } = useMessages();
   const [sortedConversations, setSortedConversations] = useState<
     Conversation[]
   >([]);
@@ -58,11 +59,14 @@ export const ConversationsList = () => {
         new Date(a.lastMessage.timestamp).getTime()
     );
     setSortedConversations(filteredConversations);
-  }, [msgByCurrentUser, messages]);
+  }, [msgByCurrentUser]);
 
   const selectUser = (user: User) => {
     setUserSelected(user);
     setUserSelectedId(user.id.toString());
+  };
+  const onDeleteHandler = (id: string) => {
+    alert("id concerné : " + id);
   };
 
   return (
@@ -85,7 +89,7 @@ export const ConversationsList = () => {
         const otherUserInfo = getSpecificUser(usersList, Number(otherUserId));
         const isSelected = false;
         return (
-          <UserMessage
+          <ConversationItem
             key={message.chatId}
             name={otherUserInfo?.name}
             message={message.lastMessage.content}
@@ -95,6 +99,7 @@ export const ConversationsList = () => {
             isSelected={userSelectedId === otherUserInfo.id}
             bg={isSelected ? "#selectedColor" : "#defaultColor"}
             handleClick={() => selectUser(otherUserInfo)}
+            onDeleteHandler={() => onDeleteHandler(message.chatId)}
           />
         );
       })}
