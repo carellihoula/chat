@@ -71,7 +71,7 @@ const SidebarContainer = styled.div`
   background: #2f3136;
   width: 30%;
   height: 100vh;
-  //position: relative;
+  position: relative;
 `;
 
 const SearchAndFilterComponent = styled.div`

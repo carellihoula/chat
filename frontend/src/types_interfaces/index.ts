@@ -10,6 +10,7 @@ export interface User {
   active: boolean;
   password: string;
   role: string;
+  bio: string;
 }
 export interface ChatMessage {
   id?: number;

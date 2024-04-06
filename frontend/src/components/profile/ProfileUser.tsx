@@ -118,7 +118,7 @@ const ProfileUser: FC<PropsProfile> = ({ isClicked, handleClickBack }) => {
           <IconStandard Icon={CiLogout} size={30} color={"#FFF"} /> Logged Out
         </div>
       </div>
-      <InfoUserComponent about={"salut"} username={userInfo?.name} />
+      <InfoUserComponent about={userInfo?.bio} username={userInfo?.name} />
     </ProfileUserStyled>
   );
 };
