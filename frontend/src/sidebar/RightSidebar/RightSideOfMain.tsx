@@ -5,8 +5,6 @@ import ChatAreaRightBottom from "./ChatAreaRightBottom.tsx";
 import MessageComponent from "../../components/message/MessageItem.tsx";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
-//import { ChatMessage } from "../../hook/websocket/useChat.ts";
-//import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 import { ChatMessage } from "../../types_interfaces/index.ts";
 
 import { useUsers } from "../../contextAPI/UsersContextt.tsx";
@@ -79,9 +77,8 @@ const ConversationArea = styled.div`
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
-  padding: 20px 40px;
+  padding: 20px 40px 100px 40px;
   overflow-y: auto;
-  margin-bottom: 100px;
 `;
 
 const StyledMessageComponent = styled.div<ConversationAreaProps>`
