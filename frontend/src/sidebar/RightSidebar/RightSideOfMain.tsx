@@ -6,7 +6,8 @@ import MessageComponent from "../../components/message/MessageItem.tsx";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
 import { ChatMessage } from "../../types_interfaces/index.ts";
-import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
+
+import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 //import "../../output.css";
 
 interface ConversationAreaProps {
@@ -14,22 +15,22 @@ interface ConversationAreaProps {
 }
 
 const RightSideOfMain: FC = () => {
-  const { messages, msgByCurrentUser } = useMessages();
-  //const { userSelected } = useUsers();
-  console.log(messages);
+  const { msgByCurrentUser } = useMessages();
+
+  const { userSelected } = useUsers();
   const conversationRef = useRef<HTMLDivElement>(null);
   const token = JSON.stringify(localStorage.getItem("token"));
-  const userSelectedId = Number(getUserSelectedId());
+
   useEffect(() => {
     if (conversationRef && conversationRef.current) {
       conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [msgByCurrentUser]);
 
   const messagesFiltered = msgByCurrentUser.filter((msg) => {
     //const currentUserId = getIdCurrentUser(token);
     return (
-      msg.recipientId === userSelectedId || msg.senderId === userSelectedId
+      msg.recipientId === userSelected?.id || msg.senderId === userSelected?.id
     );
   });
   return (
@@ -37,7 +38,6 @@ const RightSideOfMain: FC = () => {
       <HeaderRight />
       <ConversationArea ref={conversationRef}>
         {messagesFiltered.map((msg: ChatMessage, index) => {
-          console.log(msg);
           const timer = new Date(msg.timestamp).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",

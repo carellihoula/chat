@@ -61,7 +61,7 @@ export const MessagesProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     };
     fetchMessages();
-  }, [token, userSelected?.id]);
+  }, [token]);
 
   useEffect(() => {
     // historique de messages depuis la database
@@ -76,7 +76,7 @@ export const MessagesProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     };
     fetchMessagesByUser();
-  }, [token, messages]);
+  }, [token]);
 
   return (
     <MessagesContext.Provider

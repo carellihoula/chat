@@ -1,6 +1,7 @@
 import { useState } from "react";
-import styles from "./activate.module.css";
+
 import { validAccount } from "../../api/API";
+import styles from "./activate.module.css";
 
 function ActivateAccount() {
   const [code, setCode] = useState<string>("");
