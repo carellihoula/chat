@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 import { Avatar } from "../../components/common/Avatar.tsx";
 import { ConversationOptions } from "./ConversationOptions.tsx";
+import styled from "styled-components";
 
 interface MessageComponentProps {
   name: string;
@@ -79,14 +79,14 @@ const ConversationItem: React.FC<MessageComponentProps> = ({
           <small>{time}</small>
           {unreadNumber > 0 && <p>{unreadNumber}</p>}
         </div>
+        {showDeleteOptions && (
+          <ConversationOptions
+            x={clickPosition.x}
+            y={clickPosition.y}
+            onDeleteHandler={onDeleteHandler}
+          />
+        )}
       </ConversationContainer>
-      {showDeleteOptions && (
-        <ConversationOptions
-          x={clickPosition.x}
-          y={clickPosition.y}
-          onDeleteHandler={onDeleteHandler}
-        />
-      )}
     </Wrapper>
   );
 };

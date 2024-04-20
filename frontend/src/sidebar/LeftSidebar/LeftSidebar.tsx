@@ -16,7 +16,6 @@ const LeftSidebar: FC = () => {
   const [value, setValue] = useState<string>("");
   const { selectedMenuItem } = useMessages();
   const [showProfile, setShowProfile] = useState<boolean>(false);
-  console.log(showProfile);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);

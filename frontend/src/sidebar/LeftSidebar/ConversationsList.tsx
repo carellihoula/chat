@@ -10,13 +10,14 @@ import { ChatMessage, Conversation, User } from "../../types_interfaces";
 import { setUserSelectedId } from "../../localStorage/setUserSelected.ts";
 import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
 import ConversationItem from "./ConversationItem.tsx";
-//import { getUserSelectedId } from "../../localStorage/getUserSelected.ts";
+import { deleteConversation } from "../../api/apiChat.ts";
 
 export const ConversationsList = () => {
   const { msgByCurrentUser } = useMessages();
   const [sortedConversations, setSortedConversations] = useState<
     Conversation[]
   >([]);
+
   const userSelectedId = Number(getUserSelectedId());
   const { usersList, setUserSelected, userSelected } = useUsers();
   const token = localStorage.getItem("token");
@@ -64,9 +65,27 @@ export const ConversationsList = () => {
   const selectUser = (user: User) => {
     setUserSelected(user);
     setUserSelectedId(user.id.toString());
+    /*setMsgByCurrentUser((prevMessages) =>
+      prevMessages.map((message) => {
+        if (
+          message.recipientId === getIdCurrentUser(token) &&
+          message.senderId === user.id
+        ) {
+          return { ...message, isRead: true };
+        }
+        return message;
+      })
+    );*/
   };
-  const onDeleteHandler = (id: string) => {
-    alert("id concerné : " + id);
+
+  const handleDeleteConversation = async (conversationId: string) => {
+    //await deleteConversation(conversationId, token);
+    await deleteConversation(conversationId);
+    // Mise à jour de l'état local pour refléter la suppression
+    const updatedConversations = sortedConversations.filter(
+      (conv) => conv.chatId !== conversationId
+    );
+    setSortedConversations(updatedConversations);
   };
 
   return (
@@ -99,7 +118,7 @@ export const ConversationsList = () => {
             isSelected={userSelectedId === otherUserInfo.id}
             bg={isSelected ? "#selectedColor" : "#defaultColor"}
             handleClick={() => selectUser(otherUserInfo)}
-            onDeleteHandler={() => onDeleteHandler(message.chatId)}
+            onDeleteHandler={() => handleDeleteConversation(message.chatId)}
           />
         );
       })}

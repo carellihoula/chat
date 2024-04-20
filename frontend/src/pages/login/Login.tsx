@@ -38,16 +38,16 @@ const Login: React.FC = () => {
       localStorage.setItem("token", response.access_token);
       localStorage.setItem("refreshToken", response.refresh_token);
 
-      setUserInfos({
-        email: "",
-        password: "",
-      });
-
       setLoading(true);
       //attendre 2s avant d'etre redirigé vers la page main
       setTimeout(() => {
         navigate("/main");
       }, 1000);
+
+      setUserInfos({
+        email: "",
+        password: "",
+      });
     } catch (error) {
       console.log("probleme de connexion error: " + error);
     }

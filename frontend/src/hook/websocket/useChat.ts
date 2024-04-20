@@ -3,6 +3,7 @@ import Stomp, { Client } from "stompjs";
 import SockJS from "sockjs-client";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import { ChatMessage } from "../../types_interfaces";
+import { HOST_URL } from "../../api/apiChat.ts";
 //import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
 
 export const useChat = (userId: number | null) => {
@@ -17,7 +18,7 @@ export const useChat = (userId: number | null) => {
       console.log("user not logged in");
       return;
     }
-    const sockjs = new SockJS("http://localhost:8080/ws");
+    const sockjs = new SockJS(`${HOST_URL}/ws`);
     const stomp = Stomp.over(sockjs);
 
     const connect = () => {

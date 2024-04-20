@@ -1,12 +1,14 @@
 import React, { FC, useEffect, useState } from "react";
 import { getAllUsers } from "../../api/API.ts";
-import { User, useUsers } from "../../contextAPI/UsersContextt.tsx";
+import { useUsers } from "../../contextAPI/UsersContextt.tsx";
 import { UserComponent } from "./UserComponent.tsx";
 import styles from "./users.module.css";
 import { getIdCurrentUser } from "../../utils/getIdCurrentUser.ts";
 import { listMenuItems } from "../../sidebar/LeftSidebar/listMenuItems.ts";
 import { useMessages } from "../../contextAPI/MessagesContext.tsx";
 import default__img from "../../assets/images/default__image.jpg";
+import { setUserSelectedId } from "../../localStorage/setUserSelected.ts";
+import { User } from "../../types_interfaces/index.ts";
 //import { useMessages } from "../../contextAPI/MessagesContext";
 
 interface Props {
@@ -31,6 +33,7 @@ export const ListOfUsersComponent: FC<Props> = () => {
 
   const selectedUserHandleClick = (item: User) => {
     setUserSelected(item);
+    setUserSelectedId(item.id.toString());
     setSelectedMenuItem(listMenuItems[0]);
   };
   console.log(userSelected);

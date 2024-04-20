@@ -7,11 +7,9 @@ import React, {
 } from "react";
 import { getAllUsers } from "../api/API";
 import { getIdCurrentUser } from "../utils/getIdCurrentUser";
-import {User} from "../types_interfaces";
+import { User } from "../types_interfaces";
 //import { useMessages } from "./MessagesContext";
 //import { getIdCurrentUser } from "../../utils/getIdCurrentUser";
-
-
 
 interface UsersContextType {
   userInfo: User | null;
@@ -51,8 +49,6 @@ export const UsersProvider: React.FC<{ children: ReactNode }> = ({
       setUserSelected(defaultUser);
     }
   }, [usersList, token]);
-
-  console.log(usersList);
 
   return (
     <UsersContext.Provider
