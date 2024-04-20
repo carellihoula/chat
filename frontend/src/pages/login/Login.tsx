@@ -20,7 +20,7 @@ type UserInfos = {
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [data, setData] = useState(null);
+  //const [data, setData] = useState(null);
   //const user = useSelector(state:RootState => )
 
   const [userInfos, setUserInfos] = useState<UserInfos>({
@@ -33,7 +33,7 @@ const Login: React.FC = () => {
 
     try {
       const response = await loginUser("/auth/login", userInfos);
-      setData(response);
+      //setData(response);
       //console.log(response.bearer);
       localStorage.setItem("token", response.access_token);
       localStorage.setItem("refreshToken", response.refresh_token);

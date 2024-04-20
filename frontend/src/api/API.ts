@@ -1,5 +1,5 @@
-import { User } from "../contextAPI/UsersContextt";
 import { UserInfos } from "../pages/register/Register";
+import { User } from "../types_interfaces";
 import { axiosInstance } from "./AxiosInstance";
 
 export const postData = async (endpoint: string, data: UserInfos) => {
