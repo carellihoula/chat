@@ -12,7 +12,7 @@ export const useChat = (userId: number | null) => {
   const [stompClient, setStompClient] = useState<Client | null>(null);
 
   useEffect(() => {
-    const address = "wss://canochat-f4a3bca4dc52.herokuapp.com/ws";
+    const address = "https://canochat-f4a3bca4dc52.herokuapp.com/ws";
     const token = localStorage.getItem("token");
     if (!token) {
       console.log("user not logged in");
