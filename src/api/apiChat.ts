@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const HOST_URL: string =
-  "https://c7gljno857ucsl.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
+export const HOST_URL: string = "https://canochat.herokuapp.com";
 
 export const findChatMessages = async (endpoint: string, token: string) => {
   return await axios
