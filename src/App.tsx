@@ -68,6 +68,7 @@ function App() {
   return (
     <>
       {/*<div onClick={logoutHandler} style={{cursor:"pointer"}}>Logout</div>*/}
+
       <Routes>
         <Route element={<PublicRoutes />}>
           <Route path="/" element={<Navigate to="/register" />} />

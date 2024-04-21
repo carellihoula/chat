@@ -10,6 +10,7 @@ import ButtonAuth2Component from "../../components/ui/ButtonAuth2Component.tsx";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookSquare } from "react-icons/fa";
 import { loginUser } from "../../api/API";
+import ErrorOrSuccessMessage from "../../utils/ErrorOrSuccessMessage.tsx";
 
 // Define a type for your state
 type UserInfos = {
@@ -20,6 +21,7 @@ type UserInfos = {
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState("");
   //const [data, setData] = useState(null);
   //const user = useSelector(state:RootState => )
 
@@ -50,6 +52,7 @@ const Login: React.FC = () => {
       });
     } catch (error) {
       console.log("probleme de connexion error: " + error);
+      setErrorMessage("email or password incorrect");
     }
   };
 
@@ -65,6 +68,8 @@ const Login: React.FC = () => {
   return (
     <LoginStyled>
       <div className="form_container">
+        {errorMessage && <ErrorOrSuccessMessage message={errorMessage} />}
+
         <h1>LOGIN</h1>
         <p className="welcome">Welcome to our site CanoChat</p>
         <form onSubmit={handleSubmit}>

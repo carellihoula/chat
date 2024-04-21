@@ -2,11 +2,15 @@ import { useState } from "react";
 
 import { validAccount } from "../../api/API";
 import styles from "./activate.module.css";
+import { notify } from "../../toastify/notify";
 
 function ActivateAccount() {
   const [code, setCode] = useState<string>("");
   const [response, setResponse] = useState<string>("");
-  const messages: string[] = ["Your account is activated", "Incorrect code"];
+  const messages: string[] = [
+    "Your account is activated, go to login page",
+    "this code is not correct. Please try again!",
+  ];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +25,7 @@ function ActivateAccount() {
           setResponse(err.response.data.message);
         } else {
           setResponse(messages[1]);
+          notify({ response: response, status: false });
         }
       });
   };
