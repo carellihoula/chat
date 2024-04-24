@@ -9,7 +9,7 @@ export const getSpecificUser = async (
   const usersList = await usersPromise;
   const user = usersList.find((user) => user.id === userId);
   if (!user) {
-    throw new Error(`Utilisateur avec l'ID ${userId} non trouvé.`);
+    throw new Error(`Utilisateur avec  f l'ID ${userId} non trouvé.`);
   }
   return user;
 };
