@@ -77,7 +77,7 @@ const ConversationItem: React.FC<MessageComponentProps> = ({
 
         <div className="time-and-messages-unread">
           <small>{time}</small>
-          {unreadNumber > 0 && <p>{unreadNumber}</p>}
+          {/*unreadNumber > 0 && <p>{unreadNumber}</p>*/}
         </div>
         {showDeleteOptions && (
           <ConversationOptions
