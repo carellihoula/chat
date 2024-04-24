@@ -6,7 +6,7 @@ import styled from "styled-components";
 interface MessageComponentProps {
   name: string;
   message: string;
-  unreadNumber: number;
+  unreadNumber?: number;
   time: string;
   profil: string;
   isSelected: boolean;
@@ -24,7 +24,6 @@ type StyledProps = {
 const ConversationItem: React.FC<MessageComponentProps> = ({
   name,
   message,
-  unreadNumber,
   time,
   profil,
   handleClick,
