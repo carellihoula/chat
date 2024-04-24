@@ -2,14 +2,10 @@
 
 import { User } from "../types_interfaces";
 
-export const getSpecificUser = async (
-  usersPromise: Promise<User[]>,
-  userId: number
-): Promise<User> => {
-  const usersList = await usersPromise;
+export const getSpecificUser = (usersList: User[], userId: number): User => {
   const user = usersList.find((user) => user.id === userId);
   if (!user) {
-    throw new Error(`Utilisateur avec  f l'ID ${userId} non trouvé.`);
+    throw new Error(`Utilisateur avec l'ID ${userId} non trouvé.`);
   }
   return user;
 };
