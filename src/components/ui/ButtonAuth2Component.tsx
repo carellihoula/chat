@@ -1,7 +1,7 @@
 import { FC } from "react";
+import { IconType } from "react-icons";
 import styled from "styled-components";
 import IconStandard from "../common/IconStandard.tsx";
-import { IconType } from "react-icons";
 
 interface Props {
   icon: IconType | string;
@@ -32,7 +32,7 @@ const ButtonAuthStyled = styled.div`
   height: 52px;
   flex-shrink: 0;
   gap: 8px;
-  cursor: pointer;
+  cursor: not-allowed;
 
   .common {
     color: #fff;
