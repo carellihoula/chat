@@ -1,0 +1,12 @@
+.close__icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  padding: 2px;
+  box-sizing: border-box;
+}
+.close__icon:hover {
+  background-color: #23272a;
+  border-radius: 100%;
+}

@@ -1,16 +1,16 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
-import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import InputField from "../../components/common/InputField.tsx";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { FiUser } from "react-icons/fi";
 import { HiOutlineLockClosed } from "react-icons/hi";
-import SubmitButtonLoginRegister from "../../components/ui/SubmitButtonLoginRegister.tsx";
-import bg from "../../assets/images/backgroundWhatsapp.jpeg";
-import ButtonAuth2Component from "../../components/ui/ButtonAuth2Component.tsx";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebookSquare } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { loginUser } from "../../api/API";
-import ErrorOrSuccessMessage from "../../utils/ErrorOrSuccessMessage.tsx";
+import bg from "../../assets/images/backgroundWhatsapp.jpeg";
+import InputField from "../../components/common/InputField.tsx";
+import ButtonAuth2Component from "../../components/ui/ButtonAuth2Component.tsx";
+import SubmitButtonLoginRegister from "../../components/ui/SubmitButtonLoginRegister.tsx";
+import ToastComponent from "../../toastify/ToastComponent.tsx";
 
 // Define a type for your state
 type UserInfos = {
@@ -63,12 +63,21 @@ const Login: React.FC = () => {
       [name]: value,
     }));
   };
+  const handleClose = () => {
+    setErrorMessage("");
+  };
   console.log("refresh: " + localStorage.getItem("refreshToken"));
   // JSX remains unchanged
   return (
     <LoginStyled>
       <div className="form_container">
-        {errorMessage && <ErrorOrSuccessMessage message={errorMessage} />}
+        {errorMessage && (
+          <ToastComponent
+            message={errorMessage}
+            hasError={true}
+            onClose={handleClose}
+          />
+        )}
 
         <h1>LOGIN</h1>
         <p className="welcome">Welcome to our site CanoChat</p>

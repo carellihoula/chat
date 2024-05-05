@@ -1,15 +1,16 @@
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
-import styled from "styled-components";
-import InputField from "../../components/common/InputField.tsx";
+import React, { ChangeEvent, FC, useState } from "react";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { FiUser } from "react-icons/fi";
 import { HiOutlineLockClosed } from "react-icons/hi";
-import SubmitButtonLoginRegister from "../../components/ui/SubmitButtonLoginRegister.tsx";
-import { Link, useNavigate } from "react-router-dom";
 import { MdAlternateEmail } from "react-icons/md";
-import ButtonAuth2Component from "../../components/ui/ButtonAuth2Component.tsx";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebookSquare } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { postData } from "../../api/API";
+import InputField from "../../components/common/InputField.tsx";
+import ButtonAuth2Component from "../../components/ui/ButtonAuth2Component.tsx";
+import SubmitButtonLoginRegister from "../../components/ui/SubmitButtonLoginRegister.tsx";
+import ToastComponent from "../../toastify/ToastComponent.tsx";
 import {
   validateEmail,
   validatePasswordComplexity,
@@ -26,7 +27,10 @@ const Register: FC = () => {
   const [errorEmail, setErrorEmail] = useState<string>("");
   const [errorPasswordComplexity, setErrorPasswordComplexity] =
     useState<string>("");
-
+  const [toast, setToast] = useState({
+    hasError: false,
+    message: "",
+  });
   //const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [userInfos, setUserInfos] = useState<UserInfos>({
@@ -67,8 +71,16 @@ const Register: FC = () => {
     try {
       await postData("/auth/register", userInfos);
       //console.log("Données envoyées avec succès :", result);
-      navigate("/login");
+      setToast({
+        hasError: false,
+        message:
+          "your account has been created successfully, please check your email to validate your account",
+      });
     } catch (error) {
+      setToast({
+        hasError: true,
+        message: "oops error creating your account, please try again",
+      });
       console.error("Erreur lors de l'envoi des données", error);
     }
 
@@ -79,17 +91,24 @@ const Register: FC = () => {
     });
     setPasswordConfirm("");
   };
-
-  useEffect(() => {
-    if (token) {
-      navigate("/login"); // Redirection vers la page principale
-    }
-  }, [token, navigate]);
+  const handleClose = () => {
+    setToast((prev) => ({
+      ...prev,
+      message: "",
+    }));
+  };
 
   //console.log(localStorage.getItem("token"));
   return (
     <RegisterStyled>
       <div className="form_container">
+        {toast.message !== "" && (
+          <ToastComponent
+            message={toast.message}
+            hasError={toast.hasError}
+            onClose={handleClose}
+          />
+        )}
         <h1>REGISTER</h1>
         <p className="welcome">Welcome to our site CanoChat</p>
         <form onSubmit={handleSubmit}>
