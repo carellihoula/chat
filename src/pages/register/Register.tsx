@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FiUser } from "react-icons/fi";
 import { HiOutlineLockClosed } from "react-icons/hi";
 import { MdAlternateEmail } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { postData } from "../../api/API";
 import InputField from "../../components/common/InputField.tsx";
@@ -23,7 +23,6 @@ export type UserInfos = {
 };
 
 const Register: FC = () => {
-  const token = localStorage.getItem("token");
   const [errorEmail, setErrorEmail] = useState<string>("");
   const [errorPasswordComplexity, setErrorPasswordComplexity] =
     useState<string>("");
@@ -31,8 +30,7 @@ const Register: FC = () => {
     hasError: false,
     message: "",
   });
-  //const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
+
   const [userInfos, setUserInfos] = useState<UserInfos>({
     password: "",
     email: "",
