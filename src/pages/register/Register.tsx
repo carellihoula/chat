@@ -19,7 +19,7 @@ import {
 export type UserInfos = {
   email: string;
   password: string;
-  username: string; // Champ pour le nom d'utilisateur
+  name: string; // Champ pour le nom d'utilisateur
 };
 
 const Register: FC = () => {
@@ -34,7 +34,7 @@ const Register: FC = () => {
   const [userInfos, setUserInfos] = useState<UserInfos>({
     password: "",
     email: "",
-    username: "",
+    name: "",
   });
 
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -86,7 +86,7 @@ const Register: FC = () => {
     }
 
     setUserInfos({
-      username: "",
+      name: "",
       email: "",
       password: "",
     });
@@ -117,9 +117,9 @@ const Register: FC = () => {
             type="text"
             placeholder="Username"
             icon={FiUser}
-            value={userInfos.username}
+            value={userInfos.name}
             onChange={handleChange}
-            name="username"
+            name="name"
           />
           <InputField
             type="email"
