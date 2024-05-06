@@ -78,7 +78,7 @@ const Register: FC = () => {
     } catch (error) {
       setToast({
         hasError: true,
-        message: "oops error creating your account, please try again!",
+        message: "503 oops error from server, please try again!",
       });
       console.error("Erreur lors de l'envoi des données.", error);
     } finally {
