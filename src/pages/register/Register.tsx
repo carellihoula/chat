@@ -30,7 +30,7 @@ const Register: FC = () => {
     hasError: false,
     message: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const [userInfos, setUserInfos] = useState<UserInfos>({
     password: "",
     email: "",
@@ -57,7 +57,7 @@ const Register: FC = () => {
     }
     if (!validatePasswordComplexity(userInfos.password)) {
       setErrorPasswordComplexity(
-        "Password must be at least 8 characters long and include uppercase letters, numbers, and symbols."
+        "Password must be at least 8 characters long."
       );
       return;
     }
@@ -65,6 +65,7 @@ const Register: FC = () => {
       setErrorEmail("Invalid email format.");
       return;
     }
+    setIsLoading(true); // Mettre isLoading à true pour afficher le spinner
 
     try {
       await postData("/auth/register", userInfos);
@@ -72,14 +73,16 @@ const Register: FC = () => {
       setToast({
         hasError: false,
         message:
-          "your account has been created successfully, please check your email to validate your account",
+          "your account has been created successfully, please check your email to validate your account.",
       });
     } catch (error) {
       setToast({
         hasError: true,
-        message: "oops error creating your account, please try again",
+        message: "oops error creating your account, please try again!",
       });
-      console.error("Erreur lors de l'envoi des données", error);
+      console.error("Erreur lors de l'envoi des données.", error);
+    } finally {
+      setIsLoading(false);
     }
 
     setUserInfos({
@@ -143,7 +146,7 @@ const Register: FC = () => {
             name="passwordConfirm"
           />
 
-          <SubmitButtonLoginRegister label="Sign Up" />
+          <SubmitButtonLoginRegister label="Sign Up" isSpinner={isLoading} />
 
           <small>
             Already have an account ?

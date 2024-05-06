@@ -7,7 +7,7 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validatePasswordComplexity = (password: string): boolean => {
-  const re =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const re = /^.{6,}$/;
+
   return re.test(String(password));
 };
